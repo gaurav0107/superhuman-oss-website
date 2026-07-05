@@ -3,11 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>superhuman — merged PRs, while you're doing something else</title>
-<meta name="description" content="An agent team picks the issue, builds the fix, scores its own PR, and iterates until a maintainer would merge it. Plugin for Claude Code & Codex.">
-<meta property="og:title" content="superhuman — merged PRs, while you're doing something else">
-<meta property="og:description" content="An agent team picks the issue, builds the fix, scores its own PR, and iterates until a maintainer would merge it.">
-<meta property="og:image" content="assets/mascot.png">
+<title>superhuman — Claude Code &amp; Codex agent for open-source PRs</title>
+<meta name="description" content="An open-source AI agent for Claude Code &amp; Codex that finds a GitHub issue, writes the fix, and scores its own pull request until it's merge-ready. Free, MIT.">
+<link rel="canonical" href="https://superhuman-oss.com/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="gaurav0107">
+<meta name="theme-color" content="#F0B429">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="superhuman">
+<meta property="og:url" content="https://superhuman-oss.com/">
+<meta property="og:title" content="superhuman — autonomous open-source contributions for Claude Code &amp; Codex">
+<meta property="og:description" content="An open-source AI agent for Claude Code &amp; Codex that picks a GitHub issue, builds the fix, and scores its own PR until it's merge-ready.">
+<meta property="og:image" content="https://superhuman-oss.com/assets/mascot.png">
+<meta property="og:image:width" content="420">
+<meta property="og:image:height" content="420">
+<meta property="og:image:alt" content="superhuman — mascot for the open-source contribution agent for Claude Code and Codex">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="superhuman — autonomous open-source contributions for Claude Code &amp; Codex">
+<meta name="twitter:description" content="An open-source AI agent for Claude Code &amp; Codex that picks a GitHub issue, builds the fix, and scores its own PR until it's merge-ready.">
+<meta name="twitter:image" content="https://superhuman-oss.com/assets/mascot.png">
+<meta name="twitter:image:alt" content="superhuman — mascot for the open-source contribution agent for Claude Code and Codex">
 <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polyline points="34,26 12,50 34,74" fill="none" stroke="%23F0B429" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><line x1="44" y1="78" x2="56" y2="22" stroke="%23F0B429" stroke-width="11" stroke-linecap="round"/><polyline points="66,26 88,50 66,74" fill="none" stroke="%23F0B429" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></svg>'>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -238,6 +257,25 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .install-code .c { color: #7E7A6C; }
 .install-note { margin: 18px 0 0; font-size: 13px; color: var(--faint); }
 
+/* ---------- faq ---------- */
+.faq-list { margin-top: 30px; border-top: 1px solid rgba(23,21,15,.08); }
+.faq-item { border-bottom: 1px solid rgba(23,21,15,.08); }
+.faq-item summary {
+  list-style: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  padding: 18px 6px; font-size: 16px; font-weight: 600; color: var(--ink);
+  transition: color .15s;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary:hover { color: var(--muted); }
+.faq-item summary::after {
+  content: "+"; font-family: "IBM Plex Mono", monospace; font-size: 20px; font-weight: 400;
+  line-height: 1; color: var(--dim); flex: none;
+}
+.faq-item[open] summary::after { content: "\2212"; }
+.faq-answer { padding: 0 6px 22px; max-width: 720px; font-size: 15px; line-height: 1.6; color: #5F5B50; }
+.faq-answer a { color: var(--merged); text-decoration: underline; text-underline-offset: 2px; }
+
 .footer {
   display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
   padding: 26px 40px; border-top: 1px solid var(--line);
@@ -286,6 +324,45 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   .merged-badge { background: var(--merged); color: #FFFFFF; border-color: var(--merged); }
 }
 </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "superhuman",
+  "alternateName": "superhuman open-source contribution agent",
+  "applicationCategory": "DeveloperApplication",
+  "applicationSubCategory": "AI coding agent",
+  "operatingSystem": "Claude Code, OpenAI Codex, macOS, Linux",
+  "description": "An open-source plugin for Claude Code and OpenAI Codex that autonomously contributes to open-source projects: an agent team picks a GitHub issue, learns the repository's conventions from its merged PRs, writes and tests the fix, and scores its own pull request on a 10-dimension rubric until it reaches roughly 95% merge-probability.",
+  "url": "https://superhuman-oss.com/",
+  "downloadUrl": "https://github.com/gaurav0107/superhuman",
+  "installUrl": "https://github.com/gaurav0107/superhuman",
+  "softwareVersion": "0.8.0",
+  "license": "https://opensource.org/licenses/MIT",
+  "isAccessibleForFree": true,
+  "author": { "@type": "Person", "name": "gaurav0107", "url": "https://github.com/gaurav0107" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "keywords": "Claude Code plugin, Codex skill, Codex agent, AI agent for GitHub issues, autonomous open-source contributions, AI pull requests, contribute to open source with AI, merge-ready pull requests",
+  "image": "https://superhuman-oss.com/assets/mascot.png"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "superhuman",
+  "url": "https://superhuman-oss.com/",
+  "description": "Autonomous open-source contributions for Claude Code and OpenAI Codex.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "superhuman",
+    "url": "https://superhuman-oss.com/",
+    "logo": "https://superhuman-oss.com/assets/mascot.png"
+  }
+}
+</script>
 </head>
 <body>
 
@@ -469,6 +546,94 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   </div>
   <p class="install-note">Needs gh (authenticated), git, jq · Forks only, --force-with-lease · MIT licensed</p>
 </section>
+
+<section class="section" id="faq">
+  <div class="kicker">FAQ</div>
+  <h2>Questions, before you walk away.</h2>
+  <div class="faq-list">
+    <details class="faq-item">
+      <summary>What is superhuman?</summary>
+      <div class="faq-answer">superhuman is a free, open-source (MIT) plugin for <strong>Claude Code</strong> and <strong>OpenAI Codex</strong> that autonomously contributes to open-source projects. An agent team picks a GitHub issue, learns the repository's conventions from its merged PRs, writes the fix with tests, and scores its own pull request on a 10-dimension rubric — iterating until it reaches roughly 95% merge-probability. It has already landed merged PRs in projects like Hugging Face Transformers, Apache Airflow, and Ant Design.</div>
+    </details>
+    <details class="faq-item">
+      <summary>How is it different from Copilot, Cursor, Devin, or SWE-agent?</summary>
+      <div class="faq-answer">Most AI coding tools are open-loop: they generate a change once and hope it's good. superhuman is closed-loop — it grades its own PR against a maintainer-style rubric and keeps fixing the single weakest dimension until the PR would actually merge. That self-scoring gate is why its pull requests are built to be accepted, rather than added to the pile of unreviewed "AI slop."</div>
+    </details>
+    <details class="faq-item">
+      <summary>Is it safe — won't it spam maintainers with low-quality PRs?</summary>
+      <div class="faq-answer">Safety is the core design goal. superhuman only opens a pull request after its scorer estimates roughly 95% merge-probability two runs in a row, so maintainers see finished work, not noise. It works on forks only, pushes with <code>--force-with-lease</code>, runs only allowlisted CI commands, and is MIT-licensed and fully auditable. It's built to be the opposite of the automated PR spam that pushed GitHub to add pull-request limits in 2026.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Does it work with OpenAI Codex, or only Claude Code?</summary>
+      <div class="faq-answer">Both. In Claude Code it installs as a plugin (<code>/plugin install superhuman@superhuman</code>). In Codex you symlink the skill into <code>~/.codex/skills</code> and tell Codex to "use the superhuman skill to contribute." The same agent workflow runs on either harness.</div>
+    </details>
+    <details class="faq-item">
+      <summary>Is it free? What does it cost to run?</summary>
+      <div class="faq-answer">superhuman itself is free and open-source under the MIT license. You only pay for your own model usage through Claude Code or Codex — there is no separate subscription, seat, or API of its own.</div>
+    </details>
+    <details class="faq-item">
+      <summary>What do I need to get started?</summary>
+      <div class="faq-answer">You need the <code>gh</code> CLI (authenticated), <code>git</code>, and <code>jq</code>. In Claude Code, first install the <strong>superpowers</strong> plugin (a prerequisite), then add the superhuman marketplace and install the plugin — two commands, then it runs unattended. Full commands are in the <a href="#install">Install section</a> above.</div>
+    </details>
+  </div>
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is superhuman?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "superhuman is a free, open-source (MIT) plugin for Claude Code and OpenAI Codex that autonomously contributes to open-source projects. An agent team picks a GitHub issue, learns the repository's conventions from its merged PRs, writes the fix with tests, and scores its own pull request on a 10-dimension rubric until it reaches roughly 95% merge-probability. It has already landed merged PRs in projects like Hugging Face Transformers, Apache Airflow, and Ant Design."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is it different from Copilot, Cursor, Devin, or SWE-agent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most AI coding tools are open-loop: they generate a change once and hope it's good. superhuman is closed-loop, grading its own PR against a maintainer-style rubric and fixing the single weakest dimension until the PR would actually merge. That self-scoring gate is why its pull requests are built to be accepted, rather than added to the pile of unreviewed AI slop."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it safe, or will it spam maintainers with low-quality PRs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Safety is the core design goal. superhuman only opens a pull request after its scorer estimates roughly 95% merge-probability two runs in a row, so maintainers see finished work, not noise. It works on forks only, pushes with --force-with-lease, runs only allowlisted CI commands, and is MIT-licensed and fully auditable. It is built to be the opposite of the automated PR spam that pushed GitHub to add pull-request limits in 2026."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it work with OpenAI Codex, or only Claude Code?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Both. In Claude Code it installs as a plugin (/plugin install superhuman@superhuman). In Codex you symlink the skill into ~/.codex/skills and tell Codex to use the superhuman skill to contribute. The same agent workflow runs on either harness."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is it free? What does it cost to run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "superhuman itself is free and open-source under the MIT license. You only pay for your own model usage through Claude Code or Codex; there is no separate subscription, seat, or API of its own."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What do I need to get started?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You need the gh CLI (authenticated), git, and jq. In Claude Code, first install the superpowers plugin (a prerequisite), then add the superhuman marketplace and install the plugin: two commands, then it runs unattended."
+      }
+    }
+  ]
+}
+</script>
 
 <footer class="footer">
   <span>superhuman · MIT © gaurav0107</span>
