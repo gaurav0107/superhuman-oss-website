@@ -38,10 +38,8 @@ Real pull requests merged into repositories superhuman does not own:
 ## Install — Claude Code
 
 ```
-/plugin marketplace add https://github.com/obra/superpowers
-/plugin install superpowers@superpowers
-/plugin marketplace add https://github.com/gaurav0107/superhuman
-/plugin install superhuman@superhuman
+# installs superhuman + dependencies
+curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash
 ```
 
 ## Install — OpenAI Codex
