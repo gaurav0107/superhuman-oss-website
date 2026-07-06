@@ -382,7 +382,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
     <p class="hero-sub">An agent team picks the issue, builds the fix, scores its own PR, and iterates until a maintainer would merge it.</p>
     <div class="hero-ctas">
       <div class="cmd-pill">
-        <span>/plugin install superhuman@superhuman</span>
+        <span>curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash</span>
         <button class="copy-btn" data-k="hero" type="button">Copy</button>
       </div>
       <a class="btn-star" href="https://github.com/gaurav0107/superhuman">★ Star on GitHub <span class="star-chip star-count" hidden></span></a>
@@ -523,12 +523,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
         <button class="copy-btn-dark" data-k="claude" type="button">Copy</button>
       </div>
       <div class="install-code">
-        <div class="c"># prerequisite: superpowers</div>
-        <div>/plugin marketplace add https://github.com/obra/superpowers</div>
-        <div>/plugin install superpowers@superpowers</div>
-        <div class="c"># superhuman</div>
-        <div>/plugin marketplace add https://github.com/gaurav0107/superhuman</div>
-        <div>/plugin install superhuman@superhuman</div>
+        <div class="c"># installs superhuman + dependencies</div>
+        <div>curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash</div>
       </div>
     </div>
     <div class="install-card">
@@ -564,7 +560,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
     </details>
     <details class="faq-item">
       <summary>Does it work with OpenAI Codex, or only Claude Code?</summary>
-      <div class="faq-answer">Both. In Claude Code it installs as a plugin (<code>/plugin install superhuman@superhuman</code>). In Codex you symlink the skill into <code>~/.codex/skills</code> and tell Codex to "use the superhuman skill to contribute." The same agent workflow runs on either harness.</div>
+      <div class="faq-answer">Both. A single install script (<code>curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash</code>) sets up superhuman and its dependencies for Claude Code. In Codex you symlink the skill into <code>~/.codex/skills</code> and tell Codex to "use the superhuman skill to contribute." The same agent workflow runs on either harness.</div>
     </details>
     <details class="faq-item">
       <summary>Is it free? What does it cost to run?</summary>
@@ -611,7 +607,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
       "name": "Does it work with OpenAI Codex, or only Claude Code?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Both. In Claude Code it installs as a plugin (/plugin install superhuman@superhuman). In Codex you symlink the skill into ~/.codex/skills and tell Codex to use the superhuman skill to contribute. The same agent workflow runs on either harness."
+        "text": "Both. A single install script (curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash) sets up superhuman and its dependencies for Claude Code. In Codex you symlink the skill into ~/.codex/skills and tell Codex to use the superhuman skill to contribute. The same agent workflow runs on either harness."
       }
     },
     {
@@ -647,8 +643,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 (function () {
   /* copy buttons — texts from the design spec */
   var TEXTS = {
-    hero: "/plugin install superhuman@superhuman",
-    claude: "/plugin marketplace add https://github.com/obra/superpowers\n/plugin install superpowers@superpowers\n/plugin marketplace add https://github.com/gaurav0107/superhuman\n/plugin install superhuman@superhuman",
+    hero: "curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash",
+    claude: "curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash",
     codex: "curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash"
   };
   document.querySelectorAll("[data-k]").forEach(function (btn) {
