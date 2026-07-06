@@ -537,9 +537,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
         <button class="copy-btn-dark" data-k="codex" type="button">Copy</button>
       </div>
       <div class="install-code">
-        <div class="c"># symlink the skill</div>
-        <div>git clone https://github.com/gaurav0107/superhuman ~/src/superhuman</div>
-        <div>ln -s ~/src/superhuman/skills/superhuman ~/.codex/skills/superhuman</div>
+        <div class="c"># install the skill</div>
+        <div>curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash</div>
         <div class="c"># then: "use the superhuman skill to contribute"</div>
       </div>
     </div>
@@ -650,7 +649,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   var TEXTS = {
     hero: "/plugin install superhuman@superhuman",
     claude: "/plugin marketplace add https://github.com/obra/superpowers\n/plugin install superpowers@superpowers\n/plugin marketplace add https://github.com/gaurav0107/superhuman\n/plugin install superhuman@superhuman",
-    codex: "git clone https://github.com/gaurav0107/superhuman ~/src/superhuman\nln -s ~/src/superhuman/skills/superhuman ~/.codex/skills/superhuman"
+    codex: "curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash"
   };
   document.querySelectorAll("[data-k]").forEach(function (btn) {
     var t;
