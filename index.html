@@ -277,6 +277,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   font-family: "IBM Plex Mono", monospace; font-size: 13px;
 }
 .use-cmd > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.use-cmds { display: flex; flex-direction: column; gap: 8px; }
 .use-note { margin: 28px 0 0; max-width: 620px; font-size: 14px; line-height: 1.55; color: var(--muted); }
 
 /* ---------- faq ---------- */
@@ -324,7 +325,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   .loop-grid { grid-template-columns: repeat(2, 1fr); }
   .install-grid { flex-direction: column; }
   .use-step { grid-template-columns: 32px 1fr; gap: 4px 18px; }
-  .use-cmd { grid-column: 1 / -1; margin-top: 12px; }
+  .use-step > .use-cmd, .use-step > .use-cmds { grid-column: 1 / -1; margin-top: 12px; }
   .section { padding: 56px 20px; }
 }
 /* stage reflow on small screens: stacked cards under the scene */
@@ -597,11 +598,17 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
       <div class="use-no">03</div>
       <div class="use-body">
         <div class="use-title">Run several, unattended</div>
-        <p class="use-desc">Five contributions back to back. Or go wide with <code>/contribution-fleet 3</code> to run three in parallel across different repos.</p>
+        <p class="use-desc">Several contributions in one run — <code>/contribute-loop</code> works through them one after another, <code>/contribution-fleet</code> runs them in parallel across different repos.</p>
       </div>
-      <div class="use-cmd">
-        <span>/contribute-loop 5</span>
-        <button class="copy-btn" data-k="loop" type="button">Copy</button>
+      <div class="use-cmds">
+        <div class="use-cmd">
+          <span>/contribute-loop 5</span>
+          <button class="copy-btn" data-k="loop" type="button">Copy</button>
+        </div>
+        <div class="use-cmd">
+          <span>/contribution-fleet 3</span>
+          <button class="copy-btn" data-k="fleet" type="button">Copy</button>
+        </div>
       </div>
     </div>
     <div class="use-step">
@@ -726,6 +733,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
     repofinder: "/repo-finder",
     contribute: "/contribute",
     loop: "/contribute-loop 5",
+    fleet: "/contribution-fleet 3",
     dashboard: "/contribution-dashboard"
   };
   document.querySelectorAll("[data-k]").forEach(function (btn) {
