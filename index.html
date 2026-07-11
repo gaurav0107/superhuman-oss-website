@@ -257,6 +257,28 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .install-code .c { color: #7E7A6C; }
 .install-note { margin: 18px 0 0; font-size: 13px; color: var(--faint); }
 
+/* ---------- how to use ---------- */
+.use-list { margin-top: 40px; }
+.use-step {
+  display: grid; grid-template-columns: 40px 1fr minmax(0, 300px); gap: 6px 24px; align-items: center;
+  padding: 22px 0; border-bottom: 1px solid rgba(23,21,15,.08);
+}
+.use-step:first-child { border-top: 1px solid rgba(23,21,15,.08); }
+.use-no { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; color: var(--accent); }
+.use-title { font-weight: 600; font-size: 16px; }
+.use-desc { margin: 5px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); }
+.use-desc code, .use-note code {
+  font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: #4A4638;
+  background: rgba(23,21,15,.06); padding: 1px 5px; border-radius: 5px; white-space: nowrap;
+}
+.use-cmd {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--ink); color: #F5F2E8; border-radius: 10px; padding: 9px 9px 9px 15px;
+  font-family: "IBM Plex Mono", monospace; font-size: 13px;
+}
+.use-cmd > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.use-note { margin: 28px 0 0; max-width: 620px; font-size: 14px; line-height: 1.55; color: var(--muted); }
+
 /* ---------- faq ---------- */
 .faq-list { margin-top: 30px; border-top: 1px solid rgba(23,21,15,.08); }
 .faq-item { border-bottom: 1px solid rgba(23,21,15,.08); }
@@ -301,6 +323,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   .proof-lang { grid-area: lang; }
   .loop-grid { grid-template-columns: repeat(2, 1fr); }
   .install-grid { flex-direction: column; }
+  .use-step { grid-template-columns: 32px 1fr; gap: 4px 18px; }
+  .use-cmd { grid-column: 1 / -1; margin-top: 12px; }
   .section { padding: 56px 20px; }
 }
 /* stage reflow on small screens: stacked cards under the scene */
@@ -542,6 +566,59 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   <p class="install-note">Needs gh (authenticated), git, jq · Forks only, --force-with-lease · MIT licensed</p>
 </section>
 
+<section class="section" id="use">
+  <div class="kicker">HOW TO USE</div>
+  <h2>Installed. Now put it to work.</h2>
+  <p class="section-sub">In Claude Code, these are slash commands. Type one and walk away — the agent team takes it from there.</p>
+  <div class="use-list">
+    <div class="use-step">
+      <div class="use-no">01</div>
+      <div class="use-body">
+        <div class="use-title">Find repos worth contributing to</div>
+        <p class="use-desc">Builds a ranked shortlist of repositories and the best open issue in each. Optional — <code>/contribute</code> will pick for you if you skip it.</p>
+      </div>
+      <div class="use-cmd">
+        <span>/repo-finder</span>
+        <button class="copy-btn" data-k="repofinder" type="button">Copy</button>
+      </div>
+    </div>
+    <div class="use-step">
+      <div class="use-no">02</div>
+      <div class="use-body">
+        <div class="use-title">Make one contribution</div>
+        <p class="use-desc">Picks the top repo and issue, then runs the full loop to a merge-ready PR. Aim it yourself with <code>/contribute owner/repo</code> or <code>/contribute owner/repo 12345</code>.</p>
+      </div>
+      <div class="use-cmd">
+        <span>/contribute</span>
+        <button class="copy-btn" data-k="contribute" type="button">Copy</button>
+      </div>
+    </div>
+    <div class="use-step">
+      <div class="use-no">03</div>
+      <div class="use-body">
+        <div class="use-title">Run several, unattended</div>
+        <p class="use-desc">Five contributions back to back. Or go wide with <code>/contribution-fleet 3</code> to run three in parallel across different repos.</p>
+      </div>
+      <div class="use-cmd">
+        <span>/contribute-loop 5</span>
+        <button class="copy-btn" data-k="loop" type="button">Copy</button>
+      </div>
+    </div>
+    <div class="use-step">
+      <div class="use-no">04</div>
+      <div class="use-body">
+        <div class="use-title">Watch it work</div>
+        <p class="use-desc">A live view of the active run, its score history, and every merge outcome so far.</p>
+      </div>
+      <div class="use-cmd">
+        <span>/contribution-dashboard</span>
+        <button class="copy-btn" data-k="dashboard" type="button">Copy</button>
+      </div>
+    </div>
+  </div>
+  <p class="use-note">On <strong>OpenAI Codex</strong> there are no slash commands — just tell Codex <em>"use the superhuman skill to contribute."</em></p>
+</section>
+
 <section class="section" id="faq">
   <div class="kicker">FAQ</div>
   <h2>Questions, before you walk away.</h2>
@@ -645,7 +722,11 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   var TEXTS = {
     hero: "curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash",
     claude: "curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash",
-    codex: "curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash"
+    codex: "curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash",
+    repofinder: "/repo-finder",
+    contribute: "/contribute",
+    loop: "/contribute-loop 5",
+    dashboard: "/contribution-dashboard"
   };
   document.querySelectorAll("[data-k]").forEach(function (btn) {
     var t;
