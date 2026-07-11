@@ -56,7 +56,8 @@ Once installed, drive superhuman from Claude Code with slash commands:
 
 - `/repo-finder` — build a ranked shortlist of repositories and the best open issue in each. Optional; `/contribute` will pick for you if you skip it.
 - `/contribute` — pick the top repo and issue, then run the full loop to a merge-ready PR. Target it with `/contribute owner/repo` or `/contribute owner/repo 12345`.
-- `/contribute-loop 5` — run five contributions back to back. Use `/contribution-fleet 3` to run several in parallel across different repos.
+- `/contribute-loop 5` — run several contributions one after another.
+- `/contribution-fleet 3` — run several contributions in parallel across different repos.
 - `/contribution-dashboard` — a live view of the active run, its score history, and every merge outcome.
 
 On OpenAI Codex there are no slash commands — tell Codex "use the superhuman skill to contribute."
