@@ -1,6 +1,6 @@
 # superhuman
 
-> A free, open-source (MIT) plugin for Claude Code and OpenAI Codex that autonomously contributes merge-ready pull requests to open-source projects. An agent team picks a real GitHub issue, learns the repository's conventions, writes and tests the fix, and scores its own PR on a 10-dimension rubric — iterating until it reaches roughly 95% merge-probability before a human ever sees it.
+> A free, open-source (MIT) plugin for Claude Code and OpenAI Codex that automates open-source contributions by opening merge-ready pull requests to open-source projects. An agent team picks a real GitHub issue, learns the repository's conventions, writes and tests the fix, and scores its own PR on a 10-dimension rubric — iterating until it reaches roughly 95% merge-probability before a human ever sees it. Every merged PR is a real contribution under your own account, so it grows your GitHub contribution graph while you work on something else.
 
 - Website: https://superhuman-oss.com
 - Repository: https://github.com/gaurav0107/superhuman
