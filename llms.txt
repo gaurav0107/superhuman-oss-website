@@ -1,75 +1,85 @@
 # superhuman
 
-> A free, open-source (MIT) plugin for Claude Code and OpenAI Codex that automates open-source contributions by opening merge-ready pull requests to open-source projects. An agent team picks a real GitHub issue, learns the repository's conventions, writes and tests the fix, and scores its own PR on a 10-dimension rubric — iterating until it reaches roughly 95% merge-probability before a human ever sees it. Every merged PR is a real contribution under your own account, so it grows your GitHub contribution graph while you work on something else.
+> A free, open-source (MIT) plugin for Claude Code and OpenAI Codex that takes a real open-source issue to a pull request. An agent team picks an open GitHub issue nobody has claimed, learns the repository's conventions from its last 10–20 merged pull requests, writes the fix, opens a draft pull request from your fork, and scores it on a 10-dimension rubric. It marks the pull request ready for review once its own score reaches 80%, and keeps improving it until the score reaches 95% twice in a row, or stops and explains what is blocking. The score is its own estimate, not a measured merge rate. Maintainers decide whether to merge.
 
 - Website: https://superhuman-oss.com
 - Repository: https://github.com/gaurav0107/superhuman
 - License: MIT
-- Version: 0.8.0
+- Version: 0.6.10
+- Merge Wall (every merged pull request, with links): https://superhuman-oss.com/merged
 - Works with: Claude Code (plugin), OpenAI Codex (skill)
 
 ## What it does
 
-superhuman runs an unattended contribution loop made of specialist agents:
+superhuman runs a contribution loop made of specialist agents:
 
-- **issue-selector** — picks and ranks a real GitHub issue worth solving.
-- **repo-profiler** — learns the repository's conventions from ~120 merged PRs.
-- **planner** — scopes the work to a single, reviewable fix.
-- **builder** — writes the fix and gets tests green using allowlisted CI only.
-- **scorer** — grades its own pull request like a maintainer would, then fixes the single weakest dimension.
-- Repeats until ~95% merge-probability, two runs in a row.
+- **issue-selector**: ranks open issues and filters out ones marked docs-only, ones someone has already taken, and ones under a day old.
+- **repo-profiler**: learns the repository's conventions from its last 10–20 merged pull requests.
+- **planner**: scopes the work to a single, reviewable fix.
+- **builder**: writes the fix and runs the project's CI commands locally, from an allowlist.
+- **scorer**: grades the pull request on a 10-dimension rubric, then the weakest dimension is fixed.
+- The pull request opens as a draft, is marked ready for review at 80%, and the loop repeats until 95% on two runs in a row.
+- It answers review comments that arrive while it is running. Later ones are yours: `/contribution-sweep` lists the pull requests waiting on you.
 
-## Why it's different
+## How it treats maintainers
 
-Open-loop AI coding tools (Copilot, Cursor, Devin, SWE-agent, and most others) generate a change once and hope it is good. superhuman is **closed-loop**: it grades its own work against a maintainer-style rubric before submitting, so it produces merge-ready pull requests instead of "AI slop." It works on forks only, pushes with `--force-with-lease`, and runs only allowlisted CI commands.
+- Disclosure is on by default: the pull request body says it was opened with superhuman.
+- It pushes only to your fork, with `--force-with-lease`.
+- It skips issues someone has already taken.
 
-## Proven merges
+## Track record
 
-Real pull requests merged into repositories superhuman does not own:
+Pull requests opened with superhuman from the author's account and merged by maintainers of repositories with 1,000+ stars, since April 2026: 121, across 48 projects (as of 25 November 2026). 35 of these are in superpowers and everything-claude-code, two plugins superhuman builds on. The full list, each with its link: https://superhuman-oss.com/merged
 
-- huggingface/transformers #45611 — clear error for single-label classification with num_labels=1 (Python)
-- apache/airflow #65685 — honor AUTH_ROLE_PUBLIC in the FastAPI API server (Python)
-- oxc-project/oxc #23015 — attribute-aware implicit roles in the jsx-a11y lint rule (Rust)
-- ant-design/ant-design #58241 — apply labelStyle/contentStyle to bordered Descriptions cells (TypeScript)
-- Lightning-AI/pytorch-lightning #21686 — fix torch.compile breaking toggle_optimizer (Python)
-- tesseract-ocr/tesseract #4563 — fix crash when LSTM is missing in a disabled-legacy build (C++)
-- Plus merges into llama_index, mem0, langchain4j, lima, LibreChat, and mocha.
+Examples:
 
-## Install — Claude Code
+- ClickHouse/ClickHouse #106916: mask sensitive data on Exception::addMessage (C++)
+- denoland/deno #36321: apply backpressure in Readable.toWeb() (Rust/TypeScript)
+- huggingface/transformers #45611: clear error for single-label classification with num_labels=1 (Python)
+- google-gemini/gemini-cli #25822: add missing response key to the custom theme text schema (TypeScript)
+- Lightning-AI/pytorch-lightning #21686: fix torch.compile breaking toggle_optimizer (Python)
+- mitmproxy/mitmproxy #8326: bracket IPv6 literals in upstream CONNECT authority (Python)
+
+## Install: Claude Code
 
 ```
-# installs superhuman + dependencies
+# installs superhuman, superpowers (required) and everything-claude-code (recommended)
 curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash
 ```
 
-## Install — OpenAI Codex
+Read the script first at https://github.com/gaurav0107/superhuman/blob/main/install.sh, or run it with `--dry-run`. `--skip-ecc` leaves out everything-claude-code.
+
+## Install: OpenAI Codex
 
 ```
-git clone https://github.com/gaurav0107/superhuman ~/src/superhuman
-ln -s ~/src/superhuman/skills/superhuman ~/.codex/skills/superhuman
-# then: "use the superhuman skill to contribute"
+curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash -s -- --codex
+# then tell Codex: "use the superhuman skill to contribute"
 ```
 
 ## How to use
 
-Once installed, drive superhuman from Claude Code with slash commands:
+In Claude Code:
 
-- `/repo-finder` — build a ranked shortlist of repositories and the best open issue in each. Optional; `/contribute` will pick for you if you skip it.
-- `/contribute` — pick the top repo and issue, then run the full loop to a merge-ready PR. Target it with `/contribute owner/repo` or `/contribute owner/repo 12345`.
-- `/contribute-loop 5` — run several contributions one after another.
-- `/contribution-fleet 3` — run several contributions in parallel across different repos.
-- `/contribution-dashboard` — a live view of the active run, its score history, and every merge outcome.
+- `/repo-finder`: build a ranked shortlist of repositories and the best open issue in each. Optional; `/contribute` picks for you if you skip it.
+- `/contribute`: pick the top repo and issue, then run the loop. Target it with `/contribute owner/repo` or `/contribute owner/repo 12345`.
+- `/contribute-loop 5`: run several contributions one after another.
+- `/contribution-fleet 3`: run several contributions in parallel across different repos.
+- `/contribution-dashboard`: a report of the active run, its score history, and recent merge outcomes.
+- `/contribution-sweep`: record which pull requests were merged or closed, and list the open ones that need you.
 
-On OpenAI Codex there are no slash commands — tell Codex "use the superhuman skill to contribute."
+On OpenAI Codex there are no slash commands. Tell Codex "use the superhuman skill to contribute."
 
 ## Requirements
 
-- `gh` CLI (authenticated), `git`, `jq`
-- Claude Code users also need the `superpowers` plugin (prerequisite)
+- `gh` CLI (authenticated), `git`, `jq`, `python3`
+
+## Telemetry
+
+Opt-out usage telemetry: three small events keyed by your GitHub username, nothing about your repositories or code. Details and how to turn it off: https://github.com/gaurav0107/superhuman/blob/main/TELEMETRY.md
 
 ## Cost
 
-superhuman is free and open-source under MIT. You pay only for your own model usage through Claude Code or Codex — there is no separate subscription or API.
+superhuman is free and open-source under MIT. You pay only for your own model usage through Claude Code or Codex. There is no separate subscription or API.
 
 ## Links
 
