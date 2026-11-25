@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to contribute to open source with an AI agent | superhuman</title>
+<meta name="description" content="A practical guide to AI open-source contributions: picking issues maintainers want, matching house style, disclosing AI help and handling review.">
+<link rel="canonical" href="https://superhuman-oss.com/open-source-contributions">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="gaurav0107">
+<meta name="theme-color" content="#f1f0ec">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="superhuman">
+<meta property="og:url" content="https://superhuman-oss.com/open-source-contributions">
+<meta property="og:title" content="How to contribute to open source with an AI agent | superhuman">
+<meta property="og:description" content="A practical guide to AI open-source contributions: picking issues maintainers want, matching house style, disclosing AI help and handling review.">
+<meta property="og:image" content="https://superhuman-oss.com/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="superhuman. Don't trust the agent. Trust the merge. The open-source Claude Code plugin.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to contribute to open source with an AI agent | superhuman">
+<meta name="twitter:description" content="A practical guide to AI open-source contributions: picking issues maintainers want, matching house style, disclosing AI help and handling review.">
+<meta name="twitter:image" content="https://superhuman-oss.com/assets/og.jpg">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/page.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://superhuman-oss.com/open-source-contributions#article",
+      "headline": "How to contribute to open source with an AI agent | superhuman",
+      "description": "A practical guide to AI open-source contributions: picking issues maintainers want, matching house style, disclosing AI help and handling review.",
+      "url": "https://superhuman-oss.com/open-source-contributions",
+      "image": "https://superhuman-oss.com/assets/og.jpg",
+      "inLanguage": "en",
+      "datePublished": "2026-11-26",
+      "dateModified": "2026-11-26",
+      "author": {
+        "@type": "Person",
+        "name": "gaurav0107",
+        "url": "https://github.com/gaurav0107"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "superhuman",
+        "url": "https://superhuman-oss.com/",
+        "logo": "https://superhuman-oss.com/assets/mark.svg"
+      },
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "superhuman",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Claude Code, OpenAI Codex, macOS, Linux",
+        "url": "https://superhuman-oss.com/",
+        "downloadUrl": "https://github.com/gaurav0107/superhuman",
+        "license": "https://opensource.org/licenses/MIT",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "superhuman",
+          "item": "https://superhuman-oss.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Contribution guide",
+          "item": "https://superhuman-oss.com/open-source-contributions"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is it OK to use AI to contribute to open source?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Many projects accept AI-assisted contributions when they are small, correct, tested and disclosed; some do not. Read the project's CONTRIBUTING file first, and respect a project that says no."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What makes an AI pull request get merged?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The same things that get any pull request merged: a real open issue, a small scoped change, the project's conventions, passing CI and a clear description. Answering review quickly matters as much as the code."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will the pull requests be under my name?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. superhuman runs under your GitHub account; the pull request opens from your fork and the commits are authored by you."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where can I see real examples?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every pull request opened with superhuman and merged by maintainers is on the Merge Wall, each with a link to the real review."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap rails">
+  <header class="head">
+    <a class="logo" href="/" aria-label="superhuman home"><img src="/assets/mark.svg" alt="" width="24" height="24">superhuman</a>
+    <nav aria-label="Main">
+      <a href="/agents">Agents</a>
+      <a href="/skills">Skills</a>
+      <a href="/software-factory">Software factory</a>
+      <a href="/open-source-contributions" aria-current="page">Guide</a>
+      <a href="/merged">Merge wall</a>
+    </nav>
+    <div class="acts">
+      <a class="b w" href="https://github.com/gaurav0107/superhuman">★ Star on GitHub</a>
+      <a class="b" href="/#install">Install<i aria-hidden="true">→</i></a>
+    </div>
+  </header>
+</div>
+
+<main id="main">
+  <article class="wrap rails doc">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">superhuman</a><span aria-hidden="true">/</span>Contribution guide</nav>
+    <h1>Contribute to open source <span>with an AI agent, carefully.</span></h1>
+    <p class="lead">AI-written pull requests are a sore point in open source, because a maintainer's review time is the scarce resource. This guide is what we learned from the pull requests maintainers merged, and how superhuman puts it into practice for Claude Code and Codex.</p>
+    <p class="meta">Updated 26 November 2026 · MIT</p>
+    <nav class="toc" aria-label="On this page"><p>On this page</p><ol><li><a href="#merge">What maintainers merge</a></li><li><a href="#issues">Picking issues</a></li><li><a href="#style">Matching the house style</a></li><li><a href="#workflow">A workflow with superhuman</a></li><li><a href="#responsible">Disclosure and responsibility</a></li><li><a href="#faq">Questions</a></li></ol></nav>
+    <section id="merge">
+      <h2>What maintainers merge</h2>
+      <p>These patterns run through the merged pull requests on <a class="in" href="/merged">the Merge Wall</a>:</p>
+      <ul><li><strong>Small and scoped.</strong> One issue, one change. No drive-by refactors.</li><li><strong>The issue is real and open.</strong> Nobody else has claimed it and there is no competing pull request.</li><li><strong>It looks like the project wrote it.</strong> Same commit format, PR template, test style and lint rules as the last merged pull requests.</li><li><strong>Tests where the project expects them.</strong> And the project's own CI passes before anyone is asked to look.</li><li><strong>A clear, honest description.</strong> What changed, why, how it was tested, and that an agent helped.</li><li><strong>Review gets answered.</strong> Quickly, and by fixing what was asked rather than arguing.</li></ul>
+    </section>
+    <section id="issues">
+      <h2>Picking issues</h2>
+      <p>Most wasted effort starts with the wrong issue. superhuman's <code>issue-selector</code> skips issues someone has already taken, issues with a competing pull request, issues marked docs-only and issues opened less than a day ago. Its <code>repo-finder</code> prefers projects whose maintainers respond and that already review outside contributions. You can steer both with <code>/preferences</code>, or aim at one issue directly with <code>/contribute owner/repo 12345</code>.</p>
+    </section>
+    <section id="style">
+      <h2>Matching the house style</h2>
+      <p>Before it writes a line, <code>repo-profiler</code> reads the project's last 10–20 merged pull requests and its CI workflows: commit format, branch names, PR template, test runner, lint commands, what reviewers ask for. Those become the conventions the change is held to, and the CI commands it is allowed to run.</p>
+    </section>
+    <section id="workflow">
+      <h2>A workflow with superhuman</h2>
+      <ol class="steps"><li><strong>Install</strong> with one command, then restart Claude Code. See <a class="in" href="/skills">the plugin, commands and skill</a>.</li><li><strong>Say what you like</strong> with <code>/preferences</code>: languages, topics, a star floor.</li><li><strong>Build a shortlist</strong> with <code>/repo-finder</code>.</li><li><strong>Contribute</strong> with <code>/contribute</code>. It forks the project, plans, builds test first, opens a draft pull request and improves it until its own score says it is ready for review.</li><li><strong>Come back later</strong> with <code>/contribution-sweep</code>, which lists the pull requests waiting on you: changes requested, a merge conflict, failing CI.</li></ol>
+    </section>
+    <section id="responsible">
+      <h2>Disclosure and responsibility</h2>
+      <p>The pull request opens from your fork, under your name, and you are responsible for it like any other change you send. By default its body says it was opened with superhuman, so the maintainer knows what they are reviewing. Commits stay authored by you, with no AI co-author trailers.</p>
+      <p class="callout">What superhuman does not do: push to the upstream repository, run commands outside the allowlist, or answer reviews after its run has ended. Those are yours.</p>
+    </section>
+    <section id="faq">
+      <h2>Questions</h2>
+      <div class="panel faq">
+        <details><summary>Is it OK to use AI to contribute to open source?</summary><div class="a"><p>Many projects accept AI-assisted contributions when they are small, correct, tested and disclosed; some do not. Read the project's CONTRIBUTING file first, and respect a project that says no.</p></div></details>
+        <details><summary>What makes an AI pull request get merged?</summary><div class="a"><p>The same things that get any pull request merged: a real open issue, a small scoped change, the project's conventions, passing CI and a clear description. Answering review quickly matters as much as the code.</p></div></details>
+        <details><summary>Will the pull requests be under my name?</summary><div class="a"><p>Yes. superhuman runs under your GitHub account; the pull request opens from your fork and the commits are authored by you.</p></div></details>
+        <details><summary>Where can I see real examples?</summary><div class="a"><p>Every pull request opened with superhuman and merged by maintainers is on <a class="in" href="/merged">the Merge Wall</a>, each with a link to the real review.</p></div></details>
+      </div>
+    </section>
+    <nav class="panel more" aria-label="More about superhuman"><a href="/agents"><small>/agents</small><b>The agents</b><span>Ten specialist subagents and the orchestrator, one job each.</span></a><a href="/skills"><small>/skills</small><b>Plugin, commands and skill</b><span>Seven slash commands for Claude Code, one skill for Codex.</span></a><a href="/software-factory"><small>/software-factory</small><b>A software factory</b><span>Stations, gates and feedback, from issue to pull request.</span></a><a href="/merged"><small>/merged</small><b>The Merge Wall</b><span>Every merged pull request, each with its link.</span></a></nav>
+  </article>
+</main>
+
+<section class="cta" aria-label="Install">
+  <div class="wrap">
+    <h2>One command. <span>Then go do something else.</span></h2>
+    <div class="cmdline"><span aria-hidden="true">$</span><code>curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash</code><button class="copy" type="button" data-copy="curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash" aria-label="Copy the install command">Copy</button></div>
+    <a class="b w" href="https://github.com/gaurav0107/superhuman">Star on GitHub<i aria-hidden="true">★</i></a>
+  </div>
+</section>
+
+<div class="wrap rails">
+  <footer class="foot">
+    <div class="l">
+      <a class="logo" href="/" aria-label="superhuman home"><img src="/assets/mark.svg" alt="" width="22" height="22">superhuman</a>
+      <span>MIT © gaurav0107</span>
+    </div>
+    <div class="links">
+      <a href="/agents">Agents</a>
+      <a href="/skills">Skills</a>
+      <a href="/software-factory">Software factory</a>
+      <a href="/open-source-contributions">Contribution guide</a>
+      <a href="/merged">Merge wall</a>
+      <a href="https://github.com/gaurav0107/superhuman">GitHub</a>
+      <a href="https://github.com/gaurav0107/superhuman/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="https://github.com/gaurav0107/superhuman/blob/main/SECURITY.md">Security</a>
+    </div>
+  </footer>
+</div>
+<p class="skip" id="say" role="status"></p>
+<script>
+document.querySelectorAll("[data-copy]").forEach(function (b) {
+  b.addEventListener("click", function () {
+    var say = document.getElementById("say");
+    if (!navigator.clipboard) { b.textContent = "Select it"; return; }
+    navigator.clipboard.writeText(b.dataset.copy).then(function () { b.textContent = "Copied"; say.textContent = "Copied to the clipboard."; },
+      function () { b.textContent = "Select it"; say.textContent = "Copying failed. Select the command and copy it."; });
+    setTimeout(function () { b.textContent = "Copy"; say.textContent = ""; }, 1800);
+  });
+});
+</script>
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>
