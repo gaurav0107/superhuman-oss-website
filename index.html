@@ -261,6 +261,8 @@ h2 span{display:block}
 }
 
 @media (max-width:1320px){.rails{border-left:0;border-right:0}}
+/* between the phone layout and full width, the closing band scales so the headline never meets the mascot */
+@media (min-width:1100px) and (max-width:1420px){.close .pic{width:56vw;height:42vw}.close>.wrap{height:42vw}.close h2{font-size:4.2vw}}
 @media (max-width:1099px){
   :root{--pad:28px}
   .head nav{display:none}.head{justify-content:space-between;gap:16px}
