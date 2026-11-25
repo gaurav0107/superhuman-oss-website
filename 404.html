@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page not found | superhuman</title>
+<meta name="description" content="This page does not exist. Start from the superhuman home page or the Merge Wall.">
+<meta name="robots" content="noindex">
+<meta name="author" content="gaurav0107">
+<meta name="theme-color" content="#f1f0ec">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="superhuman">
+<meta property="og:url" content="https://superhuman-oss.com/404">
+<meta property="og:title" content="Page not found | superhuman">
+<meta property="og:description" content="This page does not exist. Start from the superhuman home page or the Merge Wall.">
+<meta property="og:image" content="https://superhuman-oss.com/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="superhuman. Don't trust the agent. Trust the merge. The open-source Claude Code plugin.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Page not found | superhuman">
+<meta name="twitter:description" content="This page does not exist. Start from the superhuman home page or the Merge Wall.">
+<meta name="twitter:image" content="https://superhuman-oss.com/assets/og.jpg">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/page.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Page not found"
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="wrap rails">
+  <header class="head">
+    <a class="logo" href="/" aria-label="superhuman home"><img src="/assets/mark.svg" alt="" width="24" height="24">superhuman</a>
+    <nav aria-label="Main">
+      <a href="/agents">Agents</a>
+      <a href="/skills">Skills</a>
+      <a href="/software-factory">Software factory</a>
+      <a href="/open-source-contributions">Guide</a>
+      <a href="/merged">Merge wall</a>
+    </nav>
+    <div class="acts">
+      <a class="b w" href="https://github.com/gaurav0107/superhuman">★ Star on GitHub</a>
+      <a class="b" href="/#install">Install<i aria-hidden="true">→</i></a>
+    </div>
+  </header>
+</div>
+
+<main id="main">
+  <article class="wrap rails doc">
+    <p class="crumbs">404</p>
+    <h1>Nothing here. <span>Go do something else.</span></h1>
+    <p class="lead">This page does not exist. Try <a class="in" href="/">the home page</a>, <a class="in" href="/merged">the Merge Wall</a> or <a class="in" href="/agents">the agents</a>.</p>
+    <nav class="panel more" aria-label="More about superhuman"><a href="/agents"><small>/agents</small><b>The agents</b><span>Ten specialist subagents and the orchestrator, one job each.</span></a><a href="/skills"><small>/skills</small><b>Plugin, commands and skill</b><span>Seven slash commands for Claude Code, one skill for Codex.</span></a><a href="/software-factory"><small>/software-factory</small><b>A software factory</b><span>Stations, gates and feedback, from issue to pull request.</span></a><a href="/open-source-contributions"><small>/open-source-contributions</small><b>Contribution guide</b><span>Contributing to open source with an AI agent, done carefully.</span></a><a href="/merged"><small>/merged</small><b>The Merge Wall</b><span>Every merged pull request, each with its link.</span></a></nav>
+  </article>
+</main>
+
+<section class="cta" aria-label="Install">
+  <div class="wrap">
+    <h2>One command. <span>Then go do something else.</span></h2>
+    <div class="cmdline"><span aria-hidden="true">$</span><code>curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash</code><button class="copy" type="button" data-copy="curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash" aria-label="Copy the install command">Copy</button></div>
+    <a class="b w" href="https://github.com/gaurav0107/superhuman">Star on GitHub<i aria-hidden="true">★</i></a>
+  </div>
+</section>
+
+<div class="wrap rails">
+  <footer class="foot">
+    <div class="l">
+      <a class="logo" href="/" aria-label="superhuman home"><img src="/assets/mark.svg" alt="" width="22" height="22">superhuman</a>
+      <span>MIT © gaurav0107</span>
+    </div>
+    <div class="links">
+      <a href="/agents">Agents</a>
+      <a href="/skills">Skills</a>
+      <a href="/software-factory">Software factory</a>
+      <a href="/open-source-contributions">Contribution guide</a>
+      <a href="/merged">Merge wall</a>
+      <a href="https://github.com/gaurav0107/superhuman">GitHub</a>
+      <a href="https://github.com/gaurav0107/superhuman/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="https://github.com/gaurav0107/superhuman/blob/main/SECURITY.md">Security</a>
+    </div>
+  </footer>
+</div>
+<p class="skip" id="say" role="status"></p>
+<script>
+document.querySelectorAll("[data-copy]").forEach(function (b) {
+  b.addEventListener("click", function () {
+    var say = document.getElementById("say");
+    if (!navigator.clipboard) { b.textContent = "Select it"; return; }
+    navigator.clipboard.writeText(b.dataset.copy).then(function () { b.textContent = "Copied"; say.textContent = "Copied to the clipboard."; },
+      function () { b.textContent = "Select it"; say.textContent = "Copying failed. Select the command and copy it."; });
+    setTimeout(function () { b.textContent = "Copy"; say.textContent = ""; }, 1800);
+  });
+});
+</script>
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>
