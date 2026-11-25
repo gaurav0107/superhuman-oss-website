@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Merge Wall: pull requests merged by maintainers | superhuman, the open-source Claude Code plugin</title>
+<meta name="description" content="Every pull request opened by superhuman, the open-source Claude Code plugin, and merged by maintainers of major open-source projects. Each one links to the real PR on GitHub.">
+<link rel="canonical" href="https://superhuman-oss.com/merged">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://superhuman-oss.com/merged">
+<meta property="og:title" content="Merge Wall: pull requests merged by maintainers">
+<meta property="og:description" content="Every pull request opened by superhuman, the open-source Claude Code plugin, and merged by maintainers of major open-source projects. Each one links to the real PR.">
+<meta property="og:image" content="https://superhuman-oss.com/merged/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Merge Wall: pull requests merged by maintainers">
+<meta name="twitter:description" content="Opened by superhuman, the open-source Claude Code plugin. Merged by maintainers. Every claim links to the real PR.">
+<meta name="twitter:image" content="https://superhuman-oss.com/merged/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* The superhuman "Workbench" brand: stone page, white panels, ink type, one small yellow (brand/README.md). */
+:root{
+  color-scheme:light;
+  --bg:#f1f0ec;
+  --card:#fff;
+  --ink:#121212;
+  --mut:#5f5d57;
+  --rule:#dcdad3;
+  --acc:#8a6700;
+  --fill:#f0b429;
+  --add:#18702f;
+  --del:#b42318;
+  --sans:'Host Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --serif:var(--sans);
+  --mono:'DM Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow-wrap:anywhere}
+a{color:inherit;text-underline-offset:.2em;text-decoration-thickness:1px}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+.wrap{max-width:84rem;margin:0 auto;padding:0 clamp(1rem,4vw,2.5rem)}
+.mono,.eyebrow{font-family:var(--mono);font-size:.8125rem;color:var(--mut)}
+[hidden]{display:none!important}
+
+/* top line */
+.top{display:flex;gap:.5rem 1.5rem;justify-content:space-between;align-items:baseline;flex-wrap:wrap;padding-block:1.1rem;border-bottom:1px solid var(--rule);font-size:.875rem;color:var(--mut)}
+.top b{color:var(--ink);font-weight:600}
+.top a{font-family:var(--mono);font-size:.8125rem;white-space:nowrap}
+.top .home{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--sans);font-size:.875rem;text-decoration:none}
+.top .home svg{width:1.25rem;height:1.25rem;color:var(--ink)}
+
+/* hero */
+.hero{padding-block:clamp(2.5rem,7vw,5.5rem) clamp(2rem,5vw,3.5rem);position:relative}
+.eyebrow{display:flex;gap:.75rem;align-items:center;margin:0 0 clamp(1.25rem,3vw,2.25rem)}
+.eyebrow::before{content:"";width:.6rem;height:.6rem;border-radius:2px;background:var(--fill)}
+h1{margin:0;font:500 clamp(2.2rem,4.8vw,4.2rem)/1.02 var(--serif);letter-spacing:-.04em;display:grid;grid-template-columns:auto 1fr;gap:0 clamp(1rem,3vw,2.5rem);align-items:end}
+h1 .num{font-size:clamp(7.5rem,22vw,17rem);line-height:.78;letter-spacing:-.06em;font-variant-numeric:lining-nums}
+h1 .txt{max-width:8em;padding-bottom:.12em;text-wrap:balance}
+h1 em{font-style:normal}
+h1 .txt{color:var(--mut)}h1 .txt em{color:var(--ink)}
+.sub{margin:clamp(1.5rem,3.5vw,2.75rem) 0 0;padding-top:1.1rem;border-top:1px solid var(--ink);font:500 clamp(1.25rem,2.4vw,1.9rem)/1.2 var(--serif);letter-spacing:-.03em;text-wrap:balance}
+.sub b{font-weight:500;border-bottom:2px solid var(--fill)}
+.def{max-width:46rem;margin:1.25rem 0 0;color:var(--mut);font-size:1rem}
+.def strong{color:var(--ink);font-weight:500}
+.acts{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.75rem}
+.btn{display:inline-flex;align-items:center;gap:.5rem;min-height:2.75rem;padding:0 1.1rem;border:1px solid var(--ink);border-radius:6px;background:var(--ink);color:#fff;font:500 .9375rem var(--sans);text-decoration:none;cursor:pointer;transition:transform .2s}
+.btn.ghost{background:var(--card);color:var(--ink);border-color:var(--rule)}
+.btn:hover{transform:translateY(-1px)}
+
+/* merged-into strip */
+.into{padding-block:1.5rem 2rem;border-top:1px dashed var(--rule)}
+.into ul{list-style:none;margin:.9rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.35rem 1.6rem;font:500 clamp(1.15rem,2vw,1.5rem)/1.3 var(--serif);letter-spacing:-.03em}
+.into a{text-decoration:none;white-space:nowrap}
+.into a:hover{color:var(--acc)}
+.into .o{color:var(--mut)}
+.into sup,.more{font:400 .6875rem var(--mono);color:var(--mut);margin-left:.3em;letter-spacing:.02em}
+.into li.more{align-self:center;margin:0;font-size:.8125rem}
+
+/* sections */
+section{scroll-margin-top:1rem}
+.h2{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap;margin:0;padding-block:clamp(2.5rem,6vw,4.5rem) 1.25rem}
+.h2 h2{margin:0;font:500 clamp(1.8rem,3.4vw,2.875rem)/1.05 var(--serif);letter-spacing:-.04em}
+
+/* controls */
+.ctl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,16rem) minmax(0,11rem);gap:.6rem}
+.ctl input,.ctl select{width:100%;min-width:0;height:2.75rem;padding:0 .8rem;border:1px solid var(--rule);border-radius:6px;background:var(--card);color:var(--ink);font:400 .9375rem var(--sans)}
+.ctl input::placeholder{color:var(--mut);opacity:1}
+.ctl input:hover,.ctl select:hover{border-color:var(--mut)}
+.langs{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.75rem}
+.langs button{min-height:2rem;padding:0 .7rem;border:1px solid var(--rule);border-radius:99px;background:none;color:var(--mut);font:400 .8125rem var(--mono);cursor:pointer}
+.langs button:hover{border-color:var(--mut);color:var(--ink)}
+.langs button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.langs i{font-style:normal;opacity:.7;margin-left:.35em}
+#count{margin:1rem 0 .5rem}
+
+/* the ledger */
+.wall{list-style:none;margin:0;padding:0;border:1px solid var(--rule);border-radius:10px;background:var(--card);overflow:hidden}
+.row{position:relative;display:grid;grid-template-columns:6.25rem minmax(0,17.5rem) minmax(0,1fr) 5.75rem 6.75rem 1.25rem;gap:0 1.25rem;align-items:baseline;padding:.7rem 1rem;border-bottom:1px solid var(--rule);font-size:.9375rem;content-visibility:auto;contain-intrinsic-size:auto 3rem}
+.row:hover{background:var(--bg)}
+.row:last-child{border-bottom:0}
+.row>*{min-width:0}
+.d,.l,.n,.repo small{font:400 .8125rem var(--mono);color:var(--mut);white-space:nowrap}
+.repo{font-weight:500}
+.repo .o{color:var(--mut);font-weight:400}
+.repo small{margin-left:.5em}
+.t{text-decoration:none}
+.t::after{content:"";position:absolute;inset:0}
+.t .pr{font:400 .8125rem var(--mono);color:var(--mut);margin-left:.5em;white-space:nowrap}
+.row:hover .t{text-decoration:underline}
+.n{text-align:right}
+.n .a{color:var(--add)}.n .x{color:var(--del)}
+.go{color:var(--mut);font-family:var(--mono)}
+.row:hover .go{color:var(--acc)}
+.empty{padding:3rem 0;color:var(--mut);text-align:center}
+
+/* quotes */
+.quotes{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+.quotes figure{margin:0;padding:1.5rem;background:var(--card);display:flex;flex-direction:column;justify-content:space-between;gap:1.5rem}
+.quotes blockquote{margin:0;font:500 1.6rem/1.15 var(--serif);letter-spacing:-.03em}
+.quotes blockquote::before{content:"\201C"}
+.quotes blockquote::after{content:"\201D"}
+.quotes figcaption a{text-decoration-color:var(--fill)}
+.quotes figcaption{font:400 .8125rem var(--mono);color:var(--mut)}
+
+/* how */
+.how{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0 2rem;counter-reset:s;border-top:1px solid var(--ink)}
+.how li{counter-increment:s;padding-top:1rem;font-size:1.0625rem}
+.how li::before{content:counter(s);display:block;font:400 .8125rem/1 var(--mono);color:var(--mut);margin-bottom:1.25rem}
+
+/* install */
+.cta{margin-block:clamp(3rem,7vw,5rem);padding:clamp(1.5rem,4vw,2.75rem);border:1px solid var(--rule);border-radius:10px;background:var(--card)}
+.cta h2{margin:0 0 .4rem;font:500 clamp(1.8rem,3.4vw,2.875rem)/1.05 var(--serif);letter-spacing:-.04em}
+.cta p{margin:0;color:var(--mut)}
+.cmd{display:flex;align-items:stretch;margin-top:1.25rem;border:1px solid var(--rule);background:var(--bg);border-radius:6px;overflow:hidden}
+.cmd code{flex:1;min-width:0;padding:.85rem 1rem;font:400 .875rem/1.5 var(--mono);overflow-x:auto;white-space:nowrap}
+.cmd code::before{content:"$ ";color:var(--mut)}
+.cmd button{flex:none;min-width:5.5rem;border:0;border-left:1px solid var(--rule);background:none;color:var(--ink);font:500 .8125rem var(--mono);cursor:pointer}
+.cmd button:hover{background:var(--ink);color:var(--bg)}
+
+footer p{margin:0;padding-block:1.5rem 3rem;border-top:1px solid var(--rule);color:var(--mut);font-size:.8125rem}
+
+@media (max-width:60rem){
+  .row{grid-template-columns:minmax(0,1fr) auto;gap:.15rem .75rem;padding:.8rem .25rem}
+  .repo{grid-column:1/-1}
+  .t{grid-column:1/-1;grid-row:2}
+  .d{grid-row:3;grid-column:1}
+  .l{display:none}
+  .n{grid-row:3;grid-column:2}
+  .go{display:none}
+  .how{grid-template-columns:1fr;border-top:0}
+  .how li{border-top:1px solid var(--rule);padding-block:1rem;display:grid;grid-template-columns:2.5rem 1fr;align-items:baseline}
+  .how li::before{margin:0}
+}
+@media (max-width:40rem){
+  h1{grid-template-columns:1fr}
+  h1 .num{margin-bottom:.12em}
+  .ctl{grid-template-columns:1fr 1fr}
+  .ctl input{grid-column:1/-1}
+  .cmd{flex-direction:column}
+  .cmd button{border-left:0;border-top:1px solid var(--rule);min-height:2.75rem}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+/* ?og : 1200x630 social card, captured to og.png */
+.og body{width:1200px;height:630px;overflow:hidden}
+.og .top a:not(.home),.og .acts,.og .def,.og .more,.og main>section:not(.hero):not(.into),.og footer{display:none}
+.og .wrap{padding-inline:56px}
+.og .hero{padding-block:52px 32px}
+.og .eyebrow{margin-bottom:28px}
+.og h1{font-size:72px}
+.og h1 .num{font-size:270px}
+.og .sub{margin-top:30px;font-size:34px}
+.og .into{padding-block:18px 0}
+.og .into ul{flex-wrap:nowrap;font-size:28px}
+.og .into li:nth-child(n+5){display:none}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <div class="top">
+    <a class="home" href="/"><svg viewBox="0 0 100 100" aria-hidden="true"><g fill="none" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"><polyline points="34,26 12,50 34,74" stroke="currentColor"/><line x1="44" y1="78" x2="56" y2="22" stroke="#f0b429"/><polyline points="66,26 88,50 66,74" stroke="currentColor"/></g></svg><span><b>superhuman</b>, the open-source Claude Code plugin</span></a>
+    <a href="https://github.com/gaurav0107/superhuman">View on GitHub ↗</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <p class="eyebrow">The Merge Wall</p>
+    <h1><span class="num" id="h-merged"></span><span class="txt">pull requests <em>merged</em> by maintainers</span></h1>
+    <p class="sub">across <b id="h-repos"></b> projects with <b id="h-stars"></b> combined GitHub stars</p>
+    <p class="def">Opened by <strong>superhuman, the open-source Claude Code plugin</strong>, and merged by maintainers of open-source repos with <span id="d-min"></span>+ stars, since <span id="d-since"></span>. Updated <time id="d-gen"></time>.</p>
+    <div class="acts">
+      <a class="btn" href="#wall">See every merged PR ↓</a>
+      <a class="btn ghost" href="#install">Install</a>
+    </div>
+  </section>
+
+  <section class="into" aria-labelledby="into-h">
+    <h2 class="mono" id="into-h" style="margin:0;font-weight:400">Merged into</h2>
+    <ul id="into"></ul>
+  </section>
+
+  <section id="wall" aria-labelledby="wall-h">
+    <div class="h2"><h2 id="wall-h">The wall</h2><span class="mono">Every row opens the real PR on GitHub</span></div>
+    <div class="ctl">
+      <input type="search" id="q" placeholder="Search titles and projects" aria-label="Search titles and projects" autocomplete="off">
+      <select id="repo" aria-label="Filter by project"><option value="">All projects</option></select>
+      <select id="sort" aria-label="Sort"><option value="new">Newest first</option><option value="stars">Most repo stars</option></select>
+    </div>
+    <div class="langs" id="langs" role="group" aria-label="Filter by language"></div>
+    <p class="mono" id="count" aria-live="polite"></p>
+    <ol class="wall" id="rows"></ol>
+    <p class="empty" id="empty" hidden>No merged PRs match. <button class="btn ghost" id="reset" type="button">Clear filters</button></p>
+  </section>
+
+  <section id="said" aria-labelledby="said-h" hidden>
+    <div class="h2"><h2 id="said-h">What maintainers said</h2><span class="mono">From the review threads</span></div>
+    <div class="quotes" id="quotes"></div>
+  </section>
+
+  <section aria-labelledby="how-h">
+    <div class="h2"><h2 id="how-h">How it works</h2></div>
+    <ol class="how">
+      <li>It reads the repo's last 10–20 merged PRs to learn its conventions.</li>
+      <li>It runs the repo's own CI and scores its own PR on 10 dimensions.</li>
+      <li>It stops and explains instead of pushing a weak PR. By default, its PRs say they were opened with superhuman.</li>
+    </ol>
+  </section>
+
+  <section class="cta" id="install" aria-labelledby="inst-h">
+    <h2 id="inst-h">Run it on a repo you care about</h2>
+    <p>MIT licensed and free.</p>
+    <div class="cmd">
+      <code id="cmd">curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash</code>
+      <button type="button" id="copy" aria-live="polite">Copy</button>
+    </div>
+    <div class="acts"><a class="btn" href="https://github.com/gaurav0107/superhuman">View on GitHub ↗</a></div>
+  </section>
+</main>
+
+<footer class="wrap"><p>Built from public GitHub data. A PR is listed only if a maintainer merged it; every row links to it.</p></footer>
+<noscript><p class="wrap">This page lists merged pull requests and needs JavaScript. The same list is at <a href="https://github.com/gaurav0107/superhuman">github.com/gaurav0107/superhuman</a>.</p></noscript>
+
+<script>
+const DATA = {"generated": "2026-11-25", "since": "2026-04-01", "min_stars": 1000, "quotes": [{"repo": "ClickHouse/ClickHouse", "text": "Thanks, looks good!", "url": "https://github.com/ClickHouse/ClickHouse/pull/106916#pullrequestreview-4727413784", "pr": "https://github.com/ClickHouse/ClickHouse/pull/106916"}, {"repo": "apache/superset", "text": "LGTM, thanks!", "url": "https://github.com/apache/superset/pull/42489#pullrequestreview-4859855464", "pr": "https://github.com/apache/superset/pull/42489"}, {"repo": "mitmproxy/mitmproxy", "text": "Thank you for the PR! 😃", "url": "https://github.com/mitmproxy/mitmproxy/pull/8326#pullrequestreview-4722482008", "pr": "https://github.com/mitmproxy/mitmproxy/pull/8326"}], "prs": [{"repo": "2dust/v2rayNG", "number": 6500, "title": "fix(sub): show proxy chain members for v2rayN subscription imports", "url": "https://github.com/2dust/v2rayNG/pull/6500", "additions": 5, "deletions": 1, "merged_at": "2026-11-24T08:28:29Z", "merged_by": "2dust", "approvals": 0, "language": "Kotlin", "stars": 66503}, {"repo": "lidge-jun/opencodex", "number": 9021, "title": "fix(combos): hop past a provider 413, keep proxy-owned 413s terminal (#9017)", "url": "https://github.com/lidge-jun/opencodex/pull/9021", "additions": 649, "deletions": 42, "merged_at": "2026-11-21T10:28:24Z", "merged_by": "lidge-jun", "approvals": 0, "language": "TypeScript", "stars": 18742}, {"repo": "rtk-ai/rtk", "number": 4706, "title": "fix(telemetry): claim the daily ping in the send thread, not before it", "url": "https://github.com/rtk-ai/rtk/pull/4706", "additions": 208, "deletions": 37, "merged_at": "2026-11-21T00:34:54Z", "merged_by": "KuSh", "approvals": 2, "language": "Rust", "stars": 87731}, {"repo": "affaan-m/ECC", "number": 3938, "title": "fix(gateguard): deny same-batch siblings of a first-touch denial", "url": "https://github.com/affaan-m/ECC/pull/3938", "additions": 347, "deletions": 28, "merged_at": "2026-11-19T21:29:14Z", "merged_by": "haelyra", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 4039, "title": "fix(hooks): create command logs owner-only and rotate them", "url": "https://github.com/affaan-m/ECC/pull/4039", "additions": 189, "deletions": 2, "merged_at": "2026-11-19T21:29:13Z", "merged_by": "haelyra", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 3849, "title": "fix(hooks): redact bare API keys, JWTs and PEM blocks in bash command logs", "url": "https://github.com/affaan-m/ECC/pull/3849", "additions": 412, "deletions": 1, "merged_at": "2026-11-17T05:43:09Z", "merged_by": "haelyra", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "HKUDS/DeepTutor", "number": 2644, "title": "fix(desktop): activate the bundled core after an in-place upgrade", "url": "https://github.com/HKUDS/DeepTutor/pull/2644", "additions": 131, "deletions": 5, "merged_at": "2026-11-15T18:17:56Z", "merged_by": "pancacake", "approvals": 0, "language": "Python", "stars": 62370}, {"repo": "bunkerity/bunkerweb", "number": 4153, "title": "fix(antibot): don't apply INJECT_HEAD/INJECT_BODY to the challenge page", "url": "https://github.com/bunkerity/bunkerweb/pull/4153", "additions": 73, "deletions": 0, "merged_at": "2026-11-13T14:40:02Z", "merged_by": "TheophileDiot", "approvals": 1, "language": "Python", "stars": 11314}, {"repo": "cheaper-inference/OmniRoute", "number": 19603, "title": "fix(dashboard): skip the onboarding password step when a password is already set", "url": "https://github.com/cheaper-inference/OmniRoute/pull/19603", "additions": 366, "deletions": 2, "merged_at": "2026-11-12T02:17:46Z", "merged_by": "diegosouzapw", "approvals": 0, "language": "TypeScript", "stars": 90146}, {"repo": "cheaper-inference/OmniRoute", "number": 19579, "title": "fix(translator): keep Antigravity tool parameters named like schema keywords", "url": "https://github.com/cheaper-inference/OmniRoute/pull/19579", "additions": 160, "deletions": 5, "merged_at": "2026-11-12T01:52:55Z", "merged_by": "diegosouzapw", "approvals": 0, "language": "TypeScript", "stars": 90146}, {"repo": "cheaper-inference/OmniRoute", "number": 18949, "title": "fix(test): run the #15172 Codex usage throttle test on a virtual clock", "url": "https://github.com/cheaper-inference/OmniRoute/pull/18949", "additions": 28, "deletions": 8, "merged_at": "2026-11-10T20:05:19Z", "merged_by": "diegosouzapw", "approvals": 0, "language": "TypeScript", "stars": 90146}, {"repo": "go-gitea/gitea", "number": 40299, "title": "fix(indexer): reindex issues when their projects change", "url": "https://github.com/go-gitea/gitea/pull/40299", "additions": 52, "deletions": 19, "merged_at": "2026-11-10T19:40:33Z", "merged_by": "bircni", "approvals": 2, "language": "Go", "stars": 59243}, {"repo": "go-gitea/gitea", "number": 40306, "title": "fix(packages): rebuild repository index after removing a package", "url": "https://github.com/go-gitea/gitea/pull/40306", "additions": 78, "deletions": 4, "merged_at": "2026-11-10T16:47:42Z", "merged_by": "silverwind", "approvals": 3, "language": "Go", "stars": 59243}, {"repo": "tursodatabase/turso", "number": 11562, "title": "core/translate: find a CTE by name in the nearest scope", "url": "https://github.com/tursodatabase/turso/pull/11562", "additions": 64, "deletions": 6, "merged_at": "2026-11-10T06:08:00Z", "merged_by": "jussisaurio", "approvals": 0, "language": "Rust", "stars": 25345}, {"repo": "tursodatabase/turso", "number": 11575, "title": "core/translate: do not let UPDATE's WHERE name a RETURNING alias", "url": "https://github.com/tursodatabase/turso/pull/11575", "additions": 39, "deletions": 2, "merged_at": "2026-11-10T06:04:43Z", "merged_by": "jussisaurio", "approvals": 0, "language": "Rust", "stars": 25345}, {"repo": "lidge-jun/opencodex", "number": 8327, "title": "fix(oauth): stop killing blocked Claude Keychain reads", "url": "https://github.com/lidge-jun/opencodex/pull/8327", "additions": 593, "deletions": 26, "merged_at": "2026-11-09T03:03:57Z", "merged_by": "lidge-jun", "approvals": 0, "language": "TypeScript", "stars": 18742}, {"repo": "cheaper-inference/OmniRoute", "number": 18847, "title": "fix(api): report an unknown provider quota as null, not 100% remaining", "url": "https://github.com/cheaper-inference/OmniRoute/pull/18847", "additions": 197, "deletions": 22, "merged_at": "2026-11-08T23:04:50Z", "merged_by": "diegosouzapw", "approvals": 0, "language": "TypeScript", "stars": 90146}, {"repo": "eosphoros-ai/DB-GPT", "number": 3357, "title": "fix(sandbox): confine get_file to the session working directory", "url": "https://github.com/eosphoros-ai/DB-GPT/pull/3357", "additions": 212, "deletions": 12, "merged_at": "2026-11-08T13:24:03Z", "merged_by": "Aries-ckt", "approvals": 2, "language": "Python", "stars": 20329}, {"repo": "tursodatabase/turso", "number": 11566, "title": "core/time: return an error for a time blob whose seconds overflow", "url": "https://github.com/tursodatabase/turso/pull/11566", "additions": 12, "deletions": 1, "merged_at": "2026-11-07T17:21:28Z", "merged_by": "penberg", "approvals": 0, "language": "Rust", "stars": 25345}, {"repo": "tursodatabase/turso", "number": 11571, "title": "tursopg: read hex, octal and binary literals that do not fit in int4", "url": "https://github.com/tursodatabase/turso/pull/11571", "additions": 68, "deletions": 2, "merged_at": "2026-11-07T17:21:12Z", "merged_by": "penberg", "approvals": 0, "language": "Rust", "stars": 25345}, {"repo": "cheaper-inference/OmniRoute", "number": 19039, "title": "fix(api): honor hidden and denylisted effort variants in /v1/models", "url": "https://github.com/cheaper-inference/OmniRoute/pull/19039", "additions": 385, "deletions": 5, "merged_at": "2026-11-07T05:42:30Z", "merged_by": "diegosouzapw", "approvals": 0, "language": "TypeScript", "stars": 90146}, {"repo": "jackwener/OpenCLI", "number": 2754, "title": "fix(jd): fail typed when search redirects to login instead of returning empty results", "url": "https://github.com/jackwener/OpenCLI/pull/2754", "additions": 226, "deletions": 11, "merged_at": "2026-11-05T17:52:41Z", "merged_by": "jackwener", "approvals": 0, "language": "JavaScript", "stars": 31263}, {"repo": "jackwener/OpenCLI", "number": 2756, "title": "fix(browser): send code, keyCode and keypress text with native key presses", "url": "https://github.com/jackwener/OpenCLI/pull/2756", "additions": 345, "deletions": 24, "merged_at": "2026-11-05T17:52:30Z", "merged_by": "jackwener", "approvals": 0, "language": "JavaScript", "stars": 31263}, {"repo": "jackwener/OpenCLI", "number": 2775, "title": "feat(auth): suggest the site login command on not_logged_in rows", "url": "https://github.com/jackwener/OpenCLI/pull/2775", "additions": 120, "deletions": 7, "merged_at": "2026-11-05T17:40:49Z", "merged_by": "jackwener", "approvals": 0, "language": "JavaScript", "stars": 31263}, {"repo": "headroomlabs-ai/headroom", "number": 4497, "title": "fix(proxy): bound the model-keyed tokenizer, beacon and litellm caches", "url": "https://github.com/headroomlabs-ai/headroom/pull/4497", "additions": 295, "deletions": 26, "merged_at": "2026-11-05T16:43:26Z", "merged_by": "JerrettDavis", "approvals": 1, "language": "Python", "stars": 80785}, {"repo": "headroomlabs-ai/headroom", "number": 4504, "title": "fix(router): gate block-form tool output against cached lossy results", "url": "https://github.com/headroomlabs-ai/headroom/pull/4504", "additions": 128, "deletions": 9, "merged_at": "2026-11-05T05:21:19Z", "merged_by": "JerrettDavis", "approvals": 1, "language": "Python", "stars": 80785}, {"repo": "headroomlabs-ai/headroom", "number": 4506, "title": "fix(proxy): keep Gemini memory context on entries with non-text parts", "url": "https://github.com/headroomlabs-ai/headroom/pull/4506", "additions": 350, "deletions": 0, "merged_at": "2026-11-05T04:55:30Z", "merged_by": "JerrettDavis", "approvals": 1, "language": "Python", "stars": 80785}, {"repo": "cheaper-inference/OmniRoute", "number": 18823, "title": "fix(providers): pass through a client tool named tool_call on kiro", "url": "https://github.com/cheaper-inference/OmniRoute/pull/18823", "additions": 346, "deletions": 5, "merged_at": "2026-11-04T08:02:03Z", "merged_by": "diegosouzapw", "approvals": 0, "language": "TypeScript", "stars": 90146}, {"repo": "cheaper-inference/OmniRoute", "number": 18806, "title": "fix(translator): sanitize tool schemas on the responses to chat path", "url": "https://github.com/cheaper-inference/OmniRoute/pull/18806", "additions": 137, "deletions": 4, "merged_at": "2026-11-04T08:00:42Z", "merged_by": "diegosouzapw", "approvals": 0, "language": "TypeScript", "stars": 90146}, {"repo": "cheaper-inference/OmniRoute", "number": 18780, "title": "fix(providers): stream \"{}\" for Kiro tool calls with no input", "url": "https://github.com/cheaper-inference/OmniRoute/pull/18780", "additions": 183, "deletions": 2, "merged_at": "2026-11-04T07:59:38Z", "merged_by": "diegosouzapw", "approvals": 0, "language": "TypeScript", "stars": 90146}, {"repo": "reflex-dev/reflex", "number": 7668, "title": "feat(log): add trace_id/span_id to JSON log records inside a span", "url": "https://github.com/reflex-dev/reflex/pull/7668", "additions": 111, "deletions": 0, "merged_at": "2026-11-03T18:34:32Z", "merged_by": "FarhanAliRaza", "approvals": 1, "language": "Python", "stars": 29045}, {"repo": "reflex-dev/reflex", "number": 7670, "title": "fix(hosting-cli): fail cloud config when PyYAML is missing", "url": "https://github.com/reflex-dev/reflex/pull/7670", "additions": 79, "deletions": 3, "merged_at": "2026-11-03T18:20:00Z", "merged_by": "FarhanAliRaza", "approvals": 1, "language": "Python", "stars": 29045}, {"repo": "go-gitea/gitea", "number": 40153, "title": "fix(api): keep wiki page name when editing with an empty title", "url": "https://github.com/go-gitea/gitea/pull/40153", "additions": 28, "deletions": 12, "merged_at": "2026-11-03T16:42:47Z", "merged_by": "wxiaoguang", "approvals": 2, "language": "Go", "stars": 59243}, {"repo": "DeusData/codebase-memory-mcp", "number": 2752, "title": "fix(routes): read Go 1.22 ServeMux method and host patterns", "url": "https://github.com/DeusData/codebase-memory-mcp/pull/2752", "additions": 445, "deletions": 11, "merged_at": "2026-10-31T12:53:36Z", "merged_by": "DeusData", "approvals": 0, "language": "C", "stars": 49134}, {"repo": "aaif-goose/goose", "number": 13239, "title": "fix(litellm): use supports_vision from /model/info", "url": "https://github.com/aaif-goose/goose/pull/13239", "additions": 103, "deletions": 11, "merged_at": "2026-10-30T08:48:25Z", "merged_by": "jbg", "approvals": 1, "language": "Rust", "stars": 56958}, {"repo": "affaan-m/ECC", "number": 3669, "title": "fix(hooks): stop hook stdin reads when the caller never sends EOF", "url": "https://github.com/affaan-m/ECC/pull/3669", "additions": 340, "deletions": 20, "merged_at": "2026-10-29T23:23:53Z", "merged_by": "haelyra", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 3601, "title": "fix(dashboard): keep the web dashboard running when no browser launcher is installed", "url": "https://github.com/affaan-m/ECC/pull/3601", "additions": 86, "deletions": 1, "merged_at": "2026-10-29T23:23:53Z", "merged_by": "haelyra", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 3562, "title": "fix(install): give Antigravity rules an activation trigger", "url": "https://github.com/affaan-m/ECC/pull/3562", "additions": 318, "deletions": 4, "merged_at": "2026-10-29T23:23:53Z", "merged_by": "haelyra", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 3748, "title": "fix(hooks): keep inline resolver backslash-free so hooks parse on Windows", "url": "https://github.com/affaan-m/ECC/pull/3748", "additions": 115, "deletions": 77, "merged_at": "2026-10-29T23:23:52Z", "merged_by": "haelyra", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "DeusData/codebase-memory-mcp", "number": 2769, "title": "fix(go-lsp): follow a type alias declared in another file of the package", "url": "https://github.com/DeusData/codebase-memory-mcp/pull/2769", "additions": 288, "deletions": 18, "merged_at": "2026-10-29T01:32:35Z", "merged_by": "DeusData", "approvals": 0, "language": "C", "stars": 49134}, {"repo": "DeusData/codebase-memory-mcp", "number": 2746, "title": "fix(ts-lsp): resolve calls through renamed named imports", "url": "https://github.com/DeusData/codebase-memory-mcp/pull/2746", "additions": 492, "deletions": 17, "merged_at": "2026-10-29T00:33:13Z", "merged_by": "DeusData", "approvals": 0, "language": "C", "stars": 49134}, {"repo": "DeusData/codebase-memory-mcp", "number": 2754, "title": "fix(pipeline): a bare C reference never binds a struct Field", "url": "https://github.com/DeusData/codebase-memory-mcp/pull/2754", "additions": 150, "deletions": 31, "merged_at": "2026-10-29T00:07:59Z", "merged_by": "DeusData", "approvals": 0, "language": "C", "stars": 49134}, {"repo": "DeusData/codebase-memory-mcp", "number": 2760, "title": "fix(extract): YAML walkers grow their stacks instead of capping content", "url": "https://github.com/DeusData/codebase-memory-mcp/pull/2760", "additions": 153, "deletions": 13, "merged_at": "2026-10-28T17:08:26Z", "merged_by": "DeusData", "approvals": 0, "language": "C", "stars": 49134}, {"repo": "DeusData/codebase-memory-mcp", "number": 2777, "title": "fix(daemon): log the effective auto_index_limit in daemon.autoindex.skipped", "url": "https://github.com/DeusData/codebase-memory-mcp/pull/2777", "additions": 52, "deletions": 1, "merged_at": "2026-10-27T18:12:24Z", "merged_by": "DeusData", "approvals": 0, "language": "C", "stars": 49134}, {"repo": "DeusData/codebase-memory-mcp", "number": 2764, "title": "fix(cypher): return one row for an ungrouped aggregate over empty input", "url": "https://github.com/DeusData/codebase-memory-mcp/pull/2764", "additions": 135, "deletions": 0, "merged_at": "2026-10-25T23:45:45Z", "merged_by": "DeusData", "approvals": 0, "language": "C", "stars": 49134}, {"repo": "affaan-m/ECC", "number": 3560, "title": "fix(install): treat .pi as a foreign platform path", "url": "https://github.com/affaan-m/ECC/pull/3560", "additions": 48, "deletions": 0, "merged_at": "2026-10-20T19:37:53Z", "merged_by": "haelyra", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "koalaman/shellcheck", "number": 3560, "title": "fix(SC2312): treat `|| echo` as deliberately handling the return value", "url": "https://github.com/koalaman/shellcheck/pull/3560", "additions": 4, "deletions": 1, "merged_at": "2026-10-18T01:01:29Z", "merged_by": "koalaman", "approvals": 0, "language": "Haskell", "stars": 40382}, {"repo": "starship/starship", "number": 7497, "title": "docs(preset): add Void Linux symbol to catppuccin-powerline", "url": "https://github.com/starship/starship/pull/7497", "additions": 1, "deletions": 0, "merged_at": "2026-10-16T19:39:35Z", "merged_by": "davidkna", "approvals": 0, "language": "Rust", "stars": 60884}, {"repo": "koalaman/shellcheck", "number": 3558, "title": "fix(SC2292): do not add an extra ] when the test was closed with ]]", "url": "https://github.com/koalaman/shellcheck/pull/3558", "additions": 35, "deletions": 17, "merged_at": "2026-10-14T02:12:17Z", "merged_by": "koalaman", "approvals": 0, "language": "Haskell", "stars": 40382}, {"repo": "apache/superset", "number": 42489, "title": "fix(core): stop discarding API errors that quote an HTML tag", "url": "https://github.com/apache/superset/pull/42489", "additions": 94, "deletions": 1, "merged_at": "2026-10-01T00:03:04Z", "merged_by": "rusackas", "approvals": 2, "language": "Python", "stars": 75663}, {"repo": "ZhuLinsen/daily_stock_analysis", "number": 2368, "title": "fix: use full English stock analysis prompt templates when REPORT_LANGUAGE=en", "url": "https://github.com/ZhuLinsen/daily_stock_analysis/pull/2368", "additions": 963, "deletions": 45, "merged_at": "2026-09-30T14:31:32Z", "merged_by": "ZhuLinsen", "approvals": 0, "language": "Python", "stars": 74365}, {"repo": "nrwl/nx", "number": 36397, "title": "fix(js): handle empty npm view output in release-publish executor", "url": "https://github.com/nrwl/nx/pull/36397", "additions": 45, "deletions": 1, "merged_at": "2026-09-15T20:00:01Z", "merged_by": "jaysoo", "approvals": 1, "language": "TypeScript", "stars": 29495}, {"repo": "keycloak/keycloak", "number": 50809, "title": "Honor configured admin realm in ClientManager.isInternalClient", "url": "https://github.com/keycloak/keycloak/pull/50809", "additions": 2, "deletions": 1, "merged_at": "2026-08-26T13:06:38Z", "merged_by": "rmartinc", "approvals": 1, "language": "Java", "stars": 38038}, {"repo": "mitmproxy/mitmproxy", "number": 8294, "title": "net.tls: handle SSL.Error from set_min/max_proto_version in is_supported_version", "url": "https://github.com/mitmproxy/mitmproxy/pull/8294", "additions": 11, "deletions": 4, "merged_at": "2026-08-20T22:57:27Z", "merged_by": "mhils", "approvals": 0, "language": "Python", "stars": 47173}, {"repo": "affaan-m/ECC", "number": 2606, "title": "fix(continuous-learning-v2): warn when the observer never survives a hook invocation (#2489)", "url": "https://github.com/affaan-m/ECC/pull/2606", "additions": 531, "deletions": 4, "merged_at": "2026-08-12T22:36:30Z", "merged_by": "haelyra", "approvals": 2, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 2490, "title": "fix(skill-evolution): wire Skill PostToolUse tracker so skill-health shows real runs", "url": "https://github.com/affaan-m/ECC/pull/2490", "additions": 474, "deletions": 3, "merged_at": "2026-08-12T22:12:49Z", "merged_by": "haelyra", "approvals": 1, "language": "JavaScript", "stars": 310239}, {"repo": "mlflow/mlflow", "number": 23488, "title": "Support optimizing chat-type prompts in `optimize_prompts`", "url": "https://github.com/mlflow/mlflow/pull/23488", "additions": 247, "deletions": 20, "merged_at": "2026-08-12T15:14:12Z", "merged_by": "B-Step62", "approvals": 1, "language": "Python", "stars": 28954}, {"repo": "affaan-m/ECC", "number": 2466, "title": "feat(session-start): rank injected instincts by project/stack relevance", "url": "https://github.com/affaan-m/ECC/pull/2466", "additions": 496, "deletions": 1, "merged_at": "2026-08-11T01:46:25Z", "merged_by": "haelyra", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "reflex-dev/reflex", "number": 6776, "title": "fix(init): declare RadixThemesPlugin in default rxconfig template", "url": "https://github.com/reflex-dev/reflex/pull/6776", "additions": 42, "deletions": 7, "merged_at": "2026-08-07T23:26:19Z", "merged_by": "masenf", "approvals": 1, "language": "Python", "stars": 29045}, {"repo": "denoland/deno", "number": 36321, "title": "fix(ext/node): apply backpressure in Readable.toWeb()", "url": "https://github.com/denoland/deno/pull/36321", "additions": 100, "deletions": 6, "merged_at": "2026-07-28T15:00:53Z", "merged_by": "bartlomieju", "approvals": 1, "language": "Rust", "stars": 108994}, {"repo": "ant-design/ant-design", "number": 58551, "title": "fix(Typography): inherit font size in editable textarea", "url": "https://github.com/ant-design/ant-design/pull/58551", "additions": 16, "deletions": 1, "merged_at": "2026-07-28T09:42:41Z", "merged_by": "afc163", "approvals": 1, "language": "TypeScript", "stars": 100366}, {"repo": "HKUDS/LightRAG", "number": 3498, "title": "🐛 fix(api): stop the ollama bracket prompt from corrupting the query", "url": "https://github.com/HKUDS/LightRAG/pull/3498", "additions": 107, "deletions": 9, "merged_at": "2026-07-28T03:54:20Z", "merged_by": "danielaskdd", "approvals": 0, "language": "Python", "stars": 40845}, {"repo": "apache/superset", "number": 42220, "title": "fix(select): exclude null-valued options from \"Select all\" count", "url": "https://github.com/apache/superset/pull/42220", "additions": 34, "deletions": 0, "merged_at": "2026-07-28T03:24:45Z", "merged_by": "rusackas", "approvals": 1, "language": "Python", "stars": 75663}, {"repo": "unslothai/unsloth", "number": 7156, "title": "Studio: add option to disable the in-memory API monitor", "url": "https://github.com/unslothai/unsloth/pull/7156", "additions": 78, "deletions": 2, "merged_at": "2026-07-28T01:47:24Z", "merged_by": "oobabooga", "approvals": 0, "language": "Python", "stars": 80194}, {"repo": "affaan-m/ECC", "number": 2488, "title": "fix(continuous-learning-v2): honor non-git CLAUDE_PROJECT_DIR in project detection", "url": "https://github.com/affaan-m/ECC/pull/2488", "additions": 318, "deletions": 7, "merged_at": "2026-07-26T07:04:36Z", "merged_by": "affaan-m", "approvals": 1, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 2577, "title": "fix(resolve-ecc-root): require ECC skills, not just scripts, before accepting a root (#2544)", "url": "https://github.com/affaan-m/ECC/pull/2577", "additions": 125, "deletions": 6, "merged_at": "2026-07-26T05:21:28Z", "merged_by": "affaan-m", "approvals": 2, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 2491, "title": "fix(opencode): resolve command agent ids to registered opencode agents", "url": "https://github.com/affaan-m/ECC/pull/2491", "additions": 53, "deletions": 34, "merged_at": "2026-07-24T16:53:30Z", "merged_by": "haelyra", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "SeleniumHQ/selenium", "number": 17567, "title": "[rust] honor --browser-version in Selenium Manager Electron driver resolution", "url": "https://github.com/SeleniumHQ/selenium/pull/17567", "additions": 181, "deletions": 4, "merged_at": "2026-07-23T21:51:34Z", "merged_by": "titusfortner", "approvals": 1, "language": "Java", "stars": 34610}, {"repo": "ClickHouse/ClickHouse", "number": 106916, "title": "Common: mask sensitive data on Exception::addMessage", "url": "https://github.com/ClickHouse/ClickHouse/pull/106916", "additions": 76, "deletions": 5, "merged_at": "2026-07-18T03:07:21Z", "merged_by": "alexey-milovidov", "approvals": 1, "language": "C++", "stars": 51113}, {"repo": "mitmproxy/mitmproxy", "number": 8326, "title": "proxy: bracket IPv6 literals in upstream CONNECT authority", "url": "https://github.com/mitmproxy/mitmproxy/pull/8326", "additions": 47, "deletions": 3, "merged_at": "2026-07-17T12:07:21Z", "merged_by": "mhils", "approvals": 1, "language": "Python", "stars": 47173}, {"repo": "go-gitea/gitea", "number": 38479, "title": "fix(packages): serve noarch Alpine index for any requested architecture", "url": "https://github.com/go-gitea/gitea/pull/38479", "additions": 50, "deletions": 1, "merged_at": "2026-07-16T09:51:37Z", "merged_by": "silverwind", "approvals": 2, "language": "Go", "stars": 59243}, {"repo": "obra/superpowers", "number": 1987, "title": "test: realign antigravity + pi mapping assertions with pruned references", "url": "https://github.com/obra/superpowers/pull/1987", "additions": 17, "deletions": 15, "merged_at": "2026-07-15T18:10:56Z", "merged_by": "obra", "approvals": 0, "language": "Shell", "stars": 325884}, {"repo": "unslothai/unsloth", "number": 7082, "title": "Studio: expose Windows drive roots in the folder browser", "url": "https://github.com/unslothai/unsloth/pull/7082", "additions": 1117, "deletions": 28, "merged_at": "2026-07-15T07:24:12Z", "merged_by": "danielhanchen", "approvals": 0, "language": "Python", "stars": 80194}, {"repo": "unslothai/unsloth", "number": 7113, "title": "Studio: fix the permanent GGUF \"update available\" on no-symlink caches", "url": "https://github.com/unslothai/unsloth/pull/7113", "additions": 256, "deletions": 17, "merged_at": "2026-07-14T13:45:46Z", "merged_by": "danielhanchen", "approvals": 0, "language": "Python", "stars": 80194}, {"repo": "better-auth/better-auth", "number": 10368, "title": "fix(magic-link, email-otp): force-validate Origin on cookieless send endpoints", "url": "https://github.com/better-auth/better-auth/pull/10368", "additions": 180, "deletions": 1, "merged_at": "2026-07-12T19:38:43Z", "merged_by": "ping-maxwell", "approvals": 1, "language": "TypeScript", "stars": 30866}, {"repo": "pydantic/pydantic-ai", "number": 5815, "title": "Auto-enable Anthropic Files API beta when messages contain `UploadedFile`", "url": "https://github.com/pydantic/pydantic-ai/pull/5815", "additions": 392, "deletions": 103, "merged_at": "2026-07-10T09:58:29Z", "merged_by": "adtyavrdhn", "approvals": 2, "language": "Python", "stars": 21371}, {"repo": "conductor-oss/conductor", "number": 1239, "title": "fix(rest): log 4xx client exceptions at WARN instead of ERROR", "url": "https://github.com/conductor-oss/conductor/pull/1239", "additions": 64, "deletions": 8, "merged_at": "2026-07-10T03:21:30Z", "merged_by": "v1r3n", "approvals": 1, "language": "Java", "stars": 32500}, {"repo": "headroomlabs-ai/headroom", "number": 1513, "title": "fix(proxy): retry passthrough on transient upstream connection close", "url": "https://github.com/headroomlabs-ai/headroom/pull/1513", "additions": 291, "deletions": 2, "merged_at": "2026-07-06T23:35:39Z", "merged_by": "JerrettDavis", "approvals": 1, "language": "Python", "stars": 80785}, {"repo": "internetarchive/openlibrary", "number": 13122, "title": "Remove leftover recentchanges_v2 feature flag from openlibrary.yml", "url": "https://github.com/internetarchive/openlibrary/pull/13122", "additions": 0, "deletions": 1, "merged_at": "2026-07-05T23:25:48Z", "merged_by": "RayBB", "approvals": 0, "language": "Python", "stars": 6985}, {"repo": "affaan-m/ECC", "number": 2401, "title": "chore(continuous-learning-v2): standardize shell shebangs to env bash", "url": "https://github.com/affaan-m/ECC/pull/2401", "additions": 104, "deletions": 3, "merged_at": "2026-07-04T03:40:44Z", "merged_by": "affaan-m", "approvals": 1, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 2413, "title": "feat(session-start): make instinct injection count and confidence threshold configurable", "url": "https://github.com/affaan-m/ECC/pull/2413", "additions": 148, "deletions": 4, "merged_at": "2026-07-04T03:40:17Z", "merged_by": "affaan-m", "approvals": 1, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 2399, "title": "fix(install): rewrite relative skill links for injected ecc namespace", "url": "https://github.com/affaan-m/ECC/pull/2399", "additions": 454, "deletions": 0, "merged_at": "2026-07-04T03:39:25Z", "merged_by": "affaan-m", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 2429, "title": "fix(install): dedupe copy-file operations sharing a destination", "url": "https://github.com/affaan-m/ECC/pull/2429", "additions": 84, "deletions": 1, "merged_at": "2026-07-04T03:37:32Z", "merged_by": "affaan-m", "approvals": 1, "language": "JavaScript", "stars": 310239}, {"repo": "envoyproxy/envoy", "number": 45510, "title": "docs: remove broken Ubuntu noble install instructions", "url": "https://github.com/envoyproxy/envoy/pull/45510", "additions": 7, "deletions": 50, "merged_at": "2026-07-02T15:03:46Z", "merged_by": "phlax", "approvals": 1, "language": "C++", "stars": 29290}, {"repo": "lima-vm/lima", "number": 5165, "title": "shell: clean up stale ssh.sock on --reconnect when the master is already dead", "url": "https://github.com/lima-vm/lima/pull/5165", "additions": 112, "deletions": 1, "merged_at": "2026-07-02T07:33:36Z", "merged_by": "AkihiroSuda", "approvals": 1, "language": "Go", "stars": 22462}, {"repo": "oxc-project/oxc", "number": 23909, "title": "fix(linter/unicorn/prefer-at): skip object numeric-key access", "url": "https://github.com/oxc-project/oxc/pull/23909", "additions": 100, "deletions": 2, "merged_at": "2026-06-30T11:23:38Z", "merged_by": "camc314", "approvals": 1, "language": "Rust", "stars": 23596}, {"repo": "affaan-m/ECC", "number": 2386, "title": "fix(clv2): archive observations only after successful analysis in observer-loop", "url": "https://github.com/affaan-m/ECC/pull/2386", "additions": 226, "deletions": 4, "merged_at": "2026-06-30T01:43:37Z", "merged_by": "affaan-m", "approvals": 1, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 2374, "title": "test(clv2): add coverage for instinct-cli prune, projects ops, promote dry-run, normalize-url", "url": "https://github.com/affaan-m/ECC/pull/2374", "additions": 272, "deletions": 0, "merged_at": "2026-06-30T01:43:33Z", "merged_by": "affaan-m", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 2373, "title": "fix(clv2): surface SIGALRM timeout drops in observe.sh", "url": "https://github.com/affaan-m/ECC/pull/2373", "additions": 214, "deletions": 0, "merged_at": "2026-06-30T01:43:28Z", "merged_by": "affaan-m", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 2372, "title": "fix(clv2): serialize observer signal-counter to stop dropped increments", "url": "https://github.com/affaan-m/ECC/pull/2372", "additions": 340, "deletions": 8, "merged_at": "2026-06-30T01:43:24Z", "merged_by": "affaan-m", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 2369, "title": "fix(clv2): align Python _update_registry schema with shell counterpart", "url": "https://github.com/affaan-m/ECC/pull/2369", "additions": 85, "deletions": 1, "merged_at": "2026-06-30T01:43:19Z", "merged_by": "affaan-m", "approvals": 1, "language": "JavaScript", "stars": 310239}, {"repo": "tesseract-ocr/tesseract", "number": 4563, "title": "Fix crash when LSTM is missing in disabled-legacy build (#4448)", "url": "https://github.com/tesseract-ocr/tesseract/pull/4563", "additions": 11, "deletions": 0, "merged_at": "2026-06-27T16:23:39Z", "merged_by": "amitdo", "approvals": 1, "language": "C++", "stars": 77654}, {"repo": "ant-design/ant-design", "number": 58241, "title": "fix(Descriptions): apply labelStyle/contentStyle to bordered cells", "url": "https://github.com/ant-design/ant-design/pull/58241", "additions": 216, "deletions": 89, "merged_at": "2026-06-27T14:14:49Z", "merged_by": "afc163", "approvals": 1, "language": "TypeScript", "stars": 100366}, {"repo": "affaan-m/ECC", "number": 2339, "title": "fix(clv2): escape $HOME before pgrep -f in migrate-homunculus.sh", "url": "https://github.com/affaan-m/ECC/pull/2339", "additions": 148, "deletions": 1, "merged_at": "2026-06-25T23:47:32Z", "merged_by": "affaan-m", "approvals": 1, "language": "JavaScript", "stars": 310239}, {"repo": "ExpediaGroup/graphql-kotlin", "number": 2177, "title": "docs(plugin-client): use tasks.registering instead of deprecated tasks.creating", "url": "https://github.com/ExpediaGroup/graphql-kotlin/pull/2177", "additions": 3, "deletions": 3, "merged_at": "2026-06-16T19:19:35Z", "merged_by": "samuelAndalon", "approvals": 1, "language": "Kotlin", "stars": 1803}, {"repo": "oxc-project/oxc", "number": 23015, "title": "fix(linter/jsx-a11y): no-redundant-roles attribute-aware implicit roles for `<input>`, skip ancestor-conditional elements", "url": "https://github.com/oxc-project/oxc/pull/23015", "additions": 209, "deletions": 32, "merged_at": "2026-06-11T14:41:24Z", "merged_by": "camc314", "approvals": 1, "language": "Rust", "stars": 23596}, {"repo": "mem0ai/mem0", "number": 5202, "title": "fix(vector_stores): pass namespace as top-level kwarg to UpstashVector query_many", "url": "https://github.com/mem0ai/mem0/pull/5202", "additions": 48, "deletions": 6, "merged_at": "2026-06-10T11:11:26Z", "merged_by": "blazingretinol", "approvals": 1, "language": "Python", "stars": 69433}, {"repo": "lima-vm/lima", "number": 5090, "title": "limayaml: do not default containerd.user=true on non-Linux guests", "url": "https://github.com/lima-vm/lima/pull/5090", "additions": 63, "deletions": 5, "merged_at": "2026-06-10T07:16:34Z", "merged_by": "AkihiroSuda", "approvals": 1, "language": "Go", "stars": 22462}, {"repo": "run-llama/llama_index", "number": 21891, "title": "fix(openrouter): support llama-index-llms-openai-like 0.7", "url": "https://github.com/run-llama/llama_index/pull/21891", "additions": 12, "deletions": 12, "merged_at": "2026-06-09T22:43:34Z", "merged_by": "logan-markewich", "approvals": 1, "language": "Python", "stars": 52996}, {"repo": "mochajs/mocha", "number": 6016, "title": "docs: modernize spies example, drop should.js", "url": "https://github.com/mochajs/mocha/pull/6016", "additions": 7, "deletions": 4, "merged_at": "2026-06-08T00:54:46Z", "merged_by": "mark-wiemer", "approvals": 2, "language": "JavaScript", "stars": 22906}, {"repo": "affaan-m/ECC", "number": 2177, "title": "fix(.cursor/hooks): route block-no-verify through local hook to fix message-body false positives (#2107)", "url": "https://github.com/affaan-m/ECC/pull/2177", "additions": 211, "deletions": 1, "merged_at": "2026-06-07T05:01:37Z", "merged_by": "affaan-m", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 2163, "title": "fix(session-start): support ECC_SESSION_RETENTION_DAYS opt-out + document env var (#2151)", "url": "https://github.com/affaan-m/ECC/pull/2163", "additions": 122, "deletions": 3, "merged_at": "2026-06-07T05:01:34Z", "merged_by": "affaan-m", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 2161, "title": "feat(gateguard): add env knobs for routine bash gate + extra destructive patterns", "url": "https://github.com/affaan-m/ECC/pull/2161", "additions": 278, "deletions": 1, "merged_at": "2026-06-07T05:01:30Z", "merged_by": "affaan-m", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 2159, "title": "fix(suggest-compact): clean up old counter temp files", "url": "https://github.com/affaan-m/ECC/pull/2159", "additions": 259, "deletions": 1, "merged_at": "2026-06-07T05:01:27Z", "merged_by": "affaan-m", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 2134, "title": "fix(continuous-learning-v2): accept claude-vscode as valid entrypoint", "url": "https://github.com/affaan-m/ECC/pull/2134", "additions": 151, "deletions": 1, "merged_at": "2026-06-07T05:01:24Z", "merged_by": "affaan-m", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "pydantic/pydantic-ai", "number": 5681, "title": "Fix `GoogleModelSettings.google_cached_content` so request omits `system_instruction`, `tools`, and `tool_config`", "url": "https://github.com/pydantic/pydantic-ai/pull/5681", "additions": 603, "deletions": 5, "merged_at": "2026-06-02T04:29:21Z", "merged_by": "dsfaccini", "approvals": 0, "language": "Python", "stars": 21371}, {"repo": "Lightning-AI/pytorch-lightning", "number": 21686, "title": "Fix torch.compile breaking toggle_optimizer / untoggle_optimizer", "url": "https://github.com/Lightning-AI/pytorch-lightning/pull/21686", "additions": 39, "deletions": 0, "merged_at": "2026-06-01T11:32:33Z", "merged_by": "tchaton", "approvals": 2, "language": "Python", "stars": 31465}, {"repo": "langchain4j/langchain4j", "number": 5272, "title": "Skills: add DefaultFileSystemSkill.toBuilder() and round-trip tools correctly via builder", "url": "https://github.com/langchain4j/langchain4j/pull/5272", "additions": 494, "deletions": 162, "merged_at": "2026-05-29T12:38:38Z", "merged_by": "dliubarskyi", "approvals": 1, "language": "Java", "stars": 13441}, {"repo": "oxc-project/oxc", "number": 22752, "title": "fix(linter/no-array-sort): skip non compare fn sort arguments", "url": "https://github.com/oxc-project/oxc/pull/22752", "additions": 51, "deletions": 17, "merged_at": "2026-05-28T11:17:39Z", "merged_by": "camc314", "approvals": 1, "language": "Rust", "stars": 23596}, {"repo": "affaan-m/ECC", "number": 2041, "title": "fix(install-targets): validate compiled OpenCode plugin before install", "url": "https://github.com/affaan-m/ECC/pull/2041", "additions": 222, "deletions": 1, "merged_at": "2026-05-25T18:07:52Z", "merged_by": "affaan-m", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "LibreChat-AI/LibreChat", "number": 13171, "title": "🧹 chore: Type Agent MCP lean projection in ServerConfigsDB", "url": "https://github.com/LibreChat-AI/LibreChat/pull/13171", "additions": 4, "deletions": 9, "merged_at": "2026-05-18T19:32:44Z", "merged_by": "danny-avila", "approvals": 0, "language": "TypeScript", "stars": 47501}, {"repo": "ExpediaGroup/graphql-kotlin", "number": 2175, "title": "feat(server-subscriptions): expose flatMapMerge concurrency for websocket subscriptions", "url": "https://github.com/ExpediaGroup/graphql-kotlin/pull/2175", "additions": 110, "deletions": 12, "merged_at": "2026-05-18T16:34:43Z", "merged_by": "samuelAndalon", "approvals": 0, "language": "Kotlin", "stars": 1803}, {"repo": "ExpediaGroup/graphql-kotlin", "number": 2174, "title": "feat(ktor-server): skip internal ContentNegotiation install when already configured", "url": "https://github.com/ExpediaGroup/graphql-kotlin/pull/2174", "additions": 98, "deletions": 12, "merged_at": "2026-05-18T15:13:08Z", "merged_by": "samuelAndalon", "approvals": 1, "language": "Kotlin", "stars": 1803}, {"repo": "affaan-m/ECC", "number": 1669, "title": "fix(ci): flag SKILL.md frontmatter defects in validate-skills", "url": "https://github.com/affaan-m/ECC/pull/1669", "additions": 392, "deletions": 19, "merged_at": "2026-05-11T05:14:38Z", "merged_by": "affaan-m", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 1701, "title": "docs(strategic-compact): fix hook command path in zh-CN/zh-TW/ja-JP SKILL.md", "url": "https://github.com/affaan-m/ECC/pull/1701", "additions": 24, "deletions": 18, "merged_at": "2026-05-11T05:13:12Z", "merged_by": "affaan-m", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "affaan-m/ECC", "number": 1682, "title": "docs(strategic-compact): fix hook command path in SKILL.md", "url": "https://github.com/affaan-m/ECC/pull/1682", "additions": 2, "deletions": 2, "merged_at": "2026-05-11T05:13:08Z", "merged_by": "affaan-m", "approvals": 0, "language": "JavaScript", "stars": 310239}, {"repo": "LibreChat-AI/LibreChat", "number": 12825, "title": "🧹 fix: Graceful MCP OAuth Revoke Cleanup When Tokens Are Missing", "url": "https://github.com/LibreChat-AI/LibreChat/pull/12825", "additions": 309, "deletions": 6, "merged_at": "2026-04-29T00:11:12Z", "merged_by": "danny-avila", "approvals": 0, "language": "TypeScript", "stars": 47501}, {"repo": "google-gemini/gemini-cli", "number": 25822, "title": "fix(cli): add missing response key to custom theme text schema", "url": "https://github.com/google-gemini/gemini-cli/pull/25822", "additions": 31, "deletions": 0, "merged_at": "2026-04-27T15:14:42Z", "merged_by": "cynthialong0-0", "approvals": 1, "language": "TypeScript", "stars": 109072}, {"repo": "huggingface/transformers", "number": 45611, "title": "Raise clear error for `problem_type=\"single_label_classification\"` with `num_labels=1`", "url": "https://github.com/huggingface/transformers/pull/45611", "additions": 7, "deletions": 0, "merged_at": "2026-04-24T16:51:30Z", "merged_by": "Rocketknight1", "approvals": 1, "language": "Python", "stars": 169286}, {"repo": "apache/airflow", "number": 65685, "title": "Honor AUTH_ROLE_PUBLIC in FastAPI API server", "url": "https://github.com/apache/airflow/pull/65685", "additions": 367, "deletions": 7, "merged_at": "2026-04-24T16:24:44Z", "merged_by": "vincbeck", "approvals": 1, "language": "Python", "stars": 47657}, {"repo": "affaan-m/ECC", "number": 1490, "title": "fix: remove unsupported `agents` field from plugin.json", "url": "https://github.com/affaan-m/ECC/pull/1490", "additions": 24, "deletions": 121, "merged_at": "2026-04-21T22:14:13Z", "merged_by": "affaan-m", "approvals": 0, "language": "JavaScript", "stars": 310239}], "totals": {"merged": 121, "repos": 48, "combined_stars": 2946391}};
+const qs = new URLSearchParams(location.search), root = document.documentElement;
+if (qs.has('og')) root.classList.add('og');
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"']/g, c => `&#${c.charCodeAt(0)};`);
+const num = n => n.toLocaleString('en-US');
+const kfmt = n => n >= 1e6 ? Math.floor(n / 1e5) / 10 + 'M' : n >= 1e4 ? Math.floor(n / 1e3) + 'k' : n >= 1e3 ? Math.floor(n / 100) / 10 + 'k' : String(n);
+const dfmt = (s, o) => new Date(s).toLocaleDateString('en-GB', {timeZone: 'UTC', ...o});
+const DMY = {day: 'numeric', month: 'short', year: 'numeric'};
+const repoHtml = r => { const [o, n] = r.split('/'); return `<span class="o">${esc(o)}/</span>${esc(n)}`; };
+
+function init(D) {
+  const prs = D.prs, t = D.totals;
+  $('h-merged').textContent = num(t.merged);
+  $('h-repos').textContent = num(t.repos);
+  $('h-stars').textContent = kfmt(t.combined_stars) + '+';
+  $('d-min').textContent = num(D.min_stars);
+  $('d-since').textContent = dfmt(D.since, {month: 'long', year: 'numeric'});
+  $('d-gen').textContent = dfmt(D.generated, {day: 'numeric', month: 'long', year: 'numeric'});
+  $('d-gen').dateTime = D.generated;
+
+  const repos = new Map(), langs = new Map();
+  for (const p of prs) {
+    const r = repos.get(p.repo) || {stars: p.stars, n: 0}; r.n++; repos.set(p.repo, r);
+    if (p.language) langs.set(p.language, (langs.get(p.language) || 0) + 1);
+  }
+  const byStars = [...repos].sort((a, b) => b[1].stars - a[1].stars);
+
+  const TOP = 20, rest = byStars.length - TOP;
+  $('into').innerHTML = byStars.slice(0, TOP).map(([r, v]) =>
+    `<li><a href="#wall" data-repo="${esc(r)}">${repoHtml(r)}<sup>★ ${kfmt(v.stars)}</sup></a></li>`).join('') +
+    (rest > 0 ? `<li class="more">+ ${rest} more below</li>` : '');
+  $('repo').insertAdjacentHTML('beforeend', byStars.map(([r, v]) => `<option value="${esc(r)}">${esc(r)} (${v.n})</option>`).join(''));
+  $('langs').innerHTML = [...langs].sort((a, b) => b[1] - a[1]).map(([l, n]) =>
+    `<button type="button" aria-pressed="false" data-lang="${esc(l)}">${esc(l)}<i>${n}</i></button>`).join('');
+
+  $('rows').innerHTML = prs.map(p => `<li class="row">
+<time class="d" datetime="${esc(p.merged_at)}">${dfmt(p.merged_at, DMY)}</time>
+<span class="repo">${repoHtml(p.repo)}<small>★ ${kfmt(p.stars)}</small></span>
+<a class="t" href="${esc(p.url)}" rel="noopener">${esc(p.title)}<span class="pr">#${p.number}</span></a>
+<span class="l">${esc(p.language || '')}</span>
+<span class="n"><span class="a">+${num(p.additions)}</span> <span class="x">−${num(p.deletions)}</span></span>
+<span class="go" aria-hidden="true">↗</span></li>`).join('');
+  const els = [...$('rows').children];
+  const hay = prs.map(p => (p.repo + ' ' + p.title + ' #' + p.number).toLowerCase());
+  const order = {new: prs.map((_, i) => i), stars: prs.map((_, i) => i).sort((a, b) => prs[b].stars - prs[a].stars || a - b)};
+
+  // ?q= ?repo= ?lang= make a filtered view linkable
+  const S = {q: qs.get('q') || '', repo: repos.has(qs.get('repo')) ? qs.get('repo') : '', lang: langs.has(qs.get('lang')) ? qs.get('lang') : '', sort: 'new'};
+  let sorted = 'new';
+  function apply() {
+    if (S.sort !== sorted) { $('rows').append(...order[S.sort].map(i => els[i])); sorted = S.sort; }
+    const q = S.q.trim().toLowerCase();
+    let shown = 0;
+    prs.forEach((p, i) => {
+      const ok = (!S.repo || p.repo === S.repo) && (!S.lang || p.language === S.lang) && (!q || hay[i].includes(q));
+      els[i].hidden = !ok; shown += ok;
+    });
+    $('count').textContent = shown === prs.length ? `${num(shown)} merged pull requests` : `${num(shown)} of ${num(prs.length)} merged pull requests`;
+    $('empty').hidden = shown > 0;
+    $('q').value = S.q; $('repo').value = S.repo; $('sort').value = S.sort;
+    for (const b of $('langs').children) b.setAttribute('aria-pressed', b.dataset.lang === S.lang);
+  }
+  $('q').oninput = e => { S.q = e.target.value; apply(); };
+  $('repo').onchange = e => { S.repo = e.target.value; apply(); };
+  $('sort').onchange = e => { S.sort = e.target.value; apply(); };
+  $('langs').onclick = e => { const b = e.target.closest('button'); if (b) { S.lang = S.lang === b.dataset.lang ? '' : b.dataset.lang; apply(); } };
+  $('into').onclick = e => { const a = e.target.closest('a'); if (a) { S.repo = a.dataset.repo; S.q = S.lang = ''; apply(); } };
+  $('reset').onclick = () => { S.q = S.repo = S.lang = ''; apply(); };
+  apply();
+
+  // Quotes are attributed to the project only: @handles are dropped from the text.
+  const quotes = (D.quotes || []).map(q => ({...q, text: q.text.replace(/\s*@[\w-]+/g, '').trim()})).filter(q => q.text);
+  if (quotes.length) {
+    $('quotes').innerHTML = quotes.map(q => `<figure><blockquote>${esc(q.text)}</blockquote>
+<figcaption>— <a href="${esc(q.url)}" rel="noopener">${esc(q.repo.split('/')[1])} maintainer, in review ↗</a></figcaption></figure>`).join('');
+    $('said').hidden = false;
+  }
+}
+
+$('copy').onclick = async e => {
+  const b = e.currentTarget;
+  try { await navigator.clipboard.writeText($('cmd').textContent); b.textContent = 'Copied'; }
+  catch { getSelection().selectAllChildren($('cmd')); b.textContent = 'Press ⌘C'; }
+  setTimeout(() => b.textContent = 'Copy', 1600);
+};
+
+(DATA ? Promise.resolve(DATA) : fetch('data.json').then(r => r.json())).then(init)
+  .catch(() => { $('count').textContent = 'Could not load the data. The full list is on GitHub.'; });
+</script>
+</body>
+</html>

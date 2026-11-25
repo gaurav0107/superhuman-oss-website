@@ -3,351 +3,305 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>superhuman — Open-Source Contribution Agent for Claude Code &amp; Codex</title>
-<meta name="description" content="Automate open-source contributions with Claude Code &amp; Codex. This free AI agent finds a GitHub issue, writes the fix, and opens merge-ready pull requests that grow your GitHub contribution graph.">
+<title>superhuman: the open-source Claude Code plugin whose pull requests maintainers merge</title>
+<meta name="description" content="superhuman is a free, open-source plugin for Claude Code and Codex. It picks a GitHub issue, writes the fix, scores its own pull request, and opens it. 100+ pull requests merged by maintainers so far.">
 <meta name="keywords" content="open source contribution, github contribution graph, automated pull requests, ai open source contributor, autonomous coding agent, claude code agent, openai codex agent, merged pull requests, github contributions, how to contribute to open source">
 <link rel="canonical" href="https://superhuman-oss.com/">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="author" content="gaurav0107">
-<meta name="theme-color" content="#F0B429">
+<meta name="theme-color" content="#f1f0ec">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="superhuman">
 <meta property="og:url" content="https://superhuman-oss.com/">
-<meta property="og:title" content="superhuman — autonomous open-source contributions for Claude Code &amp; Codex">
-<meta property="og:description" content="A free AI agent for Claude Code &amp; Codex that automates open-source contributions — picks a GitHub issue, builds the fix, and opens merge-ready PRs that grow your contribution graph.">
-<meta property="og:image" content="https://superhuman-oss.com/assets/mascot.png">
-<meta property="og:image:width" content="420">
-<meta property="og:image:height" content="420">
-<meta property="og:image:alt" content="superhuman — mascot for the open-source contribution agent for Claude Code and Codex">
+<meta property="og:title" content="superhuman. Don't trust the agent. Trust the merge.">
+<meta property="og:description" content="The open-source Claude Code plugin that opens pull requests real maintainers review and merge. Graded by maintainers, not benchmarks.">
+<meta property="og:image" content="https://superhuman-oss.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="superhuman. Don't trust the agent. Trust the merge. The open-source Claude Code plugin.">
 
 <!-- Twitter -->
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="superhuman — autonomous open-source contributions for Claude Code &amp; Codex">
-<meta name="twitter:description" content="A free AI agent for Claude Code &amp; Codex that automates open-source contributions — picks a GitHub issue, builds the fix, and opens merge-ready PRs that grow your contribution graph.">
-<meta name="twitter:image" content="https://superhuman-oss.com/assets/mascot.png">
-<meta name="twitter:image:alt" content="superhuman — mascot for the open-source contribution agent for Claude Code and Codex">
-<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polyline points="34,26 12,50 34,74" fill="none" stroke="%23F0B429" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><line x1="44" y1="78" x2="56" y2="22" stroke="%23F0B429" stroke-width="11" stroke-linecap="round"/><polyline points="66,26 88,50 66,74" fill="none" stroke="%23F0B429" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></svg>'>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="superhuman. Don't trust the agent. Trust the merge.">
+<meta name="twitter:description" content="The open-source Claude Code plugin that opens pull requests real maintainers review and merge. Graded by maintainers, not benchmarks.">
+<meta name="twitter:image" content="https://superhuman-oss.com/assets/og.png">
+<meta name="twitter:image:alt" content="superhuman. Don't trust the agent. Trust the merge. The open-source Claude Code plugin.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
-:root {
-  --accent: #F0B429;
-  --merged: #8250DF;
-  --green: #1FA463;
-  --ink: #17150F;
-  --muted: #6E6A5E;
-  --faint: #8C887A;
-  --dim: #A5A093;
-  --bg: #FBFAF7;
-  --line: rgba(23, 21, 15, .07);
-  --line-2: rgba(23, 21, 15, .09);
+/* The look is the superhuman "Workbench" brand: superhuman-growth/brand/README.md.
+   Stone ruled page, white panels, ink type, one small yellow, two paintings, the product on screen. */
+:root{
+  --bg:#f1f0ec; --panel:#fff; --ink:#121212; --mut:#77756e; --sub:#5f5d57; --line:#dcdad3; --chip:#f1f0ec;
+  --acc:#f0b429; --amber:#8a6700; --merged:#8250df; --r:10px; --pad:56px;
+  --sans:"Host Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"DM Mono",ui-monospace,Menlo,monospace;
+  /* Public-domain paintings, The Met Open Access: Kensett, "Lake George", 1869; Dahl, "Copenhagen Harbor by Moonlight", 1846 */
+  --day:url(https://images.metmuseum.org/CRDImages/ad/web-large/DT84.jpg);
+  --night:url(https://images.metmuseum.org/CRDImages/ep/web-large/DP-17567-001.jpg);
 }
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: var(--ink);
-  font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-a { color: inherit; text-decoration: none; }
-img { display: block; }
-.mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
-a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.5 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;height:auto;display:block}
+code,.mono{font-family:var(--mono)}
+code{font-size:.9em;background:var(--chip);border:1px solid var(--line);border-radius:4px;padding:1px 5px;overflow-wrap:anywhere}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:4px}
+.dark :focus-visible,.cmdbar :focus-visible,.topbar :focus-visible,.term :focus-visible{outline-color:var(--acc)}
+.wrap{max-width:1280px;margin:0 auto;position:relative}
+.rails{border-left:1px solid var(--line);border-right:1px solid var(--line)}
+.skip{position:absolute;left:-999px}.skip:focus{left:12px;top:12px;z-index:9;background:#fff;padding:8px 12px;border-radius:6px}
 
-@keyframes flowdash { to { stroke-dashoffset: -24; } }
-@keyframes spinring { to { transform: rotate(360deg); } }
-@keyframes pulseDot { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
-@keyframes nodeOn {
-  0%, 2% { opacity: .5; border-color: #E9E6DC; box-shadow: 0 8px 24px rgba(23,21,15,.04); }
-  5%, 12% { opacity: 1; border-color: var(--accent); box-shadow: 0 12px 32px rgba(240,180,41,.30); }
-  16%, 100% { opacity: 1; border-color: #E0DDD2; box-shadow: 0 8px 24px rgba(23,21,15,.07); }
-}
-@keyframes dotOn {
-  0%, 2% { background: #D6D3C9; box-shadow: none; }
-  5%, 12% { background: var(--accent); box-shadow: 0 0 0 4px rgba(240,180,41,.22); }
-  16%, 100% { background: var(--green); box-shadow: none; }
-}
-@keyframes mergedPop {
-  0%, 66% { background: #FFFFFF; color: #8B877B; border-color: #E4E1D7; transform: scale(1); }
-  70%, 71% { transform: scale(1.07); }
-  72%, 93% { background: var(--merged); color: #FFFFFF; border-color: var(--merged); transform: scale(1); }
-  97%, 100% { background: #FFFFFF; color: #8B877B; border-color: #E4E1D7; transform: scale(1); }
-}
+/* logo, buttons */
+.logo{display:flex;align-items:center;gap:9px;font:600 19px/1 var(--sans);letter-spacing:-.03em}
+.logo img{width:24px;height:24px}
+.b{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 8px 0 16px;border-radius:6px;background:var(--ink);color:#fff;font:500 15px/1 var(--sans);white-space:nowrap;border:0;cursor:pointer}
+.b i{width:26px;height:26px;border-radius:4px;background:var(--acc);color:#121212;font:500 15px/26px var(--mono);text-align:center;font-style:normal}
+.b.w{background:#fff;color:var(--ink);border:1px solid var(--line);padding:0 16px}
+.b .n{font:400 13px/1 var(--mono);color:var(--sub);border-left:1px solid var(--line);padding-left:10px}
+.b,.b i{transition:transform .2s}.b:hover{transform:translateY(-1px)}.b:hover i{transform:translateX(2px)}
+.copy{font:500 12px/1 var(--mono);padding:7px 9px;border-radius:4px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;flex:none}
 
-/* ---------- nav ---------- */
-.nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 40px; border-bottom: 1px solid var(--line); }
-.nav-brand { display: flex; align-items: center; gap: 10px; }
-.nav-avatar { width: 28px; height: 28px; border-radius: 50%; overflow: hidden; background: #F6E9D6; flex: none; }
-.nav-avatar img { width: 100%; height: 100%; object-fit: cover; }
-.nav-name { font-weight: 700; font-size: 16px; letter-spacing: -.01em; }
-.nav-ver { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--dim); margin-left: 2px; }
-.pill-btn {
-  font-size: 13px; font-weight: 600; color: var(--ink);
-  border: 1px solid rgba(23,21,15,.14); border-radius: 999px; padding: 7px 16px;
-  transition: background .15s;
-}
-.pill-btn:hover { background: rgba(23,21,15,.05); }
+/* top bar and header */
+.topbar{background:var(--ink);color:#fff;min-height:40px;padding:10px 16px;display:flex;align-items:center;justify-content:center;text-align:center;font:500 14px/1.3 var(--sans)}
+.topbar a{text-decoration:underline;text-underline-offset:3px;margin-left:6px;white-space:nowrap}
+.head{display:flex;align-items:center;gap:44px;height:68px;border-bottom:1px solid var(--line);padding:0 var(--pad)}
+.head nav{display:flex;gap:30px;font:500 15px/1 var(--sans);flex:1}
+.head nav a:hover,.foot a:hover{text-decoration:underline;text-underline-offset:4px}
+.head .acts{display:flex;gap:10px}
 
-/* ---------- hero: compact header + full-viewport demo ---------- */
-.hero {
-  min-height: calc(100vh - 67px);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 26px;
-  padding: 26px 40px;
-}
-.hero-head { text-align: center; }
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  border: 1px solid rgba(23,21,15,.12); border-radius: 999px; padding: 6px 14px;
-  font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .08em; color: var(--muted);
-}
-.hero-head h1 {
-  margin: 16px auto 0; max-width: 860px;
-  font-size: clamp(26px, 3.4vw, 40px); line-height: 1.06; letter-spacing: -.03em; font-weight: 700;
-  text-wrap: balance;
-}
-.hero-sub { margin: 10px auto 0; max-width: 620px; font-size: 15.5px; line-height: 1.5; color: var(--muted); text-wrap: pretty; }
-.hero-ctas { display: flex; justify-content: center; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
-.btn-star {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: var(--accent); color: var(--ink);
-  border-radius: 12px; padding: 10px 18px;
-  font-size: 14px; font-weight: 700;
-  box-shadow: 0 10px 26px rgba(240,180,41,.35);
-  transition: transform .15s, box-shadow .15s;
-}
-.btn-star:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(240,180,41,.45); }
-.star-chip {
-  font-family: "IBM Plex Mono", monospace; font-size: 11.5px; font-weight: 600;
-  background: rgba(23,21,15,.12); border-radius: 999px; padding: 2px 9px;
-}
-/* short screens: shed the badge and sub-line so the demo never forces a scroll */
-@media (max-height: 780px) {
-  .hero-badge, .hero-sub { display: none; }
-  .hero-head h1 { margin-top: 0; }
-}
-.cmd-pill {
-  display: flex; align-items: center; gap: 14px;
-  background: var(--ink); color: #F5F2E8; border-radius: 12px; padding: 10px 10px 10px 18px;
-  font-family: "IBM Plex Mono", monospace; font-size: 13.5px;
-  max-width: 100%; min-width: 0;
-}
-.cmd-pill > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.copy-btn {
-  font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 600;
-  background: var(--accent); color: var(--ink); border: none; border-radius: 8px; padding: 8px 12px;
-  cursor: pointer; flex: none;
-}
-.btn-outline {
-  display: flex; align-items: center; padding: 10px 18px;
-  border: 1px solid rgba(23,21,15,.14); border-radius: 12px;
-  font-size: 14px; font-weight: 600; transition: background .15s;
-}
-.btn-outline:hover { background: rgba(23,21,15,.05); }
+/* hero */
+.hero{position:relative;padding:64px var(--pad) 72px;display:grid;grid-template-columns:1fr 440px;gap:40px 96px}
+.hero>*{position:relative;z-index:1}
+.hero .art{position:absolute;z-index:0;left:0;right:0;bottom:0;height:640px;overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 46%);mask-image:linear-gradient(transparent,#000 46%)}
+.art i{position:absolute;inset:-4%;background:var(--day) center 62%/cover}
+.hero .art:after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(241,240,236,.35),rgba(241,240,236,0) 60%)}
+.eyebrow{grid-column:1/-1;font:400 13.5px/1.3 var(--mono);color:var(--sub);margin-bottom:-18px}
+h1{font:500 62px/1.04 var(--sans);letter-spacing:-.04em}
+h1 span,h2 span{color:var(--mut)}
+.lead{font-size:18px;line-height:1.5}
+.fact{display:flex;gap:12px;align-items:center;margin-top:22px;font:400 13.5px/1.4 var(--sans);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--line)}
+.fact b{flex:none;min-width:30px;height:30px;padding:0 5px;border:1px solid var(--ink);border-radius:4px;font:500 12px/28px var(--mono);text-align:center}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:-6px;grid-column:1/-1}
 
-/* ---------- demo window ---------- */
-.demo {
-  position: relative; width: 100%; max-width: 1760px; margin: 0 auto;
-  background: #FFFFFF; border: 1px solid var(--line-2); border-radius: 18px;
-  box-shadow: 0 24px 70px rgba(23,21,15,.10);
-  overflow: hidden; text-align: left;
-}
-.demo-bar { display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; border-bottom: 1px solid var(--line); }
-.demo-bar-l { display: flex; align-items: center; gap: 12px; min-width: 0; }
-.demo-dots { display: flex; gap: 6px; flex: none; }
-.demo-dots span { width: 10px; height: 10px; border-radius: 50%; background: #E7E4D9; }
-.demo-title { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.demo-status { display: flex; align-items: center; gap: 7px; font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--muted); flex: none; }
-.live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulseDot 1.6s ease infinite; }
+/* the product board: the run, the pull request, the merge queue */
+.board{grid-column:1/-1;margin:20px -24px 0;background:rgba(255,255,255,.84);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);border:1px solid rgba(255,255,255,.7);border-radius:var(--r);overflow:hidden;font-size:14px;box-shadow:0 40px 80px -50px rgba(18,18,18,.35)}
+.bh{display:flex;justify-content:space-between;align-items:center;gap:12px;height:52px;padding:0 18px;border-bottom:1px solid var(--line);font:400 13px/1 var(--mono)}
+.bh .live{display:inline-block;width:8px;height:8px;border-radius:50%;background:#2fb26a;margin-right:8px}
+.tag{color:var(--sub);margin-left:8px;font-family:var(--mono);font-size:.9em}
+.bb{display:grid;grid-template-columns:300px 1fr 372px}
+.bb>div{padding:16px 18px 18px;min-width:0}
+.bb>div+div{border-left:1px solid var(--line)}
+.cap{font:400 12.5px/1 var(--mono);margin-bottom:14px}
+.lane{display:flex;gap:12px;align-items:flex-start;padding:10px;border-radius:8px}
+.lane b{flex:none;width:24px;height:24px;border-radius:5px;background:var(--ink);color:#fff;font:500 12px/24px var(--mono);text-align:center}
+.lane p{font:500 14px/1.2 var(--sans)}
+.lane span{font:400 12px/1.4 var(--mono);color:var(--sub)}
+.pr .t{font:500 16px/1.3 var(--sans)}
+.pr .m{font:400 12px/1.4 var(--mono);color:var(--sub);margin:8px 0 14px}
+.msg{padding:11px 13px;border-radius:8px;font-size:13.5px;line-height:1.45;max-width:86%;margin-bottom:8px}
+.msg.a{background:var(--chip)}
+.msg.z{margin-left:auto;background:var(--ink);color:#fff;width:max-content}
+.ok{display:block;margin-top:12px;padding:10px 12px;border:1px dashed var(--merged);border-radius:6px;font:500 12px/1.3 var(--mono);color:var(--merged)}
+.qr{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 0;border-top:1px solid var(--line)}
+.qr>span{min-width:0}
+.qr b{display:block;font:500 13px/1.3 var(--sans);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qr small{font:400 11.5px/1.5 var(--mono);color:var(--sub)}
+.qr em{font:500 11px/1 var(--mono);font-style:normal;padding:5px 7px;border:1px solid var(--line);border-radius:4px;flex:none}
+a.qr:hover b{text-decoration:underline;text-underline-offset:3px}
+.sum{display:flex;gap:14px;align-items:center;margin-top:10px;padding:12px 14px;border-radius:8px;background:var(--chip)}
+.sum b{font:500 34px/1 var(--sans);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.sum span{font:400 12px/1.35 var(--mono)}
 
-.stage-outer { position: relative; overflow: hidden; }
-.stage {
-  position: relative; width: 1112px; height: 520px; transform-origin: top left;
-  background-image: radial-gradient(rgba(23,21,15,.05) 1px, transparent 1px);
-  background-size: 22px 22px;
-}
-.stage svg.lines { position: absolute; inset: 0; }
-.stage svg.lines line { stroke: #DFDBCE; stroke-width: 1.5; stroke-dasharray: 3 7; animation: flowdash 1.8s linear infinite; }
+/* names strip */
+.strip{padding:44px var(--pad);border-top:1px solid var(--line);display:grid;grid-template-columns:330px 1fr;gap:40px;align-items:center}
+.strip p{font:500 22px/1.25 var(--sans);letter-spacing:-.02em}.strip p span{color:var(--mut)}
+.marq{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.names{display:flex;width:max-content;gap:0 44px;padding-right:44px;font:500 21px/1.3 var(--sans);letter-spacing:-.03em;color:#3a3935}
+.names span{white-space:nowrap}
 
-.node {
-  position: absolute; width: 186px; background: #FFFFFF;
-  border: 1.5px solid #E9E6DC; border-radius: 12px; padding: 12px 14px; z-index: 2;
-  animation: nodeOn 16s linear infinite both;
-}
-.node-head { display: flex; align-items: center; gap: 8px; }
-.node-dot { width: 8px; height: 8px; border-radius: 50%; background: #D6D3C9; animation: dotOn 16s linear infinite both; flex: none; }
-.node-tag { font-family: "IBM Plex Mono", monospace; font-size: 10px; letter-spacing: .09em; color: var(--faint); }
-.node-title { margin-top: 7px; font-size: 14px; font-weight: 600; }
-.node-sub { margin-top: 2px; font-size: 12px; color: var(--faint); }
+/* dark chapter over the night painting: how it works */
+.dark{background:#121212;color:#fff;position:relative;overflow:hidden}
+.dark .art{position:absolute;inset:0;overflow:hidden}
+.dark .art i{background:var(--night) center 46%/cover;filter:brightness(1.05) saturate(1.05)}
+.dark .art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,12,14,.88),rgba(12,12,14,.6) 44%,rgba(12,12,14,.3) 72%)}
+.dark .wrap{z-index:1;padding:72px var(--pad);display:grid;grid-template-columns:minmax(0,1fr);gap:44px}
+.steps{display:none}
+.chs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:36px 40px}
+.ch .n{font:400 13px/1 var(--mono);color:#a3a19b}
+.ch h3{font:500 40px/1 var(--sans);letter-spacing:-.04em;margin:14px 0 16px}
+.ch p{font-size:17px;color:#d6d4ce}
+.glass{max-width:520px;background:rgba(18,18,18,.62);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:16px 18px 6px}
+.glass .qr{border-color:rgba(255,255,255,.12)}.glass .qr small{color:#a3a19b}.glass .qr em{border-color:rgba(255,255,255,.25);color:var(--acc)}.glass .tag{color:#a3a19b}
 
-.node-score { width: 192px; }
-.score-num { margin-top: 6px; font-size: 34px; font-weight: 700; letter-spacing: -.02em; }
+/* light sections */
+.sec{padding:80px var(--pad);border-top:1px solid var(--line)}
+h2{font:500 46px/1.04 var(--sans);letter-spacing:-.04em}
+h2 span{display:block}
+.lede{margin-top:18px;font-size:18px;color:var(--sub);max-width:62ch}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.note{margin-top:18px;font-size:14.5px;color:var(--sub)}
+.note a{text-decoration:underline;text-underline-offset:3px}
+.sec>.panel,.sec>.grid2,.sec>.proof{margin-top:40px}
 
-.merged-badge {
-  position: absolute; display: flex; align-items: center; gap: 10px;
-  padding: 13px 20px; border: 1.5px solid #E4E1D7; border-radius: 12px; background: #FFFFFF; z-index: 2;
-  animation: mergedPop 16s linear infinite both;
-}
-.merged-badge b { font-weight: 700; font-size: 15px; }
-.merged-badge span { font-family: "IBM Plex Mono", monospace; font-size: 11px; opacity: .75; }
+.stats{display:grid;grid-template-columns:repeat(3,1fr)}
+.stats div{padding:28px}.stats div+div{border-left:1px solid var(--line)}
+.stats b{display:block;font:500 68px/1 var(--sans);letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+.stats span{font:400 12.5px/1.4 var(--mono);color:var(--sub)}
+.proof{display:grid;grid-template-columns:repeat(2,minmax(0,360px)) 1fr;gap:24px;align-items:start}
+.evi{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff;transition:transform .2s}
+.evi:hover{transform:translateY(-2px)}
+.quotes{display:grid;gap:24px}
+.quote{padding:26px 28px}
+.quote p{font:500 30px/1.12 var(--sans);letter-spacing:-.03em}
+.quote cite{display:block;margin-top:14px;font:400 12.5px/1.4 var(--mono);font-style:normal;color:var(--sub)}
+.quote cite a{text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--acc)}
+.prs{list-style:none;padding:0}
+.prs a{display:grid;grid-template-columns:270px 76px 1fr 96px;gap:16px;align-items:baseline;padding:14px 22px;border-top:1px solid var(--line);font-size:15px}
+.prs li:first-child a{border-top:0}
+.prs a:hover{background:var(--chip)}
+.prs .r,.prs .l{font:400 13px/1.4 var(--mono)}.prs .l{color:var(--sub);text-align:right}
+.prs .num{font:500 13px/1.4 var(--mono);color:var(--amber)}
 
-.scene { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 500px; }
-.ring, .ring-orbit { position: absolute; left: 60%; top: 40%; width: 360px; height: 360px; transform: translate(-50%, -50%); }
-.ring { border: 1.5px dashed rgba(23,21,15,.16); border-radius: 50%; animation: spinring 26s linear infinite; }
-.ring-orbit { animation: spinring 9s linear infinite; }
-.ring-orbit span { position: absolute; top: -4px; left: calc(50% - 4px); width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
-.scene img {
-  position: relative; width: 500px; height: auto;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 92%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0, #000 9%, #000 92%, transparent 100%);
-  filter: drop-shadow(0 16px 36px rgba(23,21,15,.16));
-}
-.scene-pill {
-  position: absolute; left: 30%; top: -30px; transform: translateX(-50%); white-space: nowrap;
-  display: flex; align-items: center; gap: 8px;
-  font-family: "IBM Plex Mono", monospace; font-size: 11px;
-  background: var(--ink); color: #F5F2E8; border-radius: 999px; padding: 6px 14px;
-}
-.scene-pill i { width: 6px; height: 6px; border-radius: 50%; background: #3DD68C; animation: pulseDot 1.6s ease infinite; }
+.cells{display:grid;grid-template-columns:repeat(4,1fr)}
+.cells>*{padding:26px 24px 30px;border-left:1px solid var(--line)}
+.cells>*:first-child{border-left:0}
+.cells .no{font:400 13px/1 var(--mono);color:var(--sub);display:block;margin-bottom:28px}
+.cells h3{font:600 19px/1.2 var(--sans);letter-spacing:-.02em;margin-bottom:8px}
+.cells p{font-size:15px;color:var(--sub)}
+ol.cells{list-style:none;padding:0}
+.loopnote{margin-top:18px;font:400 13px/1.5 var(--mono);color:var(--sub)}
 
-/* ---------- sections ---------- */
-.section { padding: 76px 64px; border-top: 1px solid var(--line); max-width: 1240px; margin: 0 auto; }
-.kicker { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .1em; color: var(--dim); }
-.section h2 { margin: 10px 0 0; font-size: 32px; letter-spacing: -.025em; font-weight: 700; }
-.section-sub { margin: 14px 0 0; max-width: 560px; font-size: 15px; line-height: 1.55; color: var(--muted); }
+.grid2{display:grid;gap:16px}
+.term{background:var(--ink);color:#fff;border-radius:var(--r);overflow:hidden;min-width:0}
+.term-h{display:flex;justify-content:space-between;align-items:center;padding:12px 14px 12px 18px;border-bottom:1px solid rgba(255,255,255,.14)}
+.term-h h3{font:500 14px/1 var(--mono)}
+.term .copy{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
+.term-c{padding:16px 18px 20px;font:400 13.5px/1.7 var(--mono);overflow-x:auto;white-space:nowrap}
+.term-c .c{color:#a3a19b}
 
-.proof-list { margin-top: 34px; border-top: 1px solid rgba(23,21,15,.08); }
-.proof-row {
-  display: grid; grid-template-columns: 290px 84px 1fr 80px; gap: 20px; align-items: baseline;
-  padding: 15px 6px; border-bottom: 1px solid rgba(23,21,15,.08);
-  transition: background .15s;
-}
-.proof-row:hover { background: rgba(23,21,15,.03); }
-.proof-repo { font-weight: 600; font-size: 15px; }
-.proof-num { font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: var(--faint); }
-.proof-repo .proof-num { display: none; margin-left: 8px; font-weight: 400; }
-.proof-desc { font-size: 14px; color: #5F5B50; }
-.proof-lang { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--dim); text-align: right; }
-.proof-note { margin: 18px 0 0; font-size: 13px; color: var(--faint); }
+.use{list-style:none;padding:0}
+.use li{display:grid;grid-template-columns:56px 1fr auto;gap:8px 20px;align-items:center;padding:22px 24px;border-top:1px solid var(--line)}
+.use li:first-child{border-top:0}
+.use .no{font:400 13px/1 var(--mono);color:var(--sub)}
+.use h3{font:600 19px/1.2 var(--sans);letter-spacing:-.02em;margin-bottom:6px}
+.use p{font-size:15px;color:var(--sub);max-width:64ch}
+.cmds{display:grid;gap:8px;justify-items:end}
+.cmd{display:flex;align-items:center;gap:10px;padding:6px 6px 6px 12px;border:1px solid var(--line);border-radius:6px;background:var(--chip);font:400 13.5px/1 var(--mono)}
 
-.loop-band { background: #F5F3EC; border-top: 1px solid var(--line); }
-.loop-band .section { border-top: none; }
-.loop-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 40px; }
-.loop-no { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; color: var(--accent); }
-.loop-no.is-merged { color: var(--merged); }
-.loop-step { margin-top: 10px; font-weight: 600; font-size: 16px; }
-.loop-desc { margin: 6px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); }
-.loop-note { margin: 36px 0 0; font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--faint); }
+.faq details{border-top:1px solid var(--line)}
+.faq details:first-child{border-top:0}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;padding:20px 24px;font:500 18px/1.3 var(--sans);letter-spacing:-.01em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"+";font:400 20px/1 var(--mono);color:var(--sub);flex:none}
+.faq details[open] summary:after{content:"−"}
+.faq-a{padding:0 24px 24px;color:var(--sub);font-size:16px;max-width:78ch}
+.faq-a strong{color:var(--ink);font-weight:500}
+.faq-a a{text-decoration:underline;text-underline-offset:3px}
 
-.install-grid { display: flex; gap: 20px; margin-top: 34px; }
-.install-card { flex: 1; min-width: 0; background: #161511; border-radius: 14px; padding: 20px 22px; }
-.install-card:first-child { flex: 1.15; }
-.install-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-.install-label { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .1em; color: #8F8B7E; }
-.copy-btn-dark {
-  font-family: "IBM Plex Mono", monospace; font-size: 11px;
-  background: rgba(255,255,255,.07); color: #F5F2E8;
-  border: 1px solid rgba(255,255,255,.16); border-radius: 7px; padding: 5px 11px; cursor: pointer;
-}
-.install-code { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; line-height: 2; color: #EDE9DC; white-space: nowrap; overflow-x: auto; }
-.install-code .c { color: #7E7A6C; }
-.install-note { margin: 18px 0 0; font-size: 13px; color: var(--faint); }
+/* closing band: the mascot on its own backdrop, then the install line */
+.close{background:#faf0e8;position:relative;overflow:hidden;border-top:1px solid var(--line)}
+.close .pic{position:absolute;right:0;top:0;width:800px;height:600px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%);mask-image:linear-gradient(90deg,transparent,#000 6%)}
+.close .pic img{position:absolute;right:0;top:0;height:100%;width:auto;max-width:none}
+.close>.wrap{height:600px;display:flex;flex-direction:column;justify-content:center;padding-left:var(--pad)}
+.close h2{font-size:60px;line-height:1}
+.cmdbar{background:var(--ink);color:#c9c7c1;position:relative}
+.cmdbar .wrap{min-height:64px;display:flex;align-items:center;gap:16px;padding:12px var(--pad)}
+.type{font:400 15px/1.5 var(--mono);display:flex;align-items:center;gap:10px;min-width:0;flex:1}
+.type b{font-weight:400;overflow-wrap:anywhere}
+.type i{width:9px;height:18px;background:var(--acc);flex:none;display:none}
+.cmdbar .copy{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
 
-/* ---------- how to use ---------- */
-.use-list { margin-top: 40px; }
-.use-step {
-  display: grid; grid-template-columns: 40px 1fr minmax(0, 300px); gap: 6px 24px; align-items: center;
-  padding: 22px 0; border-bottom: 1px solid rgba(23,21,15,.08);
-}
-.use-step:first-child { border-top: 1px solid rgba(23,21,15,.08); }
-.use-no { font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 600; color: var(--accent); }
-.use-title { font-weight: 600; font-size: 16px; }
-.use-desc { margin: 5px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); }
-.use-desc code, .use-note code {
-  font-family: "IBM Plex Mono", monospace; font-size: 12.5px; color: #4A4638;
-  background: rgba(23,21,15,.06); padding: 1px 5px; border-radius: 5px; white-space: nowrap;
-}
-.use-cmd {
-  display: flex; align-items: center; gap: 12px;
-  background: var(--ink); color: #F5F2E8; border-radius: 10px; padding: 9px 9px 9px 15px;
-  font-family: "IBM Plex Mono", monospace; font-size: 13px;
-}
-.use-cmd > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.use-cmds { display: flex; flex-direction: column; gap: 8px; }
-.use-note { margin: 28px 0 0; max-width: 620px; font-size: 14px; line-height: 1.55; color: var(--muted); }
+.foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding:28px var(--pad);font-size:14.5px;color:var(--sub)}
+.foot .l,.foot .links{display:flex;align-items:center;gap:10px 22px;flex-wrap:wrap}
+.foot .logo{color:var(--ink);font-size:17px}
+.foot .credit{flex-basis:100%;font:400 12px/1.5 var(--mono)}
 
-/* ---------- faq ---------- */
-.faq-list { margin-top: 30px; border-top: 1px solid rgba(23,21,15,.08); }
-.faq-item { border-bottom: 1px solid rgba(23,21,15,.08); }
-.faq-item summary {
-  list-style: none; cursor: pointer;
-  display: flex; align-items: center; justify-content: space-between; gap: 20px;
-  padding: 18px 6px; font-size: 16px; font-weight: 600; color: var(--ink);
-  transition: color .15s;
+/* motion: shows the product working; all of it stops for reduced motion */
+@media (prefers-reduced-motion:no-preference){
+  h1,.lead-col,.cta,.eyebrow{animation:rise .8s cubic-bezier(.2,.7,.2,1) both}
+  .lead-col{animation-delay:.12s}.cta{animation-delay:.24s}
+  .board{animation:rise 1s .4s cubic-bezier(.2,.7,.2,1) both}
+  .art i{animation:drift 26s ease-in-out infinite alternate}
+  .lane{animation:lanebg 10s infinite}
+  .lane b{animation:laneb 10s infinite}
+  .lane:nth-child(2),.lane:nth-child(2) b{animation-delay:1.3s}
+  .lane:nth-child(3),.lane:nth-child(3) b{animation-delay:2.6s}.lane:nth-child(4),.lane:nth-child(4) b{animation-delay:3.9s}
+  .lane:nth-child(5),.lane:nth-child(5) b{animation-delay:5.2s}
+  .msg.a{animation:m1 10s infinite}.msg.z{animation:m2 10s infinite}.ok{animation:m3 10s infinite}
+  .live{animation:pulse 1.6s ease-in-out infinite}
+  .names{animation:marq 34s linear infinite}
 }
-.faq-item summary::-webkit-details-marker { display: none; }
-.faq-item summary:hover { color: var(--muted); }
-.faq-item summary::after {
-  content: "+"; font-family: "IBM Plex Mono", monospace; font-size: 20px; font-weight: 400;
-  line-height: 1; color: var(--dim); flex: none;
-}
-.faq-item[open] summary::after { content: "\2212"; }
-.faq-answer { padding: 0 6px 22px; max-width: 720px; font-size: 15px; line-height: 1.6; color: #5F5B50; }
-.faq-answer a { color: var(--merged); text-decoration: underline; text-underline-offset: 2px; }
+@keyframes rise{from{opacity:0;transform:translateY(22px)}}
+@keyframes drift{from{transform:scale(1.07) translate(1.2%,0)}to{transform:scale(1) translate(-1.2%,-1%)}}
+@keyframes lanebg{0%,100%{background:transparent}1%,12%{background:var(--chip)}14%{background:transparent}}
+@keyframes laneb{0%{background:var(--chip);color:var(--sub)}1%,12%{background:var(--acc);color:#17150f}14%,92%{background:var(--ink);color:#fff}96%,100%{background:var(--chip);color:var(--sub)}}
+@keyframes m1{0%,24%{opacity:0;transform:translateY(8px)}28%,94%{opacity:1;transform:none}98%,100%{opacity:0}}
+@keyframes m2{0%,52%{opacity:0;transform:translateY(8px)}56%,94%{opacity:1;transform:none}98%,100%{opacity:0}}
+@keyframes m3{0%,66%{opacity:0;transform:scale(.97)}70%,94%{opacity:1;transform:none}98%,100%{opacity:0}}
+@keyframes pulse{50%{opacity:.35}}
+@keyframes marq{to{transform:translateX(-50%)}}
+@keyframes ch{0%{opacity:0;transform:translateY(14px)}3%,30%{opacity:1;transform:none}33.3%,100%{opacity:0;transform:translateY(-10px)}}
+@keyframes step{0%,30%{color:#fff;border-color:#fff}33.3%,100%{color:#a3a19b;border-color:transparent}}
+@keyframes type{0%,8%{width:0}55%,92%{width:83ch}100%{width:0}}
+@keyframes blink{50%{opacity:0}}
 
-.footer {
-  display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
-  padding: 26px 40px; border-top: 1px solid var(--line);
-  font-size: 13px; color: var(--faint);
-}
-.footer-links { display: flex; gap: 20px; }
-.footer-links a { color: #5F5B50; }
-.footer-links a:hover { color: var(--ink); }
-
-/* ---------- responsive ---------- */
-@media (max-width: 1180px) {
-  .section { padding: 64px 32px; }
-}
-@media (max-width: 900px) {
-  .nav, .footer { padding-left: 20px; padding-right: 20px; }
-  .hero { padding: 14px 16px; }
-  .intro { padding: 56px 20px 64px; }
-  .proof-row { grid-template-columns: 1fr auto; grid-template-areas: "repo lang" "desc desc"; gap: 4px 14px; }
-  .proof-repo { grid-area: repo; }
-  .proof-repo .proof-num { display: inline; }
-  .proof-num.col { display: none; }
-  .proof-desc { grid-area: desc; }
-  .proof-lang { grid-area: lang; }
-  .loop-grid { grid-template-columns: repeat(2, 1fr); }
-  .install-grid { flex-direction: column; }
-  .use-step { grid-template-columns: 32px 1fr; gap: 4px 18px; }
-  .use-step > .use-cmd, .use-step > .use-cmds { grid-column: 1 / -1; margin-top: 12px; }
-  .section { padding: 56px 20px; }
-}
-/* stage reflow on small screens: stacked cards under the scene */
-@media (max-width: 759px) {
-  .hero { display: block; min-height: 0; padding: 14px 16px 0; }
-  .stage { width: auto; height: auto; transform: none !important; padding: 22px 16px; display: flex; flex-direction: column; gap: 12px; }
-  .stage svg.lines, .ring, .ring-orbit { display: none; }
-  .scene { position: relative; left: auto; bottom: auto; transform: none; width: min(420px, 100%); margin: 26px auto 8px; }
-  .scene img { width: 100%; -webkit-mask-image: none; mask-image: none; }
-  .node, .node-score { position: static; width: auto; }
-  .scene { order: -1; }
-  .merged-badge { position: static; justify-content: center; order: 2; }
+/* wide screens with motion: the three chapters take turns, and the install line types itself */
+@media (min-width:1100px) and (prefers-reduced-motion:no-preference){
+  .dark .wrap{height:720px;padding:0 var(--pad);grid-template-columns:200px 400px 1fr;gap:56px;align-content:center}
+  .steps{display:grid;gap:22px;font:500 15px/1 var(--sans);align-content:center}
+  .steps span{padding-left:14px;margin-left:-16px;border-left:2px solid transparent;color:#a3a19b;animation:step 12s infinite}
+  .steps span:nth-child(2),.ch:nth-child(2){animation-delay:4s}.steps span:nth-child(3),.ch:nth-child(3){animation-delay:8s}
+  .chs{display:block;position:relative;height:330px}
+  .ch{position:absolute;inset:0;opacity:0;animation:ch 12s infinite}
+  .ch h3{font-size:76px;line-height:.98;margin:18px 0 22px}
+  .ch p{font-size:18px}
+  .glass{align-self:center;justify-self:end;width:440px}
+  .type b{display:inline-block;overflow:hidden;white-space:nowrap;width:0;animation:type 9s steps(83) infinite}
+  .type i{display:block;animation:blink 1s steps(2) infinite}
 }
 
-/* ---------- reduced motion: show the settled, converged state ---------- */
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  * { animation: none !important; }
-  .node { opacity: 1; border-color: #E0DDD2; box-shadow: 0 8px 24px rgba(23,21,15,.07); }
-  .node-dot { background: var(--green); }
-  .merged-badge { background: var(--merged); color: #FFFFFF; border-color: var(--merged); }
+@media (max-width:1320px){.rails{border-left:0;border-right:0}}
+@media (max-width:1099px){
+  :root{--pad:28px}
+  .head nav{display:none}.head{justify-content:space-between;gap:16px}
+  .hero{grid-template-columns:1fr;gap:28px;padding-top:48px}
+  .eyebrow{margin-bottom:-8px}.cta{margin-top:0}
+  h1{font-size:clamp(40px,7.4vw,62px)}
+  .board{margin:8px 0 0}
+  .bb{grid-template-columns:minmax(0,1fr)}
+  .bb>div+div{border-left:0;border-top:1px solid var(--line)}
+  .strip{grid-template-columns:1fr;gap:22px}
+  .proof{grid-template-columns:1fr 1fr}.quotes{grid-column:1/-1;grid-template-columns:1fr 1fr}
+  .cells{grid-template-columns:1fr 1fr}
+  .cells>*:nth-child(odd){border-left:0}.cells>*:nth-child(n+3){border-top:1px solid var(--line)}
+  .prs a{grid-template-columns:1fr auto;gap:4px 14px}.prs .d{grid-column:1/-1;order:3}.prs .l{display:none}
+  .close{display:flex;flex-direction:column}
+  .close .pic{position:static;width:auto;height:auto;-webkit-mask-image:none;mask-image:none}
+  .close .pic img{position:static;height:auto;width:100%}
+  .close>.wrap{order:-1;height:auto;width:100%;padding:56px var(--pad) 28px}
+}
+@media (max-width:719px){
+  :root{--pad:20px}
+  body{font-size:16px}
+  .head .w{display:none}
+  .sec{padding:56px var(--pad)}
+  h2{font-size:34px}.close h2{font-size:44px}
+  .stats{grid-template-columns:1fr}.stats div+div{border-left:0;border-top:1px solid var(--line)}
+  .stats b{font-size:54px}
+  .proof,.quotes,.cells{grid-template-columns:1fr}
+  .cells>*{border-left:0}.cells>*+*{border-top:1px solid var(--line)}
+  .cells .no{margin-bottom:16px}
+  .use li{grid-template-columns:1fr}.cmds{justify-items:start}
+  .ch h3{font-size:34px}
+  .bh .ver{display:none}
+  .msg{max-width:100%}
 }
 </style>
 
@@ -364,13 +318,13 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   "url": "https://superhuman-oss.com/",
   "downloadUrl": "https://github.com/gaurav0107/superhuman",
   "installUrl": "https://github.com/gaurav0107/superhuman",
-  "softwareVersion": "0.8.0",
+  "softwareVersion": "0.6.10",
   "license": "https://opensource.org/licenses/MIT",
   "isAccessibleForFree": true,
   "author": { "@type": "Person", "name": "gaurav0107", "url": "https://github.com/gaurav0107" },
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
   "keywords": "open source contribution, github contribution graph, automated pull requests, autonomous coding agent, Claude Code plugin, Codex skill, AI agent for GitHub issues, autonomous open-source contributions, AI pull requests, contribute to open source with AI, merge-ready pull requests, merged pull requests",
-  "image": "https://superhuman-oss.com/assets/mascot.png"
+  "image": "https://superhuman-oss.com/assets/og.png"
 }
 </script>
 
@@ -380,287 +334,266 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
   "@type": "WebSite",
   "name": "superhuman",
   "url": "https://superhuman-oss.com/",
-  "description": "Autonomous open-source contributions for Claude Code and OpenAI Codex.",
+  "description": "The open-source Claude Code plugin that opens pull requests real maintainers review and merge.",
+  "image": "https://superhuman-oss.com/assets/og.png",
   "publisher": {
     "@type": "Organization",
     "name": "superhuman",
     "url": "https://superhuman-oss.com/",
-    "logo": "https://superhuman-oss.com/assets/mascot.png"
+    "logo": "https://superhuman-oss.com/assets/mark.svg"
   }
 }
 </script>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<nav class="nav">
-  <div class="nav-brand">
-    <span class="nav-avatar"><img src="assets/mascot.png" alt="superhuman mascot"></span>
-    <span class="nav-name">superhuman</span>
-    <span class="nav-ver">v0.8.0</span>
-  </div>
-  <a class="pill-btn" href="https://github.com/gaurav0107/superhuman">★ Star on GitHub <span class="star-chip star-count" hidden></span></a>
-</nav>
+<div class="topbar"><span><span data-n="merged">121</span> pull requests merged by open-source maintainers.<a href="/merged">See the merge wall →</a></span></div>
 
-<header class="hero">
-  <div class="hero-head">
-    <div class="hero-badge">PLUGIN FOR CLAUDE CODE &amp; CODEX</div>
-    <h1>Merged PRs, while you're doing something else.</h1>
-    <p class="hero-sub">An AI agent team that automates your open-source contributions — it picks the GitHub issue, builds the fix, scores its own PR, and iterates until a maintainer would merge it.</p>
-    <div class="hero-ctas">
-      <div class="cmd-pill">
-        <span>curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash</span>
-        <button class="copy-btn" data-k="hero" type="button">Copy</button>
-      </div>
-      <a class="btn-star" href="https://github.com/gaurav0107/superhuman">★ Star on GitHub <span class="star-chip star-count" hidden></span></a>
+<div class="wrap rails">
+  <header class="head">
+    <a class="logo" href="/" aria-label="superhuman home"><img src="assets/mark.svg" alt="" width="24" height="24">superhuman</a>
+    <nav aria-label="Main">
+      <a href="#how">How it works</a>
+      <a href="#proof">Proof</a>
+      <a href="/merged">Merge wall</a>
+      <a href="#use">Commands</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="acts">
+      <a class="b w" href="https://github.com/gaurav0107/superhuman">★ Star on GitHub<span class="n star-count" hidden></span></a>
+      <a class="b" href="#install">Install<i aria-hidden="true">→</i></a>
     </div>
-  </div>
+  </header>
 
-  <div class="demo">
-    <div class="demo-bar">
-      <div class="demo-bar-l">
-        <div class="demo-dots"><span></span><span></span><span></span></div>
-        <span class="demo-title">superhuman — /contribute · run #12</span>
-      </div>
-      <div class="demo-status"><span class="live-dot"></span>unattended</div>
+  <main id="main">
+  <section class="hero">
+    <div class="art" aria-hidden="true"><i></i></div>
+    <p class="eyebrow">The open-source plugin for Claude Code and Codex</p>
+    <h1>Merged PRs,<br><span>while you’re doing something else.</span></h1>
+    <div class="lead-col">
+      <p class="lead">superhuman picks an issue a maintainer asked for, studies how that project works, opens one pull request and answers the review. Maintainers do the merging.</p>
+      <a class="fact" href="/merged"><b data-n="merged">121</b><span>merged into Hugging Face transformers, Deno, ClickHouse and <span data-n="more">45</span> more projects</span></a>
     </div>
-    <div class="stage-outer" id="stageOuter">
-      <div class="stage" id="stage">
-        <svg class="lines" width="1112" height="520" viewBox="0 0 1112 520" fill="none" aria-hidden="true">
-          <line x1="608" y1="274" x2="200" y2="120"></line>
-          <line x1="608" y1="274" x2="168" y2="272"></line>
-          <line x1="608" y1="274" x2="252" y2="424"></line>
-          <line x1="608" y1="274" x2="900" y2="120"></line>
-          <line x1="608" y1="274" x2="932" y2="256"></line>
-          <line x1="608" y1="274" x2="888" y2="420"></line>
-        </svg>
+    <div class="cta">
+      <a class="b" href="#install">Install with one command<i aria-hidden="true">→</i></a>
+      <a class="b w" href="https://github.com/ClickHouse/ClickHouse/pull/106916#pullrequestreview-4727413784">Read a real review</a>
+    </div>
 
-        <div class="node" style="left:104px;top:80px;animation-delay:.6s">
-          <div class="node-head"><span class="node-dot" style="animation-delay:.6s"></span><span class="node-tag">ISSUE-SELECTOR</span></div>
-          <div class="node-title">Issue picked</div>
-          <div class="node-sub">#23015 · ranked from 23</div>
+    <div class="board" aria-label="A sample run, one real merged pull request, and recent merges">
+      <div class="bh"><span><i class="live"></i>The run<span class="tag">sample</span></span><span class="ver">superhuman v0.6.10</span></div>
+      <div class="bb">
+        <div class="lanes">
+          <div class="lane"><b>1</b><div><p>issue-selector</p><span>ranked 14 open issues, skipped 9</span></div></div>
+          <div class="lane"><b>2</b><div><p>repo-profiler</p><span>read 20 merged PRs for house style</span></div></div>
+          <div class="lane"><b>3</b><div><p>planner</p><span>3 steps, 1 file, tests first</span></div></div>
+          <div class="lane"><b>4</b><div><p>builder</p><span>tests pass locally, lint clean</span></div></div>
+          <div class="lane"><b>5</b><div><p>scorer</p><span>merge probability, target 95%</span></div></div>
         </div>
-
-        <div class="node" style="left:64px;top:230px;animation-delay:2.2s">
-          <div class="node-head"><span class="node-dot" style="animation-delay:2.2s"></span><span class="node-tag">REPO-PROFILER</span></div>
-          <div class="node-title">Conventions learned</div>
-          <div class="node-sub">from 120 merged PRs</div>
+        <div class="pr">
+          <p class="cap">Agent → maintainer<span class="tag">a real pull request</span></p>
+          <p class="t">Common: mask sensitive data on Exception::addMessage</p>
+          <p class="m">ClickHouse/ClickHouse #106916 · 2 commits · +76 −5</p>
+          <div class="msg a">Text added to an exception with addMessage now goes through the sensitive-data masker, so a connection string with a password can no longer leak into an error.</div>
+          <div class="msg z">Thanks, looks good!</div>
+          <a class="ok" href="https://github.com/ClickHouse/ClickHouse/pull/106916">Merged by alexey-milovidov, 18 Jul 2026, 03:07 UTC</a>
         </div>
-
-        <div class="node" style="left:152px;top:382px;animation-delay:3.8s">
-          <div class="node-head"><span class="node-dot" style="animation-delay:3.8s"></span><span class="node-tag">PLANNER</span></div>
-          <div class="node-title">Plan approved</div>
-          <div class="node-sub">scoped to one fix</div>
-        </div>
-
-        <div class="node" style="left:806px;top:80px;animation-delay:5.4s">
-          <div class="node-head"><span class="node-dot" style="animation-delay:5.4s"></span><span class="node-tag">BUILDER</span></div>
-          <div class="node-title">Fix + tests green</div>
-          <div class="node-sub">allowlisted CI only</div>
-        </div>
-
-        <div class="node node-score" style="left:836px;top:196px;animation-delay:7.4s">
-          <div class="node-head"><span class="node-dot" style="animation-delay:7.4s"></span><span class="node-tag">SCORER</span></div>
-          <div class="score-num" aria-label="merge probability rising from 62 to 95 percent">62%</div>
-          <div class="node-sub">merge probability · weakest dimension → fixed</div>
-        </div>
-
-        <div class="merged-badge" style="left:806px;top:392px">
-          <b>Merged</b>
-          <span>#23015</span>
-        </div>
-
-        <div class="scene">
-          <div class="ring" aria-hidden="true"></div>
-          <div class="ring-orbit" aria-hidden="true"><span></span></div>
-          <img src="assets/mascot-scene.png" alt="The superhuman mascot — a tuxedo cat with glasses leaning back with its feet on the desk, coffee in paw, saying: it works on my machine" width="1024" height="854">
-          <div class="scene-pill"><i></i>iterating</div>
+        <div class="queue">
+          <p class="cap">Merge queue<span class="tag">real, dates in UTC</span></p>
+          <a class="qr" href="https://github.com/ClickHouse/ClickHouse/pull/106916"><span><b>Common: mask sensitive data on Exception::addMessage</b><small>ClickHouse/ClickHouse #106916 · 18 Jul</small></span><em>Merged</em></a>
+          <a class="qr" href="https://github.com/apache/superset/pull/42489"><span><b>fix(core): stop discarding API errors that quote an HTML tag</b><small>apache/superset #42489 · 1 Oct</small></span><em>Merged</em></a>
+          <a class="qr" href="https://github.com/huggingface/transformers/pull/45611"><span><b>Raise clear error for single_label_classification with num_labels=1</b><small>huggingface/transformers #45611 · 24 Apr</small></span><em>Merged</em></a>
+          <a class="qr" href="https://github.com/denoland/deno/pull/36321"><span><b>fix(ext/node): apply backpressure in Readable.toWeb()</b><small>denoland/deno #36321 · 28 Jul</small></span><em>Merged</em></a>
+          <div class="sum"><b data-n="merged" data-count>121</b><span>pull requests merged by maintainers in <span data-n="repos">48</span> projects</span></div>
         </div>
       </div>
     </div>
-  </div>
-</header>
-
-<section class="section" id="proven">
-  <div class="kicker">PROVEN</div>
-  <h2>Merged into repos it doesn't own.</h2>
-  <div class="proof-list">
-    <a class="proof-row" href="https://github.com/huggingface/transformers/pull/45611">
-      <span class="proof-repo">huggingface/transformers<span class="proof-num">#45611</span></span>
-      <span class="proof-num col">#45611</span>
-      <span class="proof-desc">Clear error for single-label classification with num_labels=1</span>
-      <span class="proof-lang">Python</span>
-    </a>
-    <a class="proof-row" href="https://github.com/apache/airflow/pull/65685">
-      <span class="proof-repo">apache/airflow<span class="proof-num">#65685</span></span>
-      <span class="proof-num col">#65685</span>
-      <span class="proof-desc">Honor AUTH_ROLE_PUBLIC in the FastAPI API server</span>
-      <span class="proof-lang">Python</span>
-    </a>
-    <a class="proof-row" href="https://github.com/oxc-project/oxc/pull/23015">
-      <span class="proof-repo">oxc-project/oxc<span class="proof-num">#23015</span></span>
-      <span class="proof-num col">#23015</span>
-      <span class="proof-desc">Attribute-aware implicit roles in the jsx-a11y lint rule</span>
-      <span class="proof-lang">Rust</span>
-    </a>
-    <a class="proof-row" href="https://github.com/ant-design/ant-design/pull/58241">
-      <span class="proof-repo">ant-design/ant-design<span class="proof-num">#58241</span></span>
-      <span class="proof-num col">#58241</span>
-      <span class="proof-desc">Apply labelStyle/contentStyle to bordered Descriptions cells</span>
-      <span class="proof-lang">TypeScript</span>
-    </a>
-    <a class="proof-row" href="https://github.com/Lightning-AI/pytorch-lightning/pull/21686">
-      <span class="proof-repo">Lightning-AI/pytorch-lightning<span class="proof-num">#21686</span></span>
-      <span class="proof-num col">#21686</span>
-      <span class="proof-desc">Fix torch.compile breaking toggle_optimizer</span>
-      <span class="proof-lang">Python</span>
-    </a>
-    <a class="proof-row" href="https://github.com/tesseract-ocr/tesseract/pull/4563">
-      <span class="proof-repo">tesseract-ocr/tesseract<span class="proof-num">#4563</span></span>
-      <span class="proof-num col">#4563</span>
-      <span class="proof-desc">Fix crash when LSTM is missing in a disabled-legacy build</span>
-      <span class="proof-lang">C++</span>
-    </a>
-  </div>
-  <p class="proof-note">Plus merges into llama_index, mem0, langchain4j, lima, LibreChat, and mocha.</p>
-</section>
-
-<div class="loop-band">
-  <section class="section" id="loop">
-    <div class="kicker">THE LOOP</div>
-    <h2>Closed loop. Not open loop.</h2>
-    <p class="section-sub">Open-loop tools generate once and hope. superhuman grades its own work before a maintainer ever sees it.</p>
-    <div class="loop-grid">
-      <div><div class="loop-no">01</div><div class="loop-step">Score</div><p class="loop-desc">A 10-dimension rubric grades the PR like a maintainer would.</p></div>
-      <div><div class="loop-no">02</div><div class="loop-step">Target</div><p class="loop-desc">The single weakest dimension. Nothing else.</p></div>
-      <div><div class="loop-no">03</div><div class="loop-step">Fix</div><p class="loop-desc">Routed to the matching language specialist.</p></div>
-      <div><div class="loop-no is-merged">04</div><div class="loop-step">Repeat</div><p class="loop-desc">Until 95% merge probability — two runs in a row.</p></div>
-    </div>
-    <p class="loop-note">every outcome → merge_outcomes.jsonl → a sharper prior for the next repo</p>
   </section>
+
+  <section class="strip" aria-label="Projects that merged its pull requests">
+    <p>Merged by the maintainers of <span><span data-n="repos">48</span> projects with <span data-n="stars">2.9M</span> stars</span></p>
+    <div class="marq"><div class="names">
+      <span>transformers</span><span>Deno</span><span>ClickHouse</span><span>Airflow</span><span>Gemini CLI</span><span>Keycloak</span><span>Superset</span><span>MLflow</span><span>LlamaIndex</span><span>Ant Design</span><span>Tesseract</span><span>Pydantic AI</span>
+      <span aria-hidden="true">transformers</span><span aria-hidden="true">Deno</span><span aria-hidden="true">ClickHouse</span><span aria-hidden="true">Airflow</span><span aria-hidden="true">Gemini CLI</span><span aria-hidden="true">Keycloak</span><span aria-hidden="true">Superset</span><span aria-hidden="true">MLflow</span><span aria-hidden="true">LlamaIndex</span><span aria-hidden="true">Ant Design</span><span aria-hidden="true">Tesseract</span><span aria-hidden="true">Pydantic AI</span>
+    </div></div>
+  </section>
+  </main>
 </div>
 
-<section class="section" id="install">
-  <div class="kicker">INSTALL</div>
-  <h2>Two commands. Then walk away.</h2>
-  <div class="install-grid">
-    <div class="install-card">
-      <div class="install-head">
-        <span class="install-label">CLAUDE CODE</span>
-        <button class="copy-btn-dark" data-k="claude" type="button">Copy</button>
-      </div>
-      <div class="install-code">
-        <div class="c"># installs superhuman + dependencies</div>
-        <div>curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash</div>
-      </div>
+<section class="dark" id="how" aria-label="How it works">
+  <div class="art" aria-hidden="true"><i></i></div>
+  <div class="wrap">
+    <div class="steps" aria-hidden="true"><span>It picks the issue</span><span>It opens the pull request</span><span>Maintainers merge it</span></div>
+    <div class="chs">
+      <div class="ch"><p class="n">1 of 3</p><h3>It picks<br>the issue</h3><p>It ranks the open issues, skips docs-only ones, taken ones and anything under a day old, and reads the last 10–20 merged pull requests to learn the house style.</p></div>
+      <div class="ch"><p class="n">2 of 3</p><h3>It opens the<br>pull request</h3><p>One small change, tests first, in the project’s own commit style. It scores its own work and only opens the pull request when it expects a merge.</p></div>
+      <div class="ch"><p class="n">3 of 3</p><h3>Maintainers<br>merge it</h3><p>It answers review comments and fixes what they ask for. The decision stays with the people who run the project.</p></div>
     </div>
-    <div class="install-card">
-      <div class="install-head">
-        <span class="install-label">CODEX</span>
-        <button class="copy-btn-dark" data-k="codex" type="button">Copy</button>
-      </div>
-      <div class="install-code">
-        <div class="c"># install the skill</div>
-        <div>curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash</div>
-        <div class="c"># then: "use the superhuman skill to contribute"</div>
-      </div>
+    <div class="glass">
+      <p class="cap">Merged<span class="tag">real, dates in UTC</span></p>
+      <a class="qr" href="https://github.com/google-gemini/gemini-cli/pull/25822"><span><b>fix(cli): add missing response key to custom theme text schema</b><small>google-gemini/gemini-cli #25822 · 27 Apr</small></span><em>Merged</em></a>
+      <a class="qr" href="https://github.com/apache/airflow/pull/65685"><span><b>Honor AUTH_ROLE_PUBLIC in FastAPI API server</b><small>apache/airflow #65685 · 24 Apr</small></span><em>Merged</em></a>
+      <a class="qr" href="https://github.com/keycloak/keycloak/pull/50809"><span><b>Honor configured admin realm in ClientManager.isInternalClient</b><small>keycloak/keycloak #50809 · 26 Aug</small></span><em>Merged</em></a>
+      <a class="qr" href="https://github.com/tesseract-ocr/tesseract/pull/4563"><span><b>Fix crash when LSTM is missing in disabled-legacy build</b><small>tesseract-ocr/tesseract #4563 · 27 Jun</small></span><em>Merged</em></a>
     </div>
   </div>
-  <p class="install-note">Needs gh (authenticated), git, jq · Forks only, --force-with-lease · MIT licensed</p>
 </section>
 
-<section class="section" id="use">
-  <div class="kicker">HOW TO USE</div>
-  <h2>Installed. Now put it to work.</h2>
-  <p class="section-sub">In Claude Code, these are slash commands. Type one and walk away — the agent team takes it from there.</p>
-  <div class="use-list">
-    <div class="use-step">
-      <div class="use-no">01</div>
-      <div class="use-body">
-        <div class="use-title">Find repos worth contributing to</div>
-        <p class="use-desc">Builds a ranked shortlist of repositories and the best open issue in each. Optional — <code>/contribute</code> will pick for you if you skip it.</p>
-      </div>
-      <div class="use-cmd">
-        <span>/repo-finder</span>
-        <button class="copy-btn" data-k="repofinder" type="button">Copy</button>
-      </div>
-    </div>
-    <div class="use-step">
-      <div class="use-no">02</div>
-      <div class="use-body">
-        <div class="use-title">Make one contribution</div>
-        <p class="use-desc">Picks the top repo and issue, then runs the full loop to a merge-ready PR. Aim it yourself with <code>/contribute owner/repo</code> or <code>/contribute owner/repo 12345</code>.</p>
-      </div>
-      <div class="use-cmd">
-        <span>/contribute</span>
-        <button class="copy-btn" data-k="contribute" type="button">Copy</button>
-      </div>
-    </div>
-    <div class="use-step">
-      <div class="use-no">03</div>
-      <div class="use-body">
-        <div class="use-title">Run several, unattended</div>
-        <p class="use-desc">Several contributions in one run — <code>/contribute-loop</code> works through them one after another, <code>/contribution-fleet</code> runs them in parallel across different repos.</p>
-      </div>
-      <div class="use-cmds">
-        <div class="use-cmd">
-          <span>/contribute-loop 5</span>
-          <button class="copy-btn" data-k="loop" type="button">Copy</button>
-        </div>
-        <div class="use-cmd">
-          <span>/contribution-fleet 3</span>
-          <button class="copy-btn" data-k="fleet" type="button">Copy</button>
-        </div>
-      </div>
-    </div>
-    <div class="use-step">
-      <div class="use-no">04</div>
-      <div class="use-body">
-        <div class="use-title">Watch it work</div>
-        <p class="use-desc">A live view of the active run, its score history, and every merge outcome so far.</p>
-      </div>
-      <div class="use-cmd">
-        <span>/contribution-dashboard</span>
-        <button class="copy-btn" data-k="dashboard" type="button">Copy</button>
-      </div>
-    </div>
-  </div>
-  <p class="use-note">On <strong>OpenAI Codex</strong> there are no slash commands — just tell Codex <em>"use the superhuman skill to contribute."</em></p>
-</section>
+<div class="wrap rails">
+  <section class="sec" id="proof">
+    <h2>Merged into projects <span>it doesn’t own.</span></h2>
+    <p class="lede">Every row is a real pull request, reviewed and merged by that project’s maintainers. Open any of them and read the review.</p>
 
-<section class="section" id="faq">
-  <div class="kicker">FAQ</div>
-  <h2>Questions, before you walk away.</h2>
-  <div class="faq-list">
-    <details class="faq-item">
-      <summary>What is superhuman?</summary>
-      <div class="faq-answer">superhuman is a free, open-source (MIT) plugin for <strong>Claude Code</strong> and <strong>OpenAI Codex</strong> that autonomously contributes to open-source projects. An agent team picks a GitHub issue, learns the repository's conventions from its merged PRs, writes the fix with tests, and scores its own pull request on a 10-dimension rubric — iterating until it reaches roughly 95% merge-probability. It has already landed merged PRs in projects like Hugging Face Transformers, Apache Airflow, and Ant Design.</div>
-    </details>
-    <details class="faq-item">
-      <summary>How is it different from Copilot, Cursor, Devin, or SWE-agent?</summary>
-      <div class="faq-answer">Most AI coding tools are open-loop: they generate a change once and hope it's good. superhuman is closed-loop — it grades its own PR against a maintainer-style rubric and keeps fixing the single weakest dimension until the PR would actually merge. That self-scoring gate is why its pull requests are built to be accepted, rather than added to the pile of unreviewed "AI slop."</div>
-    </details>
-    <details class="faq-item">
-      <summary>Is it safe — won't it spam maintainers with low-quality PRs?</summary>
-      <div class="faq-answer">Safety is the core design goal. superhuman only opens a pull request after its scorer estimates roughly 95% merge-probability two runs in a row, so maintainers see finished work, not noise. It works on forks only, pushes with <code>--force-with-lease</code>, runs only allowlisted CI commands, and is MIT-licensed and fully auditable. It's built to be the opposite of the automated PR spam that pushed GitHub to add pull-request limits in 2026.</div>
-    </details>
-    <details class="faq-item">
-      <summary>Does it work with OpenAI Codex, or only Claude Code?</summary>
-      <div class="faq-answer">Both. A single install script (<code>curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash</code>) sets up superhuman and its dependencies for Claude Code. In Codex you symlink the skill into <code>~/.codex/skills</code> and tell Codex to "use the superhuman skill to contribute." The same agent workflow runs on either harness.</div>
-    </details>
-    <details class="faq-item">
-      <summary>Will it grow my GitHub contribution graph?</summary>
-      <div class="faq-answer">Yes. Every fix superhuman lands is a real open-source contribution — a merged pull request under your own GitHub account — so it shows up on your GitHub contribution graph like any commit you author by hand. Instead of chasing green squares, you accumulate genuine merged PRs in respected repositories while you work on something else.</div>
-    </details>
-    <details class="faq-item">
-      <summary>Is it free? What does it cost to run?</summary>
-      <div class="faq-answer">superhuman itself is free and open-source under the MIT license. You only pay for your own model usage through Claude Code or Codex — there is no separate subscription, seat, or API of its own.</div>
-    </details>
-    <details class="faq-item">
-      <summary>What do I need to get started?</summary>
-      <div class="faq-answer">You need the <code>gh</code> CLI (authenticated), <code>git</code>, and <code>jq</code>. In Claude Code, first install the <strong>superpowers</strong> plugin (a prerequisite), then add the superhuman marketplace and install the plugin — two commands, then it runs unattended. Full commands are in the <a href="#install">Install section</a> above.</div>
-    </details>
-  </div>
-</section>
+    <div class="panel stats">
+      <div><b data-n="merged">121</b><span>pull requests merged by maintainers</span></div>
+      <div><b data-n="repos">48</b><span>open-source projects with 1,000+ stars</span></div>
+      <div><b data-n="stars">2.9M</b><span>combined GitHub stars</span></div>
+    </div>
+    <p class="note">Since April 2026. Totals from the <a href="/merged">Merge Wall</a>, where every pull request is listed with its link.</p>
+
+    <div class="proof">
+      <a class="evi" href="https://github.com/ClickHouse/ClickHouse/pull/106916">
+        <img src="assets/evidence-clickhouse.jpg" width="1080" height="1350" loading="lazy" alt="Pull request #106916, Common: mask sensitive data on Exception::addMessage, merged into ClickHouse by @alexey-milovidov on 18 July 2026. Maintainer review: Thanks, looks good!">
+      </a>
+      <a class="evi" href="https://github.com/huggingface/transformers/pull/45611">
+        <img src="assets/evidence-transformers.jpg" width="1080" height="1350" loading="lazy" alt="Pull request #45611, Raise clear error for problem_type single_label_classification with num_labels=1, merged into Hugging Face transformers by @Rocketknight1 on 24 April 2026.">
+      </a>
+      <div class="quotes">
+        <blockquote class="panel quote" cite="https://github.com/ClickHouse/ClickHouse/pull/106916#pullrequestreview-4727413784">
+          <p>“Thanks, looks good!”</p>
+          <cite><a href="https://github.com/ClickHouse/ClickHouse/pull/106916#pullrequestreview-4727413784">ClickHouse maintainer review</a></cite>
+        </blockquote>
+        <blockquote class="panel quote" cite="https://github.com/apache/superset/pull/42489#pullrequestreview-4859855464">
+          <p>“LGTM, thanks!”</p>
+          <cite><a href="https://github.com/apache/superset/pull/42489#pullrequestreview-4859855464">Apache Superset maintainer review</a></cite>
+        </blockquote>
+      </div>
+    </div>
+
+    <ul class="panel prs">
+      <li><a href="https://github.com/huggingface/transformers/pull/45611"><span class="r">huggingface/transformers</span><span class="num">#45611</span><span class="d">Clear error for single-label classification with num_labels=1</span><span class="l">Python</span></a></li>
+      <li><a href="https://github.com/denoland/deno/pull/36321"><span class="r">denoland/deno</span><span class="num">#36321</span><span class="d">Apply backpressure in Readable.toWeb()</span><span class="l">Rust</span></a></li>
+      <li><a href="https://github.com/ClickHouse/ClickHouse/pull/106916"><span class="r">ClickHouse/ClickHouse</span><span class="num">#106916</span><span class="d">Mask sensitive data on Exception::addMessage</span><span class="l">C++</span></a></li>
+      <li><a href="https://github.com/google-gemini/gemini-cli/pull/25822"><span class="r">google-gemini/gemini-cli</span><span class="num">#25822</span><span class="d">Add the missing response key to the custom theme text schema</span><span class="l">TypeScript</span></a></li>
+      <li><a href="https://github.com/apache/airflow/pull/65685"><span class="r">apache/airflow</span><span class="num">#65685</span><span class="d">Honor AUTH_ROLE_PUBLIC in the FastAPI API server</span><span class="l">Python</span></a></li>
+      <li><a href="https://github.com/keycloak/keycloak/pull/50809"><span class="r">keycloak/keycloak</span><span class="num">#50809</span><span class="d">Honor the configured admin realm in ClientManager.isInternalClient</span><span class="l">Java</span></a></li>
+      <li><a href="https://github.com/apache/superset/pull/42489"><span class="r">apache/superset</span><span class="num">#42489</span><span class="d">Stop discarding API errors that quote an HTML tag</span><span class="l">Python</span></a></li>
+      <li><a href="https://github.com/tesseract-ocr/tesseract/pull/4563"><span class="r">tesseract-ocr/tesseract</span><span class="num">#4563</span><span class="d">Fix a crash when LSTM is missing in a disabled-legacy build</span><span class="l">C++</span></a></li>
+      <li><a href="https://github.com/oxc-project/oxc/pull/23015"><span class="r">oxc-project/oxc</span><span class="num">#23015</span><span class="d">Attribute-aware implicit roles in the jsx-a11y lint rule</span><span class="l">Rust</span></a></li>
+      <li><a href="https://github.com/Lightning-AI/pytorch-lightning/pull/21686"><span class="r">Lightning-AI/pytorch-lightning</span><span class="num">#21686</span><span class="d">Fix torch.compile breaking toggle_optimizer</span><span class="l">Python</span></a></li>
+    </ul>
+    <p class="note">Also merged into MLflow, LlamaIndex, Gitea, Pydantic AI, Unsloth, Ant Design, mem0 and more.</p>
+  </section>
+
+  <section class="sec" id="respect">
+    <h2>Respect <span>for maintainers.</span></h2>
+    <p class="lede">A maintainer’s review time is the scarce resource. superhuman is built to spend as little of it as it can.</p>
+    <div class="panel cells">
+      <div><h3>It says what it is</h3><p>By default, the pull request body says it was opened with superhuman.</p></div>
+      <div><h3>It scores itself first</h3><p>It scores its own pull request before opening it. If the work is weak, it stops and explains what’s blocking instead of pushing it.</p></div>
+      <div><h3>It leaves taken work alone</h3><p>It skips issues someone has already taken, and it skips docs-only issues.</p></div>
+      <div><h3>It stays in its own fork</h3><p>Forks only. It pushes with <code>--force-with-lease</code> and runs only allowlisted CI commands.</p></div>
+    </div>
+  </section>
+
+  <section class="sec" id="loop">
+    <h2>Closed loop, <span>not open loop.</span></h2>
+    <p class="lede">Most agent tools are open-loop: generate once and hope. superhuman scores its own pull request before a maintainer ever sees it.</p>
+    <ol class="panel cells">
+      <li><span class="no">1</span><h3>Score</h3><p>A 10-dimension rubric grades the PR like a maintainer would.</p></li>
+      <li><span class="no">2</span><h3>Target</h3><p>The single weakest dimension. Nothing else.</p></li>
+      <li><span class="no">3</span><h3>Fix</h3><p>Routed to the matching language specialist.</p></li>
+      <li><span class="no">4</span><h3>Repeat</h3><p>Until 95% merge probability, two runs in a row.</p></li>
+    </ol>
+    <p class="loopnote">every outcome → merge_outcomes.jsonl → a sharper prior for the next repo</p>
+  </section>
+
+  <section class="sec" id="install">
+    <h2>One command. <span>Then walk away.</span></h2>
+    <div class="grid2">
+      <div class="term">
+        <div class="term-h"><h3>Claude Code</h3><button class="copy" type="button" data-copy="curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash" aria-label="Copy the Claude Code install command">Copy</button></div>
+        <div class="term-c" tabindex="0">
+          <div class="c"># installs superhuman + dependencies</div>
+          <div>curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash</div>
+        </div>
+      </div>
+      <div class="term">
+        <div class="term-h"><h3>Codex</h3><button class="copy" type="button" data-copy="curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash -s -- --codex" aria-label="Copy the Codex install command">Copy</button></div>
+        <div class="term-c" tabindex="0">
+          <div class="c"># installs the skill; then say "use the superhuman skill to contribute"</div>
+          <div>curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash -s -- --codex</div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Needs <code>gh</code> (authenticated), <code>git</code> and <code>jq</code>. MIT licensed.</p>
+  </section>
+
+  <section class="sec" id="use">
+    <h2>Installed. <span>Now put it to work.</span></h2>
+    <p class="lede">In Claude Code, these are slash commands. Type one and walk away. The agent team takes it from there.</p>
+    <ol class="panel use">
+      <li>
+        <span class="no">1</span>
+        <div><h3>Find repos worth contributing to</h3><p>Builds a ranked shortlist of repositories and the best open issue in each. Optional: <code>/contribute</code> will pick for you if you skip it.</p></div>
+        <div class="cmds"><div class="cmd"><span>/repo-finder</span><button class="copy" type="button" data-copy="/repo-finder" aria-label="Copy /repo-finder">Copy</button></div></div>
+      </li>
+      <li>
+        <span class="no">2</span>
+        <div><h3>Make one contribution</h3><p>Picks the top repo and issue, then runs the full loop to a merge-ready PR. Aim it yourself with <code>/contribute owner/repo</code> or <code>/contribute owner/repo 12345</code>.</p></div>
+        <div class="cmds"><div class="cmd"><span>/contribute</span><button class="copy" type="button" data-copy="/contribute" aria-label="Copy /contribute">Copy</button></div></div>
+      </li>
+      <li>
+        <span class="no">3</span>
+        <div><h3>Run several, unattended</h3><p>Several contributions in one run. <code>/contribute-loop</code> works through them one after another, <code>/contribution-fleet</code> runs them in parallel across different repos.</p></div>
+        <div class="cmds">
+          <div class="cmd"><span>/contribute-loop 5</span><button class="copy" type="button" data-copy="/contribute-loop 5" aria-label="Copy /contribute-loop 5">Copy</button></div>
+          <div class="cmd"><span>/contribution-fleet 3</span><button class="copy" type="button" data-copy="/contribution-fleet 3" aria-label="Copy /contribution-fleet 3">Copy</button></div>
+        </div>
+      </li>
+      <li>
+        <span class="no">4</span>
+        <div><h3>Watch it work</h3><p>A live view of the active run, its score history, and every merge outcome so far.</p></div>
+        <div class="cmds"><div class="cmd"><span>/contribution-dashboard</span><button class="copy" type="button" data-copy="/contribution-dashboard" aria-label="Copy /contribution-dashboard">Copy</button></div></div>
+      </li>
+    </ol>
+    <p class="note">On OpenAI Codex there are no slash commands. Tell Codex “use the superhuman skill to contribute.”</p>
+  </section>
+
+  <section class="sec" id="faq">
+    <h2>Questions, <span>before you walk away.</span></h2>
+    <div class="panel faq">
+      <details>
+        <summary>What is superhuman?</summary>
+        <div class="faq-a">superhuman is a free, open-source (MIT) plugin for <strong>Claude Code</strong> and <strong>OpenAI Codex</strong> that autonomously contributes to open-source projects. An agent team picks a GitHub issue, learns the repository's conventions from its merged PRs, writes the fix with tests, and scores its own pull request on a 10-dimension rubric, iterating until it reaches roughly 95% merge-probability. Its pull requests have been merged by maintainers of projects like Hugging Face Transformers, Apache Airflow, and Ant Design.</div>
+      </details>
+      <details>
+        <summary>How is it different from Copilot, Cursor, Devin, or SWE-agent?</summary>
+        <div class="faq-a">Most AI coding tools are open-loop: they generate a change once and hope it's good. superhuman is closed-loop. It grades its own PR against a maintainer-style rubric and keeps fixing the single weakest dimension until the PR would actually merge. That self-scoring gate is why its pull requests are built to be accepted, rather than added to the pile of unreviewed AI-generated PRs.</div>
+      </details>
+      <details>
+        <summary>Is it safe, or will it spam maintainers with low-quality PRs?</summary>
+        <div class="faq-a">Safety is the core design goal. superhuman only opens a pull request after its scorer estimates roughly 95% merge-probability two runs in a row, so maintainers see finished work, not noise. By default, the PR body says it was opened with superhuman. It works on forks only, pushes with <code>--force-with-lease</code>, runs only allowlisted CI commands, and is MIT-licensed and fully auditable.</div>
+      </details>
+      <details>
+        <summary>Does it work with OpenAI Codex, or only Claude Code?</summary>
+        <div class="faq-a">Both. The install script (<code>curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash</code>) sets up superhuman and its dependencies for Claude Code. Add <code>-s -- --codex</code> to also link the skill into Codex, then tell Codex to "use the superhuman skill to contribute." The same agent workflow runs on either harness.</div>
+      </details>
+      <details>
+        <summary>Will it grow my GitHub contribution graph?</summary>
+        <div class="faq-a">Yes. Every fix superhuman lands is a real open-source contribution, a merged pull request under your own GitHub account, so it shows up on your GitHub contribution graph like any commit you author by hand. Instead of chasing green squares, you accumulate merged PRs in respected repositories while you work on something else.</div>
+      </details>
+      <details>
+        <summary>Is it free? What does it cost to run?</summary>
+        <div class="faq-a">superhuman itself is free and open-source under the MIT license. You only pay for your own model usage through Claude Code or Codex. There is no separate subscription, seat, or API of its own.</div>
+      </details>
+      <details>
+        <summary>What do I need to get started?</summary>
+        <div class="faq-a">Run the one-line install script; it sets up superhuman and its dependencies. You need <code>gh</code> (authenticated), <code>git</code> and <code>jq</code>. The command is in the <a href="#install">Install section</a> above.</div>
+      </details>
+    </div>
+  </section>
+</div>
 
 <script type="application/ld+json">
 {
@@ -672,7 +605,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
       "name": "What is superhuman?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "superhuman is a free, open-source (MIT) plugin for Claude Code and OpenAI Codex that autonomously contributes to open-source projects. An agent team picks a GitHub issue, learns the repository's conventions from its merged PRs, writes the fix with tests, and scores its own pull request on a 10-dimension rubric until it reaches roughly 95% merge-probability. It has already landed merged PRs in projects like Hugging Face Transformers, Apache Airflow, and Ant Design."
+        "text": "superhuman is a free, open-source (MIT) plugin for Claude Code and OpenAI Codex that autonomously contributes to open-source projects. An agent team picks a GitHub issue, learns the repository's conventions from its merged PRs, writes the fix with tests, and scores its own pull request on a 10-dimension rubric, iterating until it reaches roughly 95% merge-probability. Its pull requests have been merged by maintainers of projects like Hugging Face Transformers, Apache Airflow, and Ant Design."
       }
     },
     {
@@ -680,7 +613,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
       "name": "How is it different from Copilot, Cursor, Devin, or SWE-agent?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Most AI coding tools are open-loop: they generate a change once and hope it's good. superhuman is closed-loop, grading its own PR against a maintainer-style rubric and fixing the single weakest dimension until the PR would actually merge. That self-scoring gate is why its pull requests are built to be accepted, rather than added to the pile of unreviewed AI slop."
+        "text": "Most AI coding tools are open-loop: they generate a change once and hope it's good. superhuman is closed-loop. It grades its own PR against a maintainer-style rubric and keeps fixing the single weakest dimension until the PR would actually merge. That self-scoring gate is why its pull requests are built to be accepted, rather than added to the pile of unreviewed AI-generated PRs."
       }
     },
     {
@@ -688,7 +621,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
       "name": "Is it safe, or will it spam maintainers with low-quality PRs?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Safety is the core design goal. superhuman only opens a pull request after its scorer estimates roughly 95% merge-probability two runs in a row, so maintainers see finished work, not noise. It works on forks only, pushes with --force-with-lease, runs only allowlisted CI commands, and is MIT-licensed and fully auditable. It is built to be the opposite of the automated PR spam that pushed GitHub to add pull-request limits in 2026."
+        "text": "Safety is the core design goal. superhuman only opens a pull request after its scorer estimates roughly 95% merge-probability two runs in a row, so maintainers see finished work, not noise. By default, the PR body says it was opened with superhuman. It works on forks only, pushes with --force-with-lease, runs only allowlisted CI commands, and is MIT-licensed and fully auditable."
       }
     },
     {
@@ -696,7 +629,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
       "name": "Does it work with OpenAI Codex, or only Claude Code?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Both. A single install script (curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash) sets up superhuman and its dependencies for Claude Code. In Codex you symlink the skill into ~/.codex/skills and tell Codex to use the superhuman skill to contribute. The same agent workflow runs on either harness."
+        "text": "Both. The install script (curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash) sets up superhuman and its dependencies for Claude Code. Add -s -- --codex to also link the skill into Codex, then tell Codex to \"use the superhuman skill to contribute.\" The same agent workflow runs on either harness."
       }
     },
     {
@@ -704,7 +637,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
       "name": "Will it grow my GitHub contribution graph?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Every fix superhuman lands is a real open-source contribution, a merged pull request under your own GitHub account, so it shows up on your GitHub contribution graph like any commit you author by hand. Instead of chasing green squares, you accumulate genuine merged PRs in respected repositories while you work on something else."
+        "text": "Yes. Every fix superhuman lands is a real open-source contribution, a merged pull request under your own GitHub account, so it shows up on your GitHub contribution graph like any commit you author by hand. Instead of chasing green squares, you accumulate merged PRs in respected repositories while you work on something else."
       }
     },
     {
@@ -712,7 +645,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
       "name": "Is it free? What does it cost to run?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "superhuman itself is free and open-source under the MIT license. You only pay for your own model usage through Claude Code or Codex; there is no separate subscription, seat, or API of its own."
+        "text": "superhuman itself is free and open-source under the MIT license. You only pay for your own model usage through Claude Code or Codex. There is no separate subscription, seat, or API of its own."
       }
     },
     {
@@ -720,104 +653,85 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
       "name": "What do I need to get started?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "You need the gh CLI (authenticated), git, and jq. In Claude Code, first install the superpowers plugin (a prerequisite), then add the superhuman marketplace and install the plugin: two commands, then it runs unattended."
+        "text": "Run the one-line install script; it sets up superhuman and its dependencies. You need gh (authenticated), git and jq. The command is in the Install section above."
       }
     }
   ]
 }
 </script>
 
-<footer class="footer">
-  <span>superhuman · MIT © gaurav0107</span>
-  <div class="footer-links">
-    <a href="https://github.com/gaurav0107/superhuman">GitHub</a>
-    <a href="https://github.com/gaurav0107/superhuman/blob/main/CHANGELOG.md">Changelog</a>
-    <a href="https://github.com/gaurav0107/superhuman/blob/main/SECURITY.md">Security</a>
-  </div>
-</footer>
+<section class="close" aria-label="Install">
+  <div class="pic"><img src="assets/mascot-hero.jpg" width="1536" height="1024" loading="lazy" alt="The superhuman mascot: a tuxedo cat in glasses and a hoodie, leaning back with its feet on the desk and a coffee in its paw, next to an open laptop."></div>
+  <div class="wrap"><h2>Go do <span>something else.</span></h2></div>
+  <div class="cmdbar"><div class="wrap">
+    <p class="type"><span aria-hidden="true">$</span><b>curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash</b><i aria-hidden="true"></i></p>
+    <button class="copy" type="button" data-copy="curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash" aria-label="Copy the install command">Copy</button>
+  </div></div>
+</section>
+
+<div class="wrap rails">
+  <footer class="foot">
+    <div class="l">
+      <a class="logo" href="/" aria-label="superhuman home"><img src="assets/mark.svg" alt="" width="22" height="22">superhuman</a>
+      <span>MIT © gaurav0107</span>
+    </div>
+    <div class="links">
+      <a href="/merged">Merge wall</a>
+      <a href="https://github.com/gaurav0107/superhuman">GitHub</a>
+      <a href="https://github.com/gaurav0107/superhuman/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="https://github.com/gaurav0107/superhuman/blob/main/SECURITY.md">Security</a>
+    </div>
+    <p class="credit">Paintings: John Frederick Kensett, “Lake George”, 1869, and Johan Christian Dahl, “Copenhagen Harbor by Moonlight”, 1846. The Metropolitan Museum of Art, public domain.</p>
+  </footer>
+</div>
 
 <script>
 (function () {
-  /* copy buttons — texts from the design spec */
-  var TEXTS = {
-    hero: "curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash",
-    claude: "curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash",
-    codex: "curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash",
-    repofinder: "/repo-finder",
-    contribute: "/contribute",
-    loop: "/contribute-loop 5",
-    fleet: "/contribution-fleet 3",
-    dashboard: "/contribution-dashboard"
-  };
-  document.querySelectorAll("[data-k]").forEach(function (btn) {
+  /* copy buttons: the full text lives in data-copy */
+  document.querySelectorAll("[data-copy]").forEach(function (btn) {
     var t;
     btn.addEventListener("click", function () {
-      var txt = TEXTS[btn.dataset.k] || "";
-      if (navigator.clipboard) navigator.clipboard.writeText(txt);
-      btn.textContent = "Copied ✓";
+      if (navigator.clipboard) navigator.clipboard.writeText(btn.dataset.copy).catch(function () {});
+      btn.textContent = "Copied";
       clearTimeout(t);
       t = setTimeout(function () { btn.textContent = "Copy"; }, 1500);
     });
   });
 
-  /* scale the 1112x520 stage so nav + demo fill one viewport, no scroll (reflowed below 760px) */
-  var stage = document.getElementById("stage");
-  var outer = document.getElementById("stageOuter");
-  var demo = document.querySelector(".demo");
-  var demoBar = document.querySelector(".demo-bar");
-  var hero = document.querySelector(".hero");
-  var nav = document.querySelector(".nav");
-  var small = window.matchMedia("(max-width: 759px)");
-  var heroHead = document.querySelector(".hero-head");
-  function fit() {
-    if (small.matches) { outer.style.height = ""; stage.style.transform = ""; demo.style.width = ""; return; }
-    var cs = getComputedStyle(hero);
-    var availW = hero.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
-    var availH = window.innerHeight - nav.offsetHeight
-      - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom)
-      - heroHead.offsetHeight - (parseFloat(cs.rowGap) || 26)
-      - demoBar.offsetHeight - 2;
-    var s = Math.min(availW / 1112, availH / 520, 1.58);
-    s = Math.max(s, .55);
-    stage.style.transform = "scale(" + s + ")";
-    outer.style.height = Math.round(520 * s) + "px";
-    demo.style.width = Math.round(1112 * s) + "px";
-  }
-  window.addEventListener("resize", fit);
-  window.addEventListener("load", fit);
-  if (small.addEventListener) small.addEventListener("change", fit);
-  fit();
-
-  /* live star count — the page's job is stars */
+  /* live star count; the chip stays hidden when the API is unavailable */
   fetch("https://api.github.com/repos/gaurav0107/superhuman")
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (d) {
       if (!d || typeof d.stargazers_count !== "number" || d.stargazers_count < 1) return;
       var n = d.stargazers_count;
       var txt = n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, "") + "k" : String(n);
-      document.querySelectorAll(".star-count").forEach(function (el) {
-        el.textContent = txt;
-        el.hidden = false;
-      });
+      document.querySelectorAll(".star-count").forEach(function (el) { el.textContent = txt; el.hidden = false; });
     })
     .catch(function () {});
 
-  /* score counter — mirrors the design's 16s cycle: hold 62, ramp to 95 (34%→66%), hold, reset */
-  var scoreEl = document.querySelector(".score-num");
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    scoreEl.textContent = "95%";
-  } else {
-    var T = 16000, t0 = performance.now();
+  /* totals: the numbers in the page are the fallback; the Merge Wall data, when it is deployed, replaces them.
+     Millions round down, so a total is never overstated. */
+  function set(name, text) { document.querySelectorAll('[data-n="' + name + '"]').forEach(function (el) { el.textContent = text; }); }
+  function countUp() {
+    var el = document.querySelector("[data-count]"), to = parseInt(el.textContent, 10);
+    if (!to || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var t0 = performance.now();
     (function tick(now) {
-      var p = ((now - t0) % T) / T, v;
-      if (p < .34) v = 62;
-      else if (p < .66) v = Math.round(62 + ((p - .34) / .32) * 33);
-      else if (p < .94) v = 95;
-      else v = 62;
-      scoreEl.textContent = v + "%";
-      requestAnimationFrame(tick);
+      var p = Math.min(1, (now - t0) / 1800);
+      el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(tick);
     })(t0);
   }
+  fetch("/merged/data.json")
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      var t = d && d.totals;
+      if (!t || !(t.merged > 0) || !(t.repos > 3)) return;
+      set("merged", t.merged); set("repos", t.repos); set("more", t.repos - 3);
+      if (t.combined_stars >= 1e6) set("stars", Math.floor(t.combined_stars / 1e5) / 10 + "M");
+    })
+    .catch(function () {})
+    .then(countUp);
 })();
 </script>
 

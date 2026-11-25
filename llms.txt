@@ -5,7 +5,8 @@
 - Website: https://superhuman-oss.com
 - Repository: https://github.com/gaurav0107/superhuman
 - License: MIT
-- Version: 0.8.0
+- Version: 0.6.10
+- Merge Wall (every merged pull request, with links): https://superhuman-oss.com/merged
 - Works with: Claude Code (plugin), OpenAI Codex (skill)
 
 ## What it does
