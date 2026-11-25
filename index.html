@@ -90,7 +90,7 @@ h1 span,h2 span{color:var(--mut)}
 .cta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:-6px;grid-column:1/-1}
 .cmdline{display:flex;align-items:center;gap:12px;min-height:44px;max-width:100%;min-width:0;padding:6px 6px 6px 16px;border-radius:6px;background:var(--ink);color:#fff;font:400 13.5px/1.4 var(--mono)}
 .cmdline code{background:none;border:0;padding:0;font-size:inherit;white-space:nowrap;overflow-x:auto;overflow-wrap:normal;min-width:0}
-.cmdline .copy{background:var(--acc);border-color:var(--acc);color:#121212}
+.cmdline .copy{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
 .tl{font:500 15px/1 var(--sans);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--mut);margin-left:10px}
 
 /* the product board: the run, the pull request, the merge queue */
@@ -133,12 +133,11 @@ a.qr:hover b{text-decoration:underline;text-underline-offset:3px}
 .dark{background:#121212;color:#fff;position:relative;overflow:hidden}
 .dark .art{position:absolute;inset:0;overflow:hidden}
 .dark .art i{background:var(--night) center 46%/cover;filter:brightness(1.05) saturate(1.05)}
-.dark .art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,12,14,.88),rgba(12,12,14,.6) 44%,rgba(12,12,14,.3) 72%)}
-.dark .wrap{z-index:1;padding:72px var(--pad);display:grid;grid-template-columns:minmax(0,1fr);gap:44px}
-.steps{display:none}
-.chs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:36px 40px}
+.dark .art:after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(12,12,14,.78),rgba(12,12,14,.62))}
+.dark .wrap{z-index:1;padding:88px var(--pad) 96px}
+.chs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:40px 56px}
 .ch .n{font:400 13px/1 var(--mono);color:#a3a19b}
-.ch h3{font:500 40px/1 var(--sans);letter-spacing:-.04em;margin:14px 0 16px}
+.ch h3{font:500 44px/1 var(--sans);letter-spacing:-.04em;margin:16px 0 18px}
 .ch p{font-size:17px;color:#d6d4ce}
 
 /* light sections */
@@ -171,12 +170,12 @@ h2 span{display:block}
 .cells h3{font:600 19px/1.2 var(--sans);letter-spacing:-.02em;margin-bottom:8px}
 .cells p{font-size:15px;color:var(--sub)}
 
-.grid2{display:grid;gap:16px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:16px}
 .term{background:var(--ink);color:#fff;border-radius:var(--r);overflow:hidden;min-width:0}
 .term-h{display:flex;justify-content:space-between;align-items:center;padding:12px 14px 12px 18px;border-bottom:1px solid rgba(255,255,255,.14)}
 .term-h h3{font:500 14px/1 var(--mono)}
 .term .copy{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
-.term-c{padding:16px 18px 20px;font:400 13.5px/1.7 var(--mono);overflow-x:auto;white-space:nowrap}
+.term-c{padding:16px 18px 20px;font:400 12.5px/1.75 var(--mono);overflow-wrap:anywhere}
 .term-c .c{color:#a3a19b}
 
 .use{list-style:none;padding:0}
@@ -241,21 +240,11 @@ h2 span{display:block}
 @keyframes m3{0%,66%{opacity:0;transform:scale(.97)}70%,94%{opacity:1;transform:none}98%,100%{opacity:0}}
 @keyframes pulse{50%{opacity:.35}}
 @keyframes marq{to{transform:translateX(-50%)}}
-@keyframes ch{0%{opacity:0;transform:translateY(14px)}3%,30%{opacity:1;transform:none}33.3%,100%{opacity:0;transform:translateY(-10px)}}
-@keyframes step{0%,30%{color:#fff;border-color:#fff}33.3%,100%{color:#a3a19b;border-color:transparent}}
 @keyframes type{0%,8%{width:0}55%,92%{width:83ch}100%{width:0}}
 @keyframes blink{50%{opacity:0}}
 
-/* wide screens with motion: the three chapters take turns, and the install line types itself */
+/* wide screens with motion: the install line types itself */
 @media (min-width:1100px) and (prefers-reduced-motion:no-preference){
-  .dark .wrap{height:720px;padding:0 var(--pad);grid-template-columns:200px 400px 1fr;gap:56px;align-content:center}
-  .steps{display:grid;gap:22px;font:500 15px/1 var(--sans);align-content:center}
-  .steps span{padding-left:14px;margin-left:-16px;border-left:2px solid transparent;color:#a3a19b;animation:step 12s infinite}
-  .steps span:nth-child(2),.ch:nth-child(2){animation-delay:4s}.steps span:nth-child(3),.ch:nth-child(3){animation-delay:8s}
-  .chs{display:block;position:relative;height:330px}
-  .ch{position:absolute;inset:0;opacity:0;animation:ch 12s infinite}
-  .ch h3{font-size:76px;line-height:.98;margin:18px 0 22px}
-  .ch p{font-size:18px}
   .type b{display:inline-block;overflow:hidden;white-space:nowrap;width:0;animation:type 9s steps(83) infinite}
   .type i{display:block;animation:blink 1s steps(2) infinite}
 }
@@ -294,7 +283,9 @@ h2 span{display:block}
   .cells .no{margin-bottom:16px}
   .use li{grid-template-columns:1fr}.cmds{justify-items:start}
   .ch h3{font-size:34px}
-  .bh .ver{display:none}
+  .dark .wrap{padding:56px var(--pad) 64px}
+  .bh,.lanes,.queue .cap,.queue .qr{display:none}
+  .queue .sum{margin-top:0}
   .msg{max-width:100%}
 }
 </style>
@@ -371,7 +362,7 @@ h2 span{display:block}
     </div>
     <div class="cta">
       <div class="cmdline"><span aria-hidden="true">$</span><code>curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash</code><button class="copy" type="button" data-copy="curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash" aria-label="Copy the install command">Copy</button></div>
-      <a class="b w" href="https://github.com/gaurav0107/superhuman">★ Star on GitHub</a>
+      <a class="b" href="https://github.com/gaurav0107/superhuman">Star on GitHub<i aria-hidden="true">★</i></a>
       <a class="tl" href="https://github.com/ClickHouse/ClickHouse/pull/106916#pullrequestreview-4727413784">Read a real review</a>
     </div>
 
@@ -427,7 +418,6 @@ h2 span{display:block}
 <section class="dark" id="how" aria-label="How it works">
   <div class="art" aria-hidden="true"><i></i></div>
   <div class="wrap">
-    <div class="steps" aria-hidden="true"><span>It picks the issue</span><span>It opens the pull request</span><span>Maintainers merge it</span></div>
     <div class="chs">
       <div class="ch"><p class="n">1 of 3</p><h3>It picks<br>the issue</h3><p>It ranks the open issues, skips docs-only ones, taken ones and anything under a day old, and reads the last 10–20 merged pull requests to learn the house style.</p></div>
       <div class="ch"><p class="n">2 of 3</p><h3>It opens the<br>pull request</h3><p>One small change, tests first, in the project’s own commit style. It scores its own work and only opens the pull request when it expects a merge.</p></div>
@@ -442,7 +432,7 @@ h2 span{display:block}
     <p class="lede">A maintainer’s review time is the scarce resource. Most agent tools generate once and hope. superhuman is built to spend as little of that time as it can.</p>
     <div class="panel cells">
       <div><h3>It says what it is</h3><p>By default, the pull request body says it was opened with superhuman.</p></div>
-      <div><h3>It scores itself first</h3><p>A 10-dimension rubric grades the pull request the way a maintainer would. It fixes the weakest dimension and repeats. If it can’t get there, it stops and explains what’s blocking.</p></div>
+      <div><h3>It scores itself first</h3><p>It grades its own pull request on a 10-dimension rubric and fixes the weakest one. If the work is still weak, it stops.</p></div>
       <div><h3>It leaves taken work alone</h3><p>It skips issues someone has already taken, and it skips docs-only issues.</p></div>
       <div><h3>It stays in its own fork</h3><p>Forks only. It pushes with <code>--force-with-lease</code> and runs only allowlisted CI commands.</p></div>
     </div>
@@ -625,7 +615,7 @@ h2 span{display:block}
 
 <section class="close" aria-label="Install">
   <div class="pic"><img src="assets/mascot-hero.jpg" width="1536" height="1024" loading="lazy" alt="The superhuman mascot: a tuxedo cat in glasses and a hoodie, leaning back with its feet on the desk and a coffee in its paw, next to an open laptop."></div>
-  <div class="wrap"><h2>Go do <span>something else.</span></h2><p class="closeact"><a class="b w" href="https://github.com/gaurav0107/superhuman">★ Star on GitHub</a></p></div>
+  <div class="wrap"><h2>Go do <span>something else.</span></h2><p class="closeact"><a class="b" href="https://github.com/gaurav0107/superhuman">Star on GitHub<i aria-hidden="true">★</i></a></p></div>
   <div class="cmdbar"><div class="wrap">
     <p class="type"><span aria-hidden="true">$</span><b>curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash</b><i aria-hidden="true"></i></p>
     <button class="copy" type="button" data-copy="curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash" aria-label="Copy the install command">Copy</button>
