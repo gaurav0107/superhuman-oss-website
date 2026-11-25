@@ -64,7 +64,6 @@ code{font-size:.9em;background:var(--chip);border:1px solid var(--line);border-r
 .b{display:inline-flex;align-items:center;gap:10px;height:44px;padding:0 8px 0 16px;border-radius:6px;background:var(--ink);color:#fff;font:500 15px/1 var(--sans);white-space:nowrap;border:0;cursor:pointer}
 .b i{width:26px;height:26px;border-radius:4px;background:var(--acc);color:#121212;font:500 15px/26px var(--mono);text-align:center;font-style:normal}
 .b.w{background:#fff;color:var(--ink);border:1px solid var(--line);padding:0 16px}
-.b .n{font:400 13px/1 var(--mono);color:var(--sub);border-left:1px solid var(--line);padding-left:10px}
 .b,.b i{transition:transform .2s}.b:hover{transform:translateY(-1px)}.b:hover i{transform:translateX(2px)}
 .copy{font:500 12px/1 var(--mono);padding:7px 9px;border-radius:4px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;flex:none}
 
@@ -78,7 +77,7 @@ code{font-size:.9em;background:var(--chip);border:1px solid var(--line);border-r
 
 /* hero */
 .hero{position:relative;padding:64px var(--pad) 72px;display:grid;grid-template-columns:1fr 440px;gap:40px 96px}
-.hero>*{position:relative;z-index:1}
+.hero>*{position:relative;z-index:1;min-width:0}
 .hero .art{position:absolute;z-index:0;left:0;right:0;bottom:0;height:640px;overflow:hidden;-webkit-mask-image:linear-gradient(transparent,#000 46%);mask-image:linear-gradient(transparent,#000 46%)}
 .art i{position:absolute;inset:-4%;background:var(--day) center 62%/cover}
 .hero .art:after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(241,240,236,.35),rgba(241,240,236,0) 60%)}
@@ -88,7 +87,11 @@ h1 span,h2 span{color:var(--mut)}
 .lead{font-size:18px;line-height:1.5}
 .fact{display:flex;gap:12px;align-items:center;margin-top:22px;font:400 13.5px/1.4 var(--sans);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--line)}
 .fact b{flex:none;min-width:30px;height:30px;padding:0 5px;border:1px solid var(--ink);border-radius:4px;font:500 12px/28px var(--mono);text-align:center}
-.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:-6px;grid-column:1/-1}
+.cta{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:-6px;grid-column:1/-1}
+.cmdline{display:flex;align-items:center;gap:12px;min-height:44px;max-width:100%;min-width:0;padding:6px 6px 6px 16px;border-radius:6px;background:var(--ink);color:#fff;font:400 13.5px/1.4 var(--mono)}
+.cmdline code{background:none;border:0;padding:0;font-size:inherit;white-space:nowrap;overflow-x:auto;overflow-wrap:normal;min-width:0}
+.cmdline .copy{background:var(--acc);border-color:var(--acc);color:#121212}
+.tl{font:500 15px/1 var(--sans);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--mut);margin-left:10px}
 
 /* the product board: the run, the pull request, the merge queue */
 .board{grid-column:1/-1;margin:20px -24px 0;background:rgba(255,255,255,.84);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);border:1px solid rgba(255,255,255,.7);border-radius:var(--r);overflow:hidden;font-size:14px;box-shadow:0 40px 80px -50px rgba(18,18,18,.35)}
@@ -137,11 +140,10 @@ a.qr:hover b{text-decoration:underline;text-underline-offset:3px}
 .ch .n{font:400 13px/1 var(--mono);color:#a3a19b}
 .ch h3{font:500 40px/1 var(--sans);letter-spacing:-.04em;margin:14px 0 16px}
 .ch p{font-size:17px;color:#d6d4ce}
-.glass{max-width:520px;background:rgba(18,18,18,.62);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:16px 18px 6px}
-.glass .qr{border-color:rgba(255,255,255,.12)}.glass .qr small{color:#a3a19b}.glass .qr em{border-color:rgba(255,255,255,.25);color:var(--acc)}.glass .tag{color:#a3a19b}
 
 /* light sections */
 .sec{padding:80px var(--pad);border-top:1px solid var(--line)}
+#respect{border-top:0}
 h2{font:500 46px/1.04 var(--sans);letter-spacing:-.04em}
 h2 span{display:block}
 .lede{margin-top:18px;font-size:18px;color:var(--sub);max-width:62ch}
@@ -149,34 +151,25 @@ h2 span{display:block}
 .note{margin-top:18px;font-size:14.5px;color:var(--sub)}
 .note a{text-decoration:underline;text-underline-offset:3px}
 .sec>.panel,.sec>.grid2,.sec>.proof{margin-top:40px}
+.sec>.panel.faq{margin-top:40px}
 
-.stats{display:grid;grid-template-columns:repeat(3,1fr)}
-.stats div{padding:28px}.stats div+div{border-left:1px solid var(--line)}
-.stats b{display:block;font:500 68px/1 var(--sans);letter-spacing:-.045em;font-variant-numeric:tabular-nums}
-.stats span{font:400 12.5px/1.4 var(--mono);color:var(--sub)}
 .proof{display:grid;grid-template-columns:repeat(2,minmax(0,360px)) 1fr;gap:24px;align-items:start}
 .evi{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff;transition:transform .2s}
 .evi:hover{transform:translateY(-2px)}
-.quotes{display:grid;gap:24px}
-.quote{padding:26px 28px}
-.quote p{font:500 30px/1.12 var(--sans);letter-spacing:-.03em}
-.quote cite{display:block;margin-top:14px;font:400 12.5px/1.4 var(--mono);font-style:normal;color:var(--sub)}
-.quote cite a{text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--acc)}
 .prs{list-style:none;padding:0}
-.prs a{display:grid;grid-template-columns:270px 76px 1fr 96px;gap:16px;align-items:baseline;padding:14px 22px;border-top:1px solid var(--line);font-size:15px}
+.prs a{display:grid;grid-template-columns:1fr auto;gap:4px 14px;align-items:baseline;padding:14px 20px;border-top:1px solid var(--line);font-size:15px}
+.prs .d{grid-column:1/-1}
 .prs li:first-child a{border-top:0}
 .prs a:hover{background:var(--chip)}
-.prs .r,.prs .l{font:400 13px/1.4 var(--mono)}.prs .l{color:var(--sub);text-align:right}
+.prs .r{font:400 13px/1.4 var(--mono)}
 .prs .num{font:500 13px/1.4 var(--mono);color:var(--amber)}
 
 .cells{display:grid;grid-template-columns:repeat(4,1fr)}
 .cells>*{padding:26px 24px 30px;border-left:1px solid var(--line)}
 .cells>*:first-child{border-left:0}
-.cells .no{font:400 13px/1 var(--mono);color:var(--sub);display:block;margin-bottom:28px}
+.cells.c3{grid-template-columns:repeat(3,1fr)}
 .cells h3{font:600 19px/1.2 var(--sans);letter-spacing:-.02em;margin-bottom:8px}
 .cells p{font-size:15px;color:var(--sub)}
-ol.cells{list-style:none;padding:0}
-.loopnote{margin-top:18px;font:400 13px/1.5 var(--mono);color:var(--sub)}
 
 .grid2{display:grid;gap:16px}
 .term{background:var(--ink);color:#fff;border-radius:var(--r);overflow:hidden;min-width:0}
@@ -211,6 +204,7 @@ ol.cells{list-style:none;padding:0}
 .close .pic img{position:absolute;right:0;top:0;height:100%;width:auto;max-width:none}
 .close>.wrap{height:600px;display:flex;flex-direction:column;justify-content:center;padding-left:var(--pad)}
 .close h2{font-size:60px;line-height:1}
+.closeact{margin-top:28px}
 .cmdbar{background:var(--ink);color:#c9c7c1;position:relative}
 .cmdbar .wrap{min-height:64px;display:flex;align-items:center;gap:16px;padding:12px var(--pad)}
 .type{font:400 15px/1.5 var(--mono);display:flex;align-items:center;gap:10px;min-width:0;flex:1}
@@ -262,7 +256,6 @@ ol.cells{list-style:none;padding:0}
   .ch{position:absolute;inset:0;opacity:0;animation:ch 12s infinite}
   .ch h3{font-size:76px;line-height:.98;margin:18px 0 22px}
   .ch p{font-size:18px}
-  .glass{align-self:center;justify-self:end;width:440px}
   .type b{display:inline-block;overflow:hidden;white-space:nowrap;width:0;animation:type 9s steps(83) infinite}
   .type i{display:block;animation:blink 1s steps(2) infinite}
 }
@@ -271,17 +264,16 @@ ol.cells{list-style:none;padding:0}
 @media (max-width:1099px){
   :root{--pad:28px}
   .head nav{display:none}.head{justify-content:space-between;gap:16px}
-  .hero{grid-template-columns:1fr;gap:28px;padding-top:48px}
+  .hero{grid-template-columns:minmax(0,1fr);gap:28px;padding-top:48px}
   .eyebrow{margin-bottom:-8px}.cta{margin-top:0}
   h1{font-size:clamp(40px,7.4vw,62px)}
   .board{margin:8px 0 0}
   .bb{grid-template-columns:minmax(0,1fr)}
   .bb>div+div{border-left:0;border-top:1px solid var(--line)}
   .strip{grid-template-columns:1fr;gap:22px}
-  .proof{grid-template-columns:1fr 1fr}.quotes{grid-column:1/-1;grid-template-columns:1fr 1fr}
-  .cells{grid-template-columns:1fr 1fr}
+  .proof{grid-template-columns:1fr 1fr}.proof>div{grid-column:1/-1}
+  .cells{grid-template-columns:1fr 1fr}.cells.c3{grid-template-columns:1fr}.cells.c3>*{border-left:0}.cells.c3>*+*{border-top:1px solid var(--line)}
   .cells>*:nth-child(odd){border-left:0}.cells>*:nth-child(n+3){border-top:1px solid var(--line)}
-  .prs a{grid-template-columns:1fr auto;gap:4px 14px}.prs .d{grid-column:1/-1;order:3}.prs .l{display:none}
   .close{display:flex;flex-direction:column}
   .close .pic{position:static;width:auto;height:auto;-webkit-mask-image:none;mask-image:none}
   .close .pic img{position:static;height:auto;width:100%}
@@ -295,7 +287,7 @@ ol.cells{list-style:none;padding:0}
   h2{font-size:34px}.close h2{font-size:44px}
   .stats{grid-template-columns:1fr}.stats div+div{border-left:0;border-top:1px solid var(--line)}
   .stats b{font-size:54px}
-  .proof,.quotes,.cells{grid-template-columns:1fr}
+  .proof,.cells,.cells.c3{grid-template-columns:1fr}
   .cells>*{border-left:0}.cells>*+*{border-top:1px solid var(--line)}
   .cells .no{margin-bottom:16px}
   .use li{grid-template-columns:1fr}.cmds{justify-items:start}
@@ -314,7 +306,7 @@ ol.cells{list-style:none;padding:0}
   "applicationCategory": "DeveloperApplication",
   "applicationSubCategory": "AI coding agent",
   "operatingSystem": "Claude Code, OpenAI Codex, macOS, Linux",
-  "description": "An open-source plugin for Claude Code and OpenAI Codex that automates open-source contributions: an agent team picks a GitHub issue, learns the repository's conventions from its merged PRs, writes and tests the fix, and scores its own pull request on a 10-dimension rubric until it reaches roughly 95% merge-probability. Every merged PR is a real contribution under your own account, growing your GitHub contribution graph.",
+  "description": "An open-source plugin for Claude Code and OpenAI Codex that automates open-source contributions: an agent team picks a GitHub issue, learns the repository's conventions from its merged PRs, writes and tests the fix, and scores its own pull request on a 10-dimension rubric until it reaches roughly 95% merge-probability. You run it under your own GitHub account, and by default each pull request says it was opened with superhuman.",
   "url": "https://superhuman-oss.com/",
   "downloadUrl": "https://github.com/gaurav0107/superhuman",
   "installUrl": "https://github.com/gaurav0107/superhuman",
@@ -361,7 +353,7 @@ ol.cells{list-style:none;padding:0}
       <a href="#faq">FAQ</a>
     </nav>
     <div class="acts">
-      <a class="b w" href="https://github.com/gaurav0107/superhuman">★ Star on GitHub<span class="n star-count" hidden></span></a>
+      <a class="b w" href="https://github.com/gaurav0107/superhuman">★ Star on GitHub</a>
       <a class="b" href="#install">Install<i aria-hidden="true">→</i></a>
     </div>
   </header>
@@ -376,8 +368,9 @@ ol.cells{list-style:none;padding:0}
       <a class="fact" href="/merged"><b data-n="merged">121</b><span>merged into Hugging Face transformers, Deno, ClickHouse and <span data-n="more">45</span> more projects</span></a>
     </div>
     <div class="cta">
-      <a class="b" href="#install">Install with one command<i aria-hidden="true">→</i></a>
-      <a class="b w" href="https://github.com/ClickHouse/ClickHouse/pull/106916#pullrequestreview-4727413784">Read a real review</a>
+      <div class="cmdline"><span aria-hidden="true">$</span><code>curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash</code><button class="copy" type="button" data-copy="curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash" aria-label="Copy the install command">Copy</button></div>
+      <a class="b w" href="https://github.com/gaurav0107/superhuman">★ Star on GitHub</a>
+      <a class="tl" href="https://github.com/ClickHouse/ClickHouse/pull/106916#pullrequestreview-4727413784">Read a real review</a>
     </div>
 
     <div class="board" aria-label="A sample run, one real merged pull request, and recent merges">
@@ -400,10 +393,10 @@ ol.cells{list-style:none;padding:0}
         </div>
         <div class="queue">
           <p class="cap">Merge queue<span class="tag">real, dates in UTC</span></p>
-          <a class="qr" href="https://github.com/ClickHouse/ClickHouse/pull/106916"><span><b>Common: mask sensitive data on Exception::addMessage</b><small>ClickHouse/ClickHouse #106916 · 18 Jul</small></span><em>Merged</em></a>
           <a class="qr" href="https://github.com/apache/superset/pull/42489"><span><b>fix(core): stop discarding API errors that quote an HTML tag</b><small>apache/superset #42489 · 1 Oct</small></span><em>Merged</em></a>
           <a class="qr" href="https://github.com/huggingface/transformers/pull/45611"><span><b>Raise clear error for single_label_classification with num_labels=1</b><small>huggingface/transformers #45611 · 24 Apr</small></span><em>Merged</em></a>
           <a class="qr" href="https://github.com/denoland/deno/pull/36321"><span><b>fix(ext/node): apply backpressure in Readable.toWeb()</b><small>denoland/deno #36321 · 28 Jul</small></span><em>Merged</em></a>
+          <a class="qr" href="https://github.com/oxc-project/oxc/pull/23015"><span><b>fix(linter/jsx-a11y): attribute-aware implicit roles in no-redundant-roles</b><small>oxc-project/oxc #23015 · 11 Jun</small></span><em>Merged</em></a>
           <div class="sum"><b data-n="merged" data-count>121</b><span>pull requests merged by maintainers in <span data-n="repos">48</span> projects</span></div>
         </div>
       </div>
@@ -417,6 +410,15 @@ ol.cells{list-style:none;padding:0}
       <span aria-hidden="true">transformers</span><span aria-hidden="true">Deno</span><span aria-hidden="true">ClickHouse</span><span aria-hidden="true">Airflow</span><span aria-hidden="true">Gemini CLI</span><span aria-hidden="true">Keycloak</span><span aria-hidden="true">Superset</span><span aria-hidden="true">MLflow</span><span aria-hidden="true">LlamaIndex</span><span aria-hidden="true">Ant Design</span><span aria-hidden="true">Tesseract</span><span aria-hidden="true">Pydantic AI</span>
     </div></div>
   </section>
+
+  <section class="sec" id="get">
+    <h2>A fix you want, <span>in a project you use.</span></h2>
+    <div class="panel cells c3">
+      <div><h3>Aim it at the bug you hit</h3><p><code>/contribute owner/repo 12345</code> takes an issue in a project you depend on to a pull request its maintainers can merge. Or let it pick one for you.</p></div>
+      <div><h3>It learns the house rules first</h3><p>It reads the project’s last 10–20 merged pull requests, runs the project’s own CI, and stops if the work is weak.</p></div>
+      <div><h3>You stay responsible for it</h3><p>The pull request opens from your fork, under your name. By default it says it was opened with superhuman. Free and MIT.</p></div>
+    </div>
+  </section>
   </main>
 </div>
 
@@ -429,28 +431,24 @@ ol.cells{list-style:none;padding:0}
       <div class="ch"><p class="n">2 of 3</p><h3>It opens the<br>pull request</h3><p>One small change, tests first, in the project’s own commit style. It scores its own work and only opens the pull request when it expects a merge.</p></div>
       <div class="ch"><p class="n">3 of 3</p><h3>Maintainers<br>merge it</h3><p>It answers review comments and fixes what they ask for. The decision stays with the people who run the project.</p></div>
     </div>
-    <div class="glass">
-      <p class="cap">Merged<span class="tag">real, dates in UTC</span></p>
-      <a class="qr" href="https://github.com/google-gemini/gemini-cli/pull/25822"><span><b>fix(cli): add missing response key to custom theme text schema</b><small>google-gemini/gemini-cli #25822 · 27 Apr</small></span><em>Merged</em></a>
-      <a class="qr" href="https://github.com/apache/airflow/pull/65685"><span><b>Honor AUTH_ROLE_PUBLIC in FastAPI API server</b><small>apache/airflow #65685 · 24 Apr</small></span><em>Merged</em></a>
-      <a class="qr" href="https://github.com/keycloak/keycloak/pull/50809"><span><b>Honor configured admin realm in ClientManager.isInternalClient</b><small>keycloak/keycloak #50809 · 26 Aug</small></span><em>Merged</em></a>
-      <a class="qr" href="https://github.com/tesseract-ocr/tesseract/pull/4563"><span><b>Fix crash when LSTM is missing in disabled-legacy build</b><small>tesseract-ocr/tesseract #4563 · 27 Jun</small></span><em>Merged</em></a>
-    </div>
   </div>
 </section>
 
 <div class="wrap rails">
-  <section class="sec" id="proof">
-    <h2>Merged into projects <span>it doesn’t own.</span></h2>
-    <p class="lede">Every row is a real pull request, reviewed and merged by that project’s maintainers. Open any of them and read the review.</p>
-
-    <div class="panel stats">
-      <div><b data-n="merged">121</b><span>pull requests merged by maintainers</span></div>
-      <div><b data-n="repos">48</b><span>open-source projects with 1,000+ stars</span></div>
-      <div><b data-n="stars">2.9M</b><span>combined GitHub stars</span></div>
+  <section class="sec" id="respect">
+    <h2>Respect <span>for maintainers.</span></h2>
+    <p class="lede">A maintainer’s review time is the scarce resource. Most agent tools generate once and hope. superhuman is built to spend as little of that time as it can.</p>
+    <div class="panel cells">
+      <div><h3>It says what it is</h3><p>By default, the pull request body says it was opened with superhuman.</p></div>
+      <div><h3>It scores itself first</h3><p>A 10-dimension rubric grades the pull request the way a maintainer would. It fixes the weakest dimension and repeats. If it can’t get there, it stops and explains what’s blocking.</p></div>
+      <div><h3>It leaves taken work alone</h3><p>It skips issues someone has already taken, and it skips docs-only issues.</p></div>
+      <div><h3>It stays in its own fork</h3><p>Forks only. It pushes with <code>--force-with-lease</code> and runs only allowlisted CI commands.</p></div>
     </div>
-    <p class="note">Since April 2026. Totals from the <a href="/merged">Merge Wall</a>, where every pull request is listed with its link.</p>
+  </section>
 
+  <section class="sec" id="proof">
+    <h2>Don’t trust the agent. <span>Trust the merge.</span></h2>
+    <p class="lede">Each of these is a real pull request, reviewed and merged by that project’s maintainers. Open any of them and read the review.</p>
     <div class="proof">
       <a class="evi" href="https://github.com/ClickHouse/ClickHouse/pull/106916">
         <img src="assets/evidence-clickhouse.jpg" width="1080" height="1350" loading="lazy" alt="Pull request #106916, Common: mask sensitive data on Exception::addMessage, merged into ClickHouse by @alexey-milovidov on 18 July 2026. Maintainer review: Thanks, looks good!">
@@ -458,54 +456,17 @@ ol.cells{list-style:none;padding:0}
       <a class="evi" href="https://github.com/huggingface/transformers/pull/45611">
         <img src="assets/evidence-transformers.jpg" width="1080" height="1350" loading="lazy" alt="Pull request #45611, Raise clear error for problem_type single_label_classification with num_labels=1, merged into Hugging Face transformers by @Rocketknight1 on 24 April 2026.">
       </a>
-      <div class="quotes">
-        <blockquote class="panel quote" cite="https://github.com/ClickHouse/ClickHouse/pull/106916#pullrequestreview-4727413784">
-          <p>“Thanks, looks good!”</p>
-          <cite><a href="https://github.com/ClickHouse/ClickHouse/pull/106916#pullrequestreview-4727413784">ClickHouse maintainer review</a></cite>
-        </blockquote>
-        <blockquote class="panel quote" cite="https://github.com/apache/superset/pull/42489#pullrequestreview-4859855464">
-          <p>“LGTM, thanks!”</p>
-          <cite><a href="https://github.com/apache/superset/pull/42489#pullrequestreview-4859855464">Apache Superset maintainer review</a></cite>
-        </blockquote>
+      <div>
+        <ul class="panel prs">
+        <li><a href="https://github.com/google-gemini/gemini-cli/pull/25822"><span class="r">google-gemini/gemini-cli</span><span class="num">#25822</span><span class="d">Add the missing response key to the custom theme text schema</span></a></li>
+        <li><a href="https://github.com/apache/airflow/pull/65685"><span class="r">apache/airflow</span><span class="num">#65685</span><span class="d">Honor AUTH_ROLE_PUBLIC in the FastAPI API server</span></a></li>
+        <li><a href="https://github.com/keycloak/keycloak/pull/50809"><span class="r">keycloak/keycloak</span><span class="num">#50809</span><span class="d">Honor the configured admin realm in ClientManager.isInternalClient</span></a></li>
+        <li><a href="https://github.com/tesseract-ocr/tesseract/pull/4563"><span class="r">tesseract-ocr/tesseract</span><span class="num">#4563</span><span class="d">Fix a crash when LSTM is missing in a disabled-legacy build</span></a></li>
+        <li><a href="https://github.com/Lightning-AI/pytorch-lightning/pull/21686"><span class="r">Lightning-AI/pytorch-lightning</span><span class="num">#21686</span><span class="d">Fix torch.compile breaking toggle_optimizer</span></a></li>
+        </ul>
+        <p class="note"><a href="/merged">See all <span data-n="merged">121</span> on the Merge Wall →</a></p>
       </div>
     </div>
-
-    <ul class="panel prs">
-      <li><a href="https://github.com/huggingface/transformers/pull/45611"><span class="r">huggingface/transformers</span><span class="num">#45611</span><span class="d">Clear error for single-label classification with num_labels=1</span><span class="l">Python</span></a></li>
-      <li><a href="https://github.com/denoland/deno/pull/36321"><span class="r">denoland/deno</span><span class="num">#36321</span><span class="d">Apply backpressure in Readable.toWeb()</span><span class="l">Rust</span></a></li>
-      <li><a href="https://github.com/ClickHouse/ClickHouse/pull/106916"><span class="r">ClickHouse/ClickHouse</span><span class="num">#106916</span><span class="d">Mask sensitive data on Exception::addMessage</span><span class="l">C++</span></a></li>
-      <li><a href="https://github.com/google-gemini/gemini-cli/pull/25822"><span class="r">google-gemini/gemini-cli</span><span class="num">#25822</span><span class="d">Add the missing response key to the custom theme text schema</span><span class="l">TypeScript</span></a></li>
-      <li><a href="https://github.com/apache/airflow/pull/65685"><span class="r">apache/airflow</span><span class="num">#65685</span><span class="d">Honor AUTH_ROLE_PUBLIC in the FastAPI API server</span><span class="l">Python</span></a></li>
-      <li><a href="https://github.com/keycloak/keycloak/pull/50809"><span class="r">keycloak/keycloak</span><span class="num">#50809</span><span class="d">Honor the configured admin realm in ClientManager.isInternalClient</span><span class="l">Java</span></a></li>
-      <li><a href="https://github.com/apache/superset/pull/42489"><span class="r">apache/superset</span><span class="num">#42489</span><span class="d">Stop discarding API errors that quote an HTML tag</span><span class="l">Python</span></a></li>
-      <li><a href="https://github.com/tesseract-ocr/tesseract/pull/4563"><span class="r">tesseract-ocr/tesseract</span><span class="num">#4563</span><span class="d">Fix a crash when LSTM is missing in a disabled-legacy build</span><span class="l">C++</span></a></li>
-      <li><a href="https://github.com/oxc-project/oxc/pull/23015"><span class="r">oxc-project/oxc</span><span class="num">#23015</span><span class="d">Attribute-aware implicit roles in the jsx-a11y lint rule</span><span class="l">Rust</span></a></li>
-      <li><a href="https://github.com/Lightning-AI/pytorch-lightning/pull/21686"><span class="r">Lightning-AI/pytorch-lightning</span><span class="num">#21686</span><span class="d">Fix torch.compile breaking toggle_optimizer</span><span class="l">Python</span></a></li>
-    </ul>
-    <p class="note">Also merged into MLflow, LlamaIndex, Gitea, Pydantic AI, Unsloth, Ant Design, mem0 and more.</p>
-  </section>
-
-  <section class="sec" id="respect">
-    <h2>Respect <span>for maintainers.</span></h2>
-    <p class="lede">A maintainer’s review time is the scarce resource. superhuman is built to spend as little of it as it can.</p>
-    <div class="panel cells">
-      <div><h3>It says what it is</h3><p>By default, the pull request body says it was opened with superhuman.</p></div>
-      <div><h3>It scores itself first</h3><p>It scores its own pull request before opening it. If the work is weak, it stops and explains what’s blocking instead of pushing it.</p></div>
-      <div><h3>It leaves taken work alone</h3><p>It skips issues someone has already taken, and it skips docs-only issues.</p></div>
-      <div><h3>It stays in its own fork</h3><p>Forks only. It pushes with <code>--force-with-lease</code> and runs only allowlisted CI commands.</p></div>
-    </div>
-  </section>
-
-  <section class="sec" id="loop">
-    <h2>Closed loop, <span>not open loop.</span></h2>
-    <p class="lede">Most agent tools are open-loop: generate once and hope. superhuman scores its own pull request before a maintainer ever sees it.</p>
-    <ol class="panel cells">
-      <li><span class="no">1</span><h3>Score</h3><p>A 10-dimension rubric grades the PR like a maintainer would.</p></li>
-      <li><span class="no">2</span><h3>Target</h3><p>The single weakest dimension. Nothing else.</p></li>
-      <li><span class="no">3</span><h3>Fix</h3><p>Routed to the matching language specialist.</p></li>
-      <li><span class="no">4</span><h3>Repeat</h3><p>Until 95% merge probability, two runs in a row.</p></li>
-    </ol>
-    <p class="loopnote">every outcome → merge_outcomes.jsonl → a sharper prior for the next repo</p>
   </section>
 
   <section class="sec" id="install">
@@ -565,27 +526,27 @@ ol.cells{list-style:none;padding:0}
     <div class="panel faq">
       <details>
         <summary>What is superhuman?</summary>
-        <div class="faq-a">superhuman is a free, open-source (MIT) plugin for <strong>Claude Code</strong> and <strong>OpenAI Codex</strong> that autonomously contributes to open-source projects. An agent team picks a GitHub issue, learns the repository's conventions from its merged PRs, writes the fix with tests, and scores its own pull request on a 10-dimension rubric, iterating until it reaches roughly 95% merge-probability. Its pull requests have been merged by maintainers of projects like Hugging Face Transformers, Apache Airflow, and Ant Design.</div>
-      </details>
-      <details>
-        <summary>How is it different from Copilot, Cursor, Devin, or SWE-agent?</summary>
-        <div class="faq-a">Most AI coding tools are open-loop: they generate a change once and hope it's good. superhuman is closed-loop. It grades its own PR against a maintainer-style rubric and keeps fixing the single weakest dimension until the PR would actually merge. That self-scoring gate is why its pull requests are built to be accepted, rather than added to the pile of unreviewed AI-generated PRs.</div>
+        <div class="faq-a">superhuman is a free, open-source (MIT) plugin for <strong>Claude Code</strong> and <strong>OpenAI Codex</strong> that takes a real open-source issue to a pull request. An agent team picks a GitHub issue, learns the repository's conventions from its merged PRs, writes the fix with tests, and scores its own pull request on a 10-dimension rubric, iterating until it reaches roughly 95% merge-probability. Its pull requests have been merged by maintainers of projects like Hugging Face Transformers, Apache Airflow, and Ant Design.</div>
       </details>
       <details>
         <summary>Is it safe, or will it spam maintainers with low-quality PRs?</summary>
         <div class="faq-a">Safety is the core design goal. superhuman only opens a pull request after its scorer estimates roughly 95% merge-probability two runs in a row, so maintainers see finished work, not noise. By default, the PR body says it was opened with superhuman. It works on forks only, pushes with <code>--force-with-lease</code>, runs only allowlisted CI commands, and is MIT-licensed and fully auditable.</div>
       </details>
       <details>
-        <summary>Does it work with OpenAI Codex, or only Claude Code?</summary>
-        <div class="faq-a">Both. The install script (<code>curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash</code>) sets up superhuman and its dependencies for Claude Code. Add <code>-s -- --codex</code> to also link the skill into Codex, then tell Codex to "use the superhuman skill to contribute." The same agent workflow runs on either harness.</div>
-      </details>
-      <details>
-        <summary>Will it grow my GitHub contribution graph?</summary>
-        <div class="faq-a">Yes. Every fix superhuman lands is a real open-source contribution, a merged pull request under your own GitHub account, so it shows up on your GitHub contribution graph like any commit you author by hand. Instead of chasing green squares, you accumulate merged PRs in respected repositories while you work on something else.</div>
+        <summary>Whose name is on the pull request?</summary>
+        <div class="faq-a">Yours. superhuman runs under your own GitHub account: the pull request opens from your fork, under your name, and you are responsible for it like any other change you send. By default, the PR body says it was opened with superhuman, so the maintainer knows what they are reviewing.</div>
       </details>
       <details>
         <summary>Is it free? What does it cost to run?</summary>
         <div class="faq-a">superhuman itself is free and open-source under the MIT license. You only pay for your own model usage through Claude Code or Codex. There is no separate subscription, seat, or API of its own.</div>
+      </details>
+      <details>
+        <summary>How is it different from Copilot, Cursor, Devin, or SWE-agent?</summary>
+        <div class="faq-a">Most AI coding tools are open-loop: they generate a change once and hope it's good. superhuman is closed-loop. It grades its own PR against a maintainer-style rubric and keeps fixing the single weakest dimension until the PR would actually merge. That self-scoring gate is why its pull requests are built to be accepted, rather than added to the pile of unreviewed AI-generated PRs.</div>
+      </details>
+      <details>
+        <summary>Does it work with OpenAI Codex, or only Claude Code?</summary>
+        <div class="faq-a">Both. The install script (<code>curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash</code>) sets up superhuman and its dependencies for Claude Code. Add <code>-s -- --codex</code> to also link the skill into Codex, then tell Codex to "use the superhuman skill to contribute." The same agent workflow runs on either harness.</div>
       </details>
       <details>
         <summary>What do I need to get started?</summary>
@@ -605,15 +566,7 @@ ol.cells{list-style:none;padding:0}
       "name": "What is superhuman?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "superhuman is a free, open-source (MIT) plugin for Claude Code and OpenAI Codex that autonomously contributes to open-source projects. An agent team picks a GitHub issue, learns the repository's conventions from its merged PRs, writes the fix with tests, and scores its own pull request on a 10-dimension rubric, iterating until it reaches roughly 95% merge-probability. Its pull requests have been merged by maintainers of projects like Hugging Face Transformers, Apache Airflow, and Ant Design."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How is it different from Copilot, Cursor, Devin, or SWE-agent?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Most AI coding tools are open-loop: they generate a change once and hope it's good. superhuman is closed-loop. It grades its own PR against a maintainer-style rubric and keeps fixing the single weakest dimension until the PR would actually merge. That self-scoring gate is why its pull requests are built to be accepted, rather than added to the pile of unreviewed AI-generated PRs."
+        "text": "superhuman is a free, open-source (MIT) plugin for Claude Code and OpenAI Codex that takes a real open-source issue to a pull request. An agent team picks a GitHub issue, learns the repository's conventions from its merged PRs, writes the fix with tests, and scores its own pull request on a 10-dimension rubric, iterating until it reaches roughly 95% merge-probability. Its pull requests have been merged by maintainers of projects like Hugging Face Transformers, Apache Airflow, and Ant Design."
       }
     },
     {
@@ -626,18 +579,10 @@ ol.cells{list-style:none;padding:0}
     },
     {
       "@type": "Question",
-      "name": "Does it work with OpenAI Codex, or only Claude Code?",
+      "name": "Whose name is on the pull request?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Both. The install script (curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash) sets up superhuman and its dependencies for Claude Code. Add -s -- --codex to also link the skill into Codex, then tell Codex to \"use the superhuman skill to contribute.\" The same agent workflow runs on either harness."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Will it grow my GitHub contribution graph?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Every fix superhuman lands is a real open-source contribution, a merged pull request under your own GitHub account, so it shows up on your GitHub contribution graph like any commit you author by hand. Instead of chasing green squares, you accumulate merged PRs in respected repositories while you work on something else."
+        "text": "Yours. superhuman runs under your own GitHub account: the pull request opens from your fork, under your name, and you are responsible for it like any other change you send. By default, the PR body says it was opened with superhuman, so the maintainer knows what they are reviewing."
       }
     },
     {
@@ -646,6 +591,22 @@ ol.cells{list-style:none;padding:0}
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "superhuman itself is free and open-source under the MIT license. You only pay for your own model usage through Claude Code or Codex. There is no separate subscription, seat, or API of its own."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is it different from Copilot, Cursor, Devin, or SWE-agent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most AI coding tools are open-loop: they generate a change once and hope it's good. superhuman is closed-loop. It grades its own PR against a maintainer-style rubric and keeps fixing the single weakest dimension until the PR would actually merge. That self-scoring gate is why its pull requests are built to be accepted, rather than added to the pile of unreviewed AI-generated PRs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it work with OpenAI Codex, or only Claude Code?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Both. The install script (curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash) sets up superhuman and its dependencies for Claude Code. Add -s -- --codex to also link the skill into Codex, then tell Codex to \"use the superhuman skill to contribute.\" The same agent workflow runs on either harness."
       }
     },
     {
@@ -662,7 +623,7 @@ ol.cells{list-style:none;padding:0}
 
 <section class="close" aria-label="Install">
   <div class="pic"><img src="assets/mascot-hero.jpg" width="1536" height="1024" loading="lazy" alt="The superhuman mascot: a tuxedo cat in glasses and a hoodie, leaning back with its feet on the desk and a coffee in its paw, next to an open laptop."></div>
-  <div class="wrap"><h2>Go do <span>something else.</span></h2></div>
+  <div class="wrap"><h2>Go do <span>something else.</span></h2><p class="closeact"><a class="b w" href="https://github.com/gaurav0107/superhuman">★ Star on GitHub</a></p></div>
   <div class="cmdbar"><div class="wrap">
     <p class="type"><span aria-hidden="true">$</span><b>curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash</b><i aria-hidden="true"></i></p>
     <button class="copy" type="button" data-copy="curl -fsSL https://raw.githubusercontent.com/gaurav0107/superhuman/main/install.sh | bash" aria-label="Copy the install command">Copy</button>
@@ -697,17 +658,6 @@ ol.cells{list-style:none;padding:0}
       t = setTimeout(function () { btn.textContent = "Copy"; }, 1500);
     });
   });
-
-  /* live star count; the chip stays hidden when the API is unavailable */
-  fetch("https://api.github.com/repos/gaurav0107/superhuman")
-    .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (d) {
-      if (!d || typeof d.stargazers_count !== "number" || d.stargazers_count < 1) return;
-      var n = d.stargazers_count;
-      var txt = n >= 1000 ? (n / 1000).toFixed(1).replace(/\.0$/, "") + "k" : String(n);
-      document.querySelectorAll(".star-count").forEach(function (el) { el.textContent = txt; el.hidden = false; });
-    })
-    .catch(function () {});
 
   /* totals: the numbers in the page are the fallback; the Merge Wall data, when it is deployed, replaces them.
      Millions round down, so a total is never overstated. */
