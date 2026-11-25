@@ -81,13 +81,6 @@ Opt-out usage telemetry: three small events keyed by your GitHub username, nothi
 
 superhuman is free and open-source under MIT. You pay only for your own model usage through Claude Code or Codex. There is no separate subscription or API.
 
-## Guides on the website
-
-- [The agent team](https://superhuman-oss.com/agents): the orchestrator and ten specialist Claude Code subagents, what each hands to the next, the 10-dimension scorer and its weights, and the safety rails.
-- [Plugin, commands and skill](https://superhuman-oss.com/skills): installing as a Claude Code plugin or an OpenAI Codex skill, the seven slash commands, and the Agent Skills it builds on (superpowers, everything-claude-code).
-- [A software factory](https://superhuman-oss.com/software-factory): superhuman as an open-source AI software factory: intake, spec, build, quality, review and feedback stations, throughput and controls.
-- [Contribution guide](https://superhuman-oss.com/open-source-contributions): contributing to open source with an AI agent: what maintainers merge, picking issues, matching house style, disclosure and responsibility.
-
 ## Links
 
 - Changelog: https://github.com/gaurav0107/superhuman/blob/main/CHANGELOG.md

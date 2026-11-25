@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>superhuman: open-source Claude Code plugin whose PRs get merged</title>
 <meta name="description" content="superhuman is a free, open-source plugin for Claude Code and Codex. It picks a GitHub issue, writes the fix, opens a draft pull request and scores it before asking for review. 100+ pull requests merged by maintainers so far.">
-<meta name="keywords" content="open source contribution, automated pull requests, ai open source contributor, autonomous coding agent, claude code agent, openai codex agent, merged pull requests, github contributions, how to contribute to open source">
+<meta name="keywords" content="open source contribution, automated pull requests, ai open source contributor, autonomous coding agent, claude code agent, openai codex agent, merged pull requests, github contributions, how to contribute to open source, claude code plugin, claude code subagents, agent skills, multi-agent harness, ai software factory">
 <link rel="canonical" href="https://superhuman-oss.com/">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="author" content="gaurav0107">
@@ -342,11 +342,11 @@ h2 span{display:block}
   <header class="head">
     <a class="logo" href="/" aria-label="superhuman home"><img src="assets/mark.svg" alt="" width="24" height="24">superhuman</a>
     <nav aria-label="Main">
-      <a href="/agents">Agents</a>
-      <a href="/skills">Skills</a>
-      <a href="/software-factory">Software factory</a>
-      <a href="/open-source-contributions">Guide</a>
+      <a href="#how">How it works</a>
+      <a href="#proof">Proof</a>
       <a href="/merged">Merge wall</a>
+      <a href="#use">Commands</a>
+      <a href="#faq">FAQ</a>
     </nav>
     <div class="acts">
       <a class="b w" href="https://github.com/gaurav0107/superhuman">★ Star on GitHub</a>
@@ -422,7 +422,7 @@ h2 span{display:block}
 <section class="dark" id="how" aria-label="How it works">
   <div class="art" aria-hidden="true"><i></i></div>
   <div class="wrap">
-    <h2 class="vh">How it works</h2>
+    <h2 class="vh">How the agent team works</h2>
     <div class="chs">
       <div class="ch"><p class="n">1 of 3</p><h3>It picks<br>the issue</h3><p>It ranks the open issues, filters out ones marked docs-only, taken ones and anything under a day old, and reads the last 10–20 merged pull requests to learn the house style.</p></div>
       <div class="ch"><p class="n">2 of 3</p><h3>It opens the<br>pull request</h3><p>One small change in the project’s own commit style, with tests where the project expects them. It opens a draft, scores it on a 10-dimension rubric, and marks it ready for review once the score reaches 80%.</p></div>
@@ -532,6 +532,18 @@ h2 span{display:block}
         <div class="faq-a">superhuman is a free, open-source (MIT) plugin for <strong>Claude Code</strong> and <strong>OpenAI Codex</strong> that takes a real open-source issue to a pull request. An agent team picks a GitHub issue, learns the repository's conventions from its merged PRs, writes the fix, opens a draft pull request and scores it on a 10-dimension rubric, improving it until its own score reaches roughly 95%. Pull requests it opened from the author's account have been merged by maintainers of projects like Hugging Face Transformers, Deno, and ClickHouse.</div>
       </details>
       <details>
+        <summary>Which agents does superhuman use?</summary>
+        <div class="faq-a">An orchestrator and ten specialist Claude Code subagents, each with one job. repo-finder and issue-selector pick the work, repo-profiler learns the project's conventions, planner and builder write the change, impact-auditor checks every caller before a refactor, merge-probability-scorer grades the pull request, reviewer-dispatcher sends its weakest part to a language reviewer, resolve-comments answers review while a run is going, and lesson-distiller turns feedback into rules for the next run. The agent files are in the repository's <code>agents/</code> folder.</div>
+      </details>
+      <details>
+        <summary>Is it a Claude Code plugin or a skill?</summary>
+        <div class="faq-a">Both. In Claude Code it installs as a plugin with seven slash commands and the agent team. In OpenAI Codex it is a single Agent Skill that runs the same workflow inline. It builds on skills from two other plugins: superpowers for planning and building, and everything-claude-code for language reviewers.</div>
+      </details>
+      <details>
+        <summary>Is superhuman a software factory?</summary>
+        <div class="faq-a">In a sense. It is a repeatable pipeline in which agents pick an issue, plan, build, test, score and revise the change, with a gate between each step. Unlike a team's own software factory, it works on open-source projects you don't own, from your fork, and the project's maintainers are the final gate.</div>
+      </details>
+      <details>
         <summary>Is it safe, or will it spam maintainers with low-quality PRs?</summary>
         <div class="faq-a">It is built to keep unfinished work away from maintainers. It opens the pull request as a draft and marks it ready for review only when its score reaches 80%. It keeps fixing the weakest part until it scores 95% twice in a row, or stops and explains what's blocking. That score is its own estimate, not a measured merge rate. By default, the PR body says it was opened with superhuman. It pushes only to your fork, with <code>--force-with-lease</code>, runs only allowlisted CI commands, and is MIT-licensed and fully auditable.</div>
       </details>
@@ -572,6 +584,9 @@ h2 span{display:block}
         "text": "superhuman is a free, open-source (MIT) plugin for Claude Code and OpenAI Codex that takes a real open-source issue to a pull request. An agent team picks a GitHub issue, learns the repository's conventions from its merged PRs, writes the fix, opens a draft pull request and scores it on a 10-dimension rubric, improving it until its own score reaches roughly 95%. Pull requests it opened from the author's account have been merged by maintainers of projects like Hugging Face Transformers, Deno, and ClickHouse."
       }
     },
+    {"@type": "Question", "name": "Which agents does superhuman use?", "acceptedAnswer": {"@type": "Answer", "text": "An orchestrator and ten specialist Claude Code subagents, each with one job. repo-finder and issue-selector pick the work, repo-profiler learns the project's conventions, planner and builder write the change, impact-auditor checks every caller before a refactor, merge-probability-scorer grades the pull request, reviewer-dispatcher sends its weakest part to a language reviewer, resolve-comments answers review while a run is going, and lesson-distiller turns feedback into rules for the next run. The agent files are in the repository's agents/ folder."}},
+    {"@type": "Question", "name": "Is it a Claude Code plugin or a skill?", "acceptedAnswer": {"@type": "Answer", "text": "Both. In Claude Code it installs as a plugin with seven slash commands and the agent team. In OpenAI Codex it is a single Agent Skill that runs the same workflow inline. It builds on skills from two other plugins: superpowers for planning and building, and everything-claude-code for language reviewers."}},
+    {"@type": "Question", "name": "Is superhuman a software factory?", "acceptedAnswer": {"@type": "Answer", "text": "In a sense. It is a repeatable pipeline in which agents pick an issue, plan, build, test, score and revise the change, with a gate between each step. Unlike a team's own software factory, it works on open-source projects you don't own, from your fork, and the project's maintainers are the final gate."}},
     {
       "@type": "Question",
       "name": "Is it safe, or will it spam maintainers with low-quality PRs?",
@@ -642,10 +657,6 @@ h2 span{display:block}
       <span>MIT © gaurav0107</span>
     </div>
     <div class="links">
-      <a href="/agents">Agents</a>
-      <a href="/skills">Skills</a>
-      <a href="/software-factory">Software factory</a>
-      <a href="/open-source-contributions">Contribution guide</a>
       <a href="/merged">Merge wall</a>
       <a href="https://github.com/gaurav0107/superhuman">GitHub</a>
       <a href="https://github.com/gaurav0107/superhuman/blob/main/CHANGELOG.md">Changelog</a>
