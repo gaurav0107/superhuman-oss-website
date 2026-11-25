@@ -10,12 +10,6 @@
    "pr": "https://github.com/ClickHouse/ClickHouse/pull/106916"
   },
   {
-   "repo": "apache/superset",
-   "text": "LGTM, thanks!",
-   "url": "https://github.com/apache/superset/pull/42489#pullrequestreview-4859855464",
-   "pr": "https://github.com/apache/superset/pull/42489"
-  },
-  {
    "repo": "mitmproxy/mitmproxy",
    "text": "Thank you for the PR! 😃",
    "url": "https://github.com/mitmproxy/mitmproxy/pull/8326#pullrequestreview-4722482008",
@@ -1600,6 +1594,11 @@
  "totals": {
   "merged": 121,
   "repos": 48,
-  "combined_stars": 2946391
- }
+  "combined_stars": 2946391,
+  "in_deps": 35
+ },
+ "deps": [
+  "obra/superpowers",
+  "affaan-m/ECC"
+ ]
 }
